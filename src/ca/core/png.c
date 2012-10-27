@@ -1,10 +1,6 @@
-#include <png.h>
+#include "../common.h"
 
-#include "log.h"
-#include "png.h"
-#include "util.h"
-
-Arr* pngRead(const char *path) {
+Arr* pngRead(const char* path) {
     RAII_VAR(FILE*, fD, fopen(path, "r"), fclose);
     Arr* ar = pngFRead(fD);
     if (!ar)
@@ -12,7 +8,7 @@ Arr* pngRead(const char *path) {
     return ar;
 }
 
-Arr* pngFRead(FILE *fD) {
+Arr* pngFRead(FILE* fD) {
     if (!fD) {
         ELOG("null file descriptor");
         return NULL;
@@ -23,13 +19,13 @@ Arr* pngFRead(FILE *fD) {
         ELOG("not a png file");
         return NULL;
     }
-    png_struct *pngPtr = png_create_read_struct
+    png_struct* pngPtr = png_create_read_struct
         (PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
     if (!pngPtr) {
         ELOG("can't init libpng stuff (read_struct)\n");
         return NULL;
     }
-    png_info *infoPtr = png_create_info_struct(pngPtr);
+    png_info* infoPtr = png_create_info_struct(pngPtr);
     if (!infoPtr) {
         ELOG("can't init libpng stuff (info_struct)\n");
         png_destroy_read_struct(&pngPtr, NULL, NULL);
@@ -54,7 +50,7 @@ Arr* pngFRead(FILE *fD) {
     return ar;
 }
 
-int pngWrite(Arr* ar, const char *path) {
+int pngWrite(Arr* ar, const char* path) {
     RAII_VAR(FILE*, fD, fopen(path, "w"), fclose);
     int er = pngFWrite(ar, fD);
     if (er)
@@ -62,14 +58,14 @@ int pngWrite(Arr* ar, const char *path) {
     return er;
 }
 
-int pngFWrite(Arr *ar, FILE *fD) {
+int pngFWrite(Arr *ar, FILE* fD) {
     if (!fD)
         return -1;
-    png_struct *pngPtr = png_create_write_struct
+    png_struct* pngPtr = png_create_write_struct
         (PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
     if (!pngPtr)
         return -1;
-    png_info *infoPtr = png_create_info_struct(pngPtr);
+    png_info* infoPtr = png_create_info_struct(pngPtr);
     if (!infoPtr) {
         png_destroy_write_struct(&pngPtr, NULL);
         return -1;

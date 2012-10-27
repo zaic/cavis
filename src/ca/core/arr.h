@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cfg.h"
+#include "../const.h"
 #include "util.h"
 
 typedef struct {

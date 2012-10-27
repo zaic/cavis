@@ -7,6 +7,7 @@ add_definitions(-std=c11)
 aux_source_directory(. SRC)
 aux_source_directory(core SRC)
 aux_source_directory(hpp SRC)
+aux_source_directory(sys SRC)
 
 add_executable(${PROJECT_NAME} ${SRC})
 

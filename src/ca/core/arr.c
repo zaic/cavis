@@ -1,11 +1,4 @@
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-
-#include "arr.h"
-#include "cfg.h"
-#include "log.h"
+#include "../common.h"
 
 Arr* arrAlloc(int eSize, int dim, ...) {
     Arr* ar = malloc(sizeof(Arr));

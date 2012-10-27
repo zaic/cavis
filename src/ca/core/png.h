@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdio.h>
+
 #include "arr.h"
 
 Arr* pngRead(const char*);

@@ -1,12 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "hpp.h"
-#include "../core/arr.h"
-#include "../core/log.h"
-#include "../core/util.h"
-
-typedef uchar Cell;
+#include "../common.h"
 
 static int printIx(Arr* ar, Arr* _, ArrAc* ac) {
     char c = 3;
