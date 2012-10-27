@@ -1,5 +1,5 @@
-#include "hpp/hpp.h"
+#include "common.h"
 
 int main() {
-    hppRun();
+    puts("hi");
 }

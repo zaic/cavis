@@ -10,6 +10,18 @@ static int printIx(Arr* ar, Arr* _, ArrAc* ac) {
     return 0;
 }
 
+void hppInit(const char* dir) {
+}
+
+void hppNext() {
+}
+
+void hppDeinit() {
+}
+
+void* hppGet() {
+}
+
 int hppRun() {
     RAII_VAR(Arr*, ar, arrAlloc(1, 3, 4, 4, 4), arrFree);
     arrMap(NULL, NULL, NULL);

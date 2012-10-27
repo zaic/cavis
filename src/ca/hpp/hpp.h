@@ -1,3 +1,9 @@
 #pragma once
 
-int hppRun();
+void hppInit(const char* dir);
+
+void hppNext();
+
+void hppDeinit();
+
+void* hppGet();
