@@ -29,4 +29,5 @@ Arr* cfgFRead(FILE* fD) {
         fReadDoubles(env->mv, mvCount, fD);
         env += sizeof(Env);
     }
+    return cfg;
 }

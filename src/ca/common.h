@@ -2,6 +2,7 @@
 
 typedef unsigned char uchar;
 typedef unsigned int uint;
+typedef long unsigned int luint;
 
 #include <string.h>
 #include <stdlib.h>

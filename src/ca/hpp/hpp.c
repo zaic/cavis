@@ -1,15 +1,5 @@
 #include "../common.h"
 
-static int printIx(Arr* ar, Arr* _, ArrAc* ac) {
-    char c = 3;
-    ac->data = &c;
-    if(arrSet(ar, ac)) {
-        ELOG("can't set value\n");
-        return -1;
-    }
-    return 0;
-}
-
 void hppInit(const char* dir) {
 }
 
@@ -20,6 +10,7 @@ void hppDeinit() {
 }
 
 void* hppGet() {
+    return NULL;
 }
 
 int hppRun() {

@@ -25,7 +25,7 @@ void arrFree(Arr* ar) {
 
 int arrInit(Arr* ar) {
     if (!ar) {
-        ELOG("null pointer, args = (%d)\n", ar);
+        ELOG("null pointer, args = (%lu)\n", (size_t) ar);
         return -1;
     }
     int dataSize = ar->eSize;
@@ -50,7 +50,7 @@ void* arrGet(Arr* ar, ArrAc* ac) {
         ac->ix[k] += ar->size[k];\
 }
     if (!ar || !ac) {
-        ELOG("null pointer, args = (%d, %d)\n", ar, ac)
+        ELOG("null pointer, args = (%lu, %lu)\n", (size_t) ar, (size_t) ac)
         return NULL;
     }
     int offset = 0;
@@ -89,10 +89,10 @@ int arrMap(Arr* ar, Arr* newAr, int (*fn)(Arr*, Arr*, ArrAc*)) {
      * for in-place update
      */
     if (!ar || !fn) {
-        ELOG("null pointer, args = (%d, %d, %d)\n", ar, newAr, fn);
+        ELOG("null pointer, args = (%lu, %lu, %lu)\n", (size_t) ar, (size_t) newAr, (size_t) fn);
         return -1;
     }
-    ArrAc ac = { ar->dim };
+    ArrAc ac = { ar->dim, {}, NULL };
     int k = ar->dim - 1;
     while (1) {
         if (fn(ar, newAr, &ac)) {
