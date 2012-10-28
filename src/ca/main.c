@@ -1,5 +1,5 @@
 #include "common.h"
 
 int main() {
-    puts("hi");
+    arrMap(NULL, NULL, NULL);
 }
