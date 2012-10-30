@@ -6,9 +6,9 @@ set(CMAKE_C_FLAGS "-std=c11 -Wall -Wextra -Wunused -Wshadow")
 set(CMAKE_C_FLAGS_DEBUG "-g -O0")
 set(CMAKE_C_FLAGS_RELEASE "-O3 -DNDEBUG -Werror")
 
-aux_source_directory(. SRC)
-aux_source_directory(core SRC)
-aux_source_directory(hpp SRC)
+aux_source_directory(src SRC)
+aux_source_directory(src/core SRC)
+aux_source_directory(src/hpp SRC)
 
 add_executable(${PROJECT_NAME} ${SRC})
 
