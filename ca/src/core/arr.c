@@ -89,8 +89,8 @@ int arrSet(Arr* ar, ArrAc* ac) {
 }
 
 int arrMap(Arr* ar, Arr* newAr, int (*fn)(Arr*, Arr*, ArrAc*)) {
-    /* we don't check the second argument since this function can be used
-     * for in-place update
+    /* we don't check the second argument since this function can be used for 
+     * in-place update
      */
     if (!ar) {
         ELOG("null pointer\n");
