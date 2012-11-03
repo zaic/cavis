@@ -7,14 +7,12 @@ extern Arr* cell;
 int cellInit(Arr* ar, Arr* _, ArrAc* ac) {
     char *val = arrGet(img, ac);
     Env *env = cfg->data;
-    for (char i = 0; i < cfg->size[0]; i++) {
+    for (char i = 0; i < cfg->size[0]; i++)
         /* it looks highly platform-dependent */
-        if (!memcmp(val, &env->color, ar->eSize)) {
+        if (!memcmp(val, &env[i].color, (size_t) ar->eSize)) {
             ac->data = &i;
             arrSet(ar, ac);
         }
-        env += sizeof(Env);
-    }
     return 0;
 }
 

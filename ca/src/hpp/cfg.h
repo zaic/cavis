@@ -5,7 +5,7 @@
 #include "../core/arr.h"
 
 typedef struct {
-    int color;
+    uint color;
     double mv[HPP_MAX_NEIGHBOURS_COUNT];
 } Env;
 

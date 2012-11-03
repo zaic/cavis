@@ -11,3 +11,7 @@
     memcpy(    &y,     &x, sizeof(x));\
     memcpy(    &x, x ## y, sizeof(x));\
 }
+
+#define MAX(x, y) ((x) > (y)) ? (x) : (y)
+
+#define MIN(x, y) ((x) < (y)) ? (x) : (y)

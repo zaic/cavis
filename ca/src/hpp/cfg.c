@@ -17,9 +17,11 @@ Arr* cfgRead(const char* path) {
     return ar;
 }
 
-static void fReadDoubles(double* data, int size, FILE* fp) {
+static int fReadDoubles(double* data, int size, FILE* fp) {
     for (int i = 0; i < size; i++)
-        fscanf(fp, "%lf", &data[i]);
+        if (1 != fscanf(fp, "%lf", &data[i]))
+            return -1;
+    return 0;
 }
 
 Arr* cfgFRead(FILE* fp) {
@@ -27,13 +29,21 @@ Arr* cfgFRead(FILE* fp) {
         ELOG("null file descriptor");
         return NULL;
     }
-    fscanf(fp, "%d%d", &envCount, &mvCount);
+    if (2 != fscanf(fp, "%d%d", &envCount, &mvCount)) {
+        ELOG("can't read file");
+        return NULL;
+    }
     Arr* cfg = arrAlloc(sizeof(Env), 1, envCount);
     Env* env = cfg->data;
     for (int i = 0; i < envCount; i++) {
-        fscanf(fp, "%x", &env->color);
-        fReadDoubles(env->mv, mvCount, fp);
-        env += sizeof(Env);
+        if (1 != fscanf(fp, "%x", &env[i].color)) {
+            ELOG("can't read file");
+            return NULL;
+        }
+        if (fReadDoubles(env[i].mv, MIN(mvCount, HPP_MAX_NEIGHBOURS_COUNT), fp)) {
+            ELOG("can't read file");
+            return NULL;
+        }
     }
     return cfg;
 }

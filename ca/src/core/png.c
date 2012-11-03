@@ -20,7 +20,10 @@ Arr* pngFRead(FILE* fp) {
         return NULL;
     }
     png_byte header[PNG_HEADER_SIZE];
-    fread(header, 1, PNG_HEADER_SIZE, fp);
+    if (PNG_HEADER_SIZE != fread(header, 1, PNG_HEADER_SIZE, fp)) {
+        ELOG("can't read file");
+        return NULL;
+    }
     if (png_sig_cmp(header, 0, PNG_HEADER_SIZE)) {
         ELOG("not a png file");
         return NULL;
