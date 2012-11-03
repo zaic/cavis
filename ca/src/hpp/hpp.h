@@ -1,8 +1,8 @@
 #pragma once
 
-void hppInit(const char* dir);
+int hppInit(const char* dir);
 
-void hppNext();
+int hppMkStep();
 
 void hppDeinit();
 

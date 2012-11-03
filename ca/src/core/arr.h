@@ -29,3 +29,5 @@ void* arrGet(Arr*, ArrAc*);
 int arrSet(Arr*, ArrAc*);
 
 int arrMap(Arr*, Arr*, int (*)(Arr*, Arr*, ArrAc*));
+
+#define ARR_GET(type, ar, ac) (*(type *) arrGet(ar, ac))

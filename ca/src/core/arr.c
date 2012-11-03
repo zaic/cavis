@@ -3,7 +3,7 @@
 Arr* arrAlloc(int eSize, int dim, ...) {
     Arr* ar = malloc(sizeof(Arr));
     if (!ar) {
-        ELOG("can't allocate memory\n");
+        ELOG("can't allocate memory");
         return NULL;
     }
     ar->eSize = eSize;
@@ -32,7 +32,7 @@ int arrInit(Arr* ar) {
     for (int k = 0; k < ar->dim; k++)
         dataSize *= ar->size[k];
     if (!(ar->data = malloc(dataSize))) {
-        ELOG("can't allocate memory\n");
+        ELOG("can't allocate memory");
         return -1;
     }
     return 0;
@@ -64,7 +64,7 @@ void* arrGet(Arr* ar, ArrAc* ac) {
 #endif
 #ifdef ARR_BOUND_CHECK
         if (ac->ix[k] < 0 || ac->ix[k] >= ar->size[k]) {
-            ELOG("accessor index out of bounds\n");
+            ELOG("accessor index out of bounds");
             return NULL;
         }
 #endif
@@ -81,30 +81,30 @@ void* arrGet(Arr* ar, ArrAc* ac) {
 int arrSet(Arr* ar, ArrAc* ac) {
     void* p = arrGet(ar, ac);
     if (!p) {
-        ELOG("can't set null pointer\n");
+        ELOG("can't set null pointer");
         return -1;
     }
     memcpy(p, ac->data, ar->eSize);
     return 0;
 }
 
-int arrMap(Arr* ar, Arr* newAr, int (*fn)(Arr*, Arr*, ArrAc*)) {
+int arrMap(Arr* ar, Arr* ar2, int (*fn)(Arr*, Arr*, ArrAc*)) {
     /* we don't check the second argument since this function can be used for 
      * in-place update
      */
     if (!ar) {
-        ELOG("null pointer\n");
+        ELOG("null pointer");
         return -1;
     }
     if (!fn) {
-        ELOG("null pointer\n");
+        ELOG("null pointer");
         return -1;
     }
     ArrAc ac = { ar->dim, {}, NULL };
     int k = ar->dim - 1;
     while (1) {
-        if (fn(ar, newAr, &ac)) {
-            ELOG("function app failed\n");
+        if (fn(ar, ar2, &ac)) {
+            ELOG("function app failed");
             return -1;
         }
         while (k >= 0 && ++ac.ix[k] == ar->size[k])

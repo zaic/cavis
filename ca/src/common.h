@@ -7,6 +7,7 @@ typedef unsigned int uint;
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <unistd.h>
 #include <png.h>
 
 #include "core/arr.h"
