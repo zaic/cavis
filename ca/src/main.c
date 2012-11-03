@@ -5,9 +5,15 @@ int main(int argc, char** argv) {
         puts("usage:\tca <config dir> <iteration count>");
         return 0;
     }
-    hppInit(argv[1]);
+    if (hppInit(argv[1])) {
+        ELOG("initialization error");
+        return -1;
+    }
     for (int i = 0; i < atoi(argv[2]); i++) {
-        hppMkStep();
+        if(hppMkStep()) {
+            ELOG("can't perform next step");
+            return -1;
+        }
         void* data = hppGet();
     }
     hppDeinit();

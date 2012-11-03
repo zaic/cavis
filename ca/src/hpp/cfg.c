@@ -4,29 +4,35 @@ int envCount;
 int mvCount;
 
 Arr* cfgRead(const char* path) {
-    RAII_VAR(FILE*, fd, fopen(path, "r"), fclose);
-    Arr* ar = cfgFRead(fd);
+    FILE* fp = fopen(path, "r");
+    if (!fp) {
+        ELOG("can't open file \"%s\" for reading", path);
+        return NULL;
+    }
+    Arr* ar = cfgFRead(fp);
     if (!ar)
-        ELOG("error while reading %s", path);
+        ELOG("error while reading \"%s\"", path);
+    if (fclose(fp))
+        ELOG("can't close file \"%s\"", path);
     return ar;
 }
 
-static void fReadDoubles(double *data, int size, FILE* fd) {
+static void fReadDoubles(double* data, int size, FILE* fp) {
     for (int i = 0; i < size; i++)
-        fscanf(fd, "%lf", &data[i]);
+        fscanf(fp, "%lf", &data[i]);
 }
 
-Arr* cfgFRead(FILE* fd) {
-    if (!fd) {
+Arr* cfgFRead(FILE* fp) {
+    if (!fp) {
         ELOG("null file descriptor");
         return NULL;
     }
-    fscanf(fd, "%d%d", &envCount, &mvCount);
+    fscanf(fp, "%d%d", &envCount, &mvCount);
     Arr* cfg = arrAlloc(sizeof(Env), 1, envCount);
     Env* env = cfg->data;
     for (int i = 0; i < envCount; i++) {
-        fscanf(fd, "%x", &env->color);
-        fReadDoubles(env->mv, mvCount, fd);
+        fscanf(fp, "%x", &env->color);
+        fReadDoubles(env->mv, mvCount, fp);
         env += sizeof(Env);
     }
     return cfg;

@@ -6,15 +6,18 @@ Arr* lat;
 Arr* latBuf;
 
 int hppInit(const char* dir) {
-    chdir(dir);
+    if (chdir(dir)) {
+        ELOG("no such directory: %s", dir);
+        return -1;
+    }
     cfg = cfgRead("env");
     if (!cfg) {
-        ELOG("can't open env file");
+        ELOG("can't open environment file");
         return -1;
     }
     img = pngRead("img");
     if (!img) {
-        ELOG("con't open img file");
+        ELOG("can't open image");
         return -1;
     }
     lat = arrAlloc(1, 2, img->size[0], img->size[1]);
