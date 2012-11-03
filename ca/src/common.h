@@ -8,6 +8,9 @@ typedef unsigned int uint;
 #include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
+#ifdef __linux
+#include <linux/limits.h>
+#endif
 #include <png.h>
 
 #include "core/arr.h"

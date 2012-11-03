@@ -40,5 +40,5 @@ void hppDeinit() {
 }
 
 void* hppGet() {
-    return NULL;
+    return lat;
 }
