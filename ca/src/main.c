@@ -38,6 +38,7 @@ int main(int argc, char** argv) {
         sprintf(path, "%04d", i);
         arrMap(lat, img, char2rgb);
         pngWrite(img, path);
+        // test
     }
     hppDeinit();
     return 0;
