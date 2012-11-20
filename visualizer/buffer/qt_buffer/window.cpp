@@ -37,10 +37,17 @@ QHBoxLayout* Window::createPlayerBar() {
 	player_timer.setInterval(1);
 	connect(&player_timer, SIGNAL(timeout()), this, SLOT(playNextFrame()));
 
+	btn_player_prev = new QPushButton;
+	btn_player_prev->setFixedSize(32, 32);
+	connect(btn_player_prev, SIGNAL(clicked()), this, SLOT(playPrevFrame()));
+
 	btn_player_start = new QPushButton;
 	//btn_backward->setIcon(QIcon("images/player/start.png"));
 	btn_player_start->setFixedSize(32, 32);
-	connect(btn_player_start, SIGNAL(clicked()), this, SLOT(playerSwitch()));
+
+	btn_player_next = new QPushButton;
+	btn_player_next->setFixedSize(32, 32);
+	connect(btn_player_next, SIGNAL(clicked()), this, SLOT(playNextFrame()));
 
 	sld_progress = new QSlider(Qt::Horizontal);
 	sld_progress->setMinimum(0);
@@ -49,7 +56,9 @@ QHBoxLayout* Window::createPlayerBar() {
 	connect(sld_progress, SIGNAL(valueChanged(int)), render_area, SLOT(repaint()));
 
 	QHBoxLayout *lay_player_bar = new QHBoxLayout;
+	lay_player_bar->addWidget(btn_player_prev);
 	lay_player_bar->addWidget(btn_player_start);
+	lay_player_bar->addWidget(btn_player_next);
 	lay_player_bar->addWidget(sld_progress);
 	return lay_player_bar;
 }

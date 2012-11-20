@@ -13,13 +13,16 @@ class Visualizzzator {
 	Visualizzzator(const Visualizzzator& );
 	Visualizzzator& operator=(const Visualizzzator& );
 
-	Cut2D *cut;
-
 public:
 	/**
 	 * @brief Публичный указатель на конфигурацияю
 	 */
 	Config *config;
+
+	/**
+	 * @brief Публичный указатель на класс отображения логического пространства в буфер экрана
+	 */
+	Cut2D *cut;
 
 	/**
 	 * @brief Конструктор из конфига и отображения

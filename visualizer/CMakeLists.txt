@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 find_package(Qt4 REQUIRED)
 include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 
+set(CMAKE_CXX_FLAGS "-g -Wall -Wextra -Wshadow -O2")
 
 
 aux_source_directory(. SRC_LIST)
@@ -19,6 +20,7 @@ aux_source_directory(./cut/life SRC_LIST)
 add_subdirectory(./config)
 aux_source_directory(./config SRC_LIST)
 aux_source_directory(./config/file SRC_LIST)
+aux_source_directory(./config/network-tcp SRC_LIST)
 
 set(MOC_HEADERS
     buffer/qt_buffer/window.h

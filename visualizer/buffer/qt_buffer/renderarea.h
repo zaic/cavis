@@ -19,8 +19,8 @@ public:
 signals:
 	
 public slots:
-	void setPrevFrame() { visualizator->config->prev(); }
-	void setNextFrame() { visualizator->config->next(); }
+	void setPrevFrame() { visualizator->config->prevFrame(); }
+	void setNextFrame() { visualizator->config->nextFrame(); }
 	void setFrame(int frame) { visualizator->config->setFrame(frame); }
 	
 };

@@ -19,8 +19,12 @@ class Window : public QMainWindow {
 	QAction *act_open, *act_quit;
 	QAction *act_about;
 
-	// player bar
-	QPushButton *btn_player_start;
+	/*
+	 *	Plyaer bar
+	 */
+	QPushButton *btn_player_prev;	// go to one iteration back
+	QPushButton *btn_player_start;	// start/pause button
+	QPushButton *btn_player_next;	// go to one iteration forward;
 	QSlider *sld_progress;
 	QTimer player_timer;
 
@@ -37,5 +41,5 @@ public slots:
 	void playerStop() { player_timer.stop(); }
 	void playerSwitch();
 	void playNextFrame() { sld_progress->setValue(sld_progress->value() + 1); }
-	
+	void playPrevFrame() { sld_progress->setValue(sld_progress->value() - 1); }
 };

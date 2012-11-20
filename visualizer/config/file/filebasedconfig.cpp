@@ -31,8 +31,8 @@ FileBasedConfig::~FileBasedConfig() {
 
 inline int FileBasedConfig::getRealDimSize(int dim) const {
 	switch(dim) {
-	case 0: return real_y;
-	case 1: return real_x;
+	case 0: return real_x;
+	case 1: return real_y;
 	}
 	return 1;
 }
