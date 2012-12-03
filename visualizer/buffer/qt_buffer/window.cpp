@@ -49,10 +49,13 @@ QHBoxLayout* Window::createPlayerBar() {
 	btn_player_next->setFixedSize(32, 32);
 	connect(btn_player_next, SIGNAL(clicked()), this, SLOT(playNextFrame()));
 
+	lbl_frame = new QLabel("?/?");
+
 	sld_progress = new QSlider(Qt::Horizontal);
 	sld_progress->setMinimum(0);
 	sld_progress->setMaximum(0);
 	connect(sld_progress, SIGNAL(valueChanged(int)), render_area, SLOT(setFrame(int)));
+	connect(sld_progress, SIGNAL(valueChanged(int)), this, SLOT(updateFramesCounter()));
 	connect(sld_progress, SIGNAL(valueChanged(int)), render_area, SLOT(repaint()));
 
 	QHBoxLayout *lay_player_bar = new QHBoxLayout;
@@ -60,6 +63,7 @@ QHBoxLayout* Window::createPlayerBar() {
 	lay_player_bar->addWidget(btn_player_start);
 	lay_player_bar->addWidget(btn_player_next);
 	lay_player_bar->addWidget(sld_progress);
+	lay_player_bar->addWidget(lbl_frame);
 	return lay_player_bar;
 }
 
@@ -74,4 +78,9 @@ void Window::playerSwitch() {
 		player_timer.stop();
 	else
 		player_timer.start();
+}
+
+void Window::updateFramesCounter() {
+	sld_progress->setMaximum(config->getFramesCount());
+	lbl_frame->setText(QString::number(sld_progress->value()) + QString(" / ") + QString::number(sld_progress->maximum()));
 }

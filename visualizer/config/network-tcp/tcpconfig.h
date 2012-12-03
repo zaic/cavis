@@ -1,6 +1,9 @@
 #pragma once
 
 #include "../config.h"
+#include <algorithm>
+
+using std::max;
 
 class TcpConfig : public Config {
 	int real_x, real_y;
@@ -16,7 +19,7 @@ public:
 	virtual bool prevFrame();
 	virtual bool nextFrame();
 	virtual bool setFrame(int frame);
-	virtual int getFramesCount() const { return current_frame_id + 1; }
+	virtual int getFramesCount() const { return max(1, current_frame_id + 1); }
 
 	virtual char* getRealData() const { return real_data; }
 	virtual int getRealDimSize(int dim) const;

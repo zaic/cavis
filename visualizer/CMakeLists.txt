@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 find_package(Qt4 REQUIRED)
 include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 
-set(CMAKE_CXX_FLAGS "-g -Wall -Wextra -Wshadow -O2")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wshadow -O2")
 
 
 aux_source_directory(. SRC_LIST)
