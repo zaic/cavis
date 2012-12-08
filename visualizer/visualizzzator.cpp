@@ -14,6 +14,9 @@ Visualizzzator::~Visualizzzator() {
 void Visualizzzator::operator()(GraphicBuffer& buffer) {
 	// TODO бегать нужно по логическому дву(трёх-)мерному пространству же!
 	//     а пока что работает в предположении прямого отображения
+
+	// TODO выпилить init и finalize
+
 	cut->init(config, &buffer);
 	for(int y = 0; y < config->getRealDimSizeY(); y++)
 		for(int x = 0; x < config->getRealDimSizeX(); x++) {

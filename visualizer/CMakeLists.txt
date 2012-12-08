@@ -16,6 +16,7 @@ aux_source_directory(./buffer/qt_buffer SRC_LIST)
 add_subdirectory(./cut)
 aux_source_directory(./cut SRC_LIST)
 aux_source_directory(./cut/life SRC_LIST)
+aux_source_directory(./cut/hpp-loupe SRC_LIST)
 
 add_subdirectory(./config)
 aux_source_directory(./config SRC_LIST)

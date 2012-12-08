@@ -8,6 +8,7 @@
 #include <QSlider>
 #include <QTimer>
 #include <QLabel>
+#include <QDebug>
 #include "renderarea.h"
 #include "../../config/config.h"
 
@@ -30,6 +31,7 @@ class Window : public QMainWindow {
 	QLabel *lbl_frame;
 	QTimer player_timer;
 
+	Config *config;
 	RenderArea *render_area;
 
 public:

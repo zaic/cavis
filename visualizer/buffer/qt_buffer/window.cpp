@@ -1,6 +1,6 @@
 #include "window.h"
 
-Window::Window(Visualizzzator *vis, QWidget *parent) : QMainWindow(parent) {
+Window::Window(Visualizzzator *vis, QWidget *parent) : QMainWindow(parent), config(vis->config) {
 	setWindowTitle("Simple Qt render");
 	resize(800, 600);
 
@@ -50,6 +50,7 @@ QHBoxLayout* Window::createPlayerBar() {
 	connect(btn_player_next, SIGNAL(clicked()), this, SLOT(playNextFrame()));
 
 	lbl_frame = new QLabel("?/?");
+	lbl_frame->setFixedHeight(32);
 
 	sld_progress = new QSlider(Qt::Horizontal);
 	sld_progress->setMinimum(0);
@@ -71,6 +72,7 @@ void Window::resetConfig(Config *config) {
 	playerStop();
 	sld_progress->setMaximum(config->getFramesCount());
 	sld_progress->setValue(0);
+	qDebug() << "reset!";
 }
 
 void Window::playerSwitch() {
@@ -81,6 +83,7 @@ void Window::playerSwitch() {
 }
 
 void Window::updateFramesCounter() {
+	qDebug() << "Yah! " << config->getFramesCount();
 	sld_progress->setMaximum(config->getFramesCount());
 	lbl_frame->setText(QString::number(sld_progress->value()) + QString(" / ") + QString::number(sld_progress->maximum()));
 }

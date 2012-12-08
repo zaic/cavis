@@ -8,7 +8,7 @@
 
 using std::min;
 
-class LifeCut : public Cut2D {
+class CutHPPLoupe : public Cut2D {
 	Config *config;
 	GraphicBuffer *buffer;
 
@@ -16,8 +16,8 @@ class LifeCut : public Cut2D {
 	int shift_x, shift_y;
 
 public:
-	LifeCut();
-	virtual ~LifeCut();
+	CutHPPLoupe();
+	virtual ~CutHPPLoupe();
 
 	virtual void setConfig(Config *_config) { config = _config; }
 	virtual void setBuffer(GraphicBuffer *_buffer) { buffer = _buffer; }
