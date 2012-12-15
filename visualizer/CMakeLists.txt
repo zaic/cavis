@@ -8,6 +8,7 @@ include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 set (BOOST_COMPONENTS
     system)
 find_package(Boost COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
+find_package (Threads)
 include_directories(${Boost_INCLUDE_DIRS})
 
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wshadow -O2 -w")
@@ -36,6 +37,6 @@ set(MOC_HEADERS
 qt4_wrap_cpp(MOC_SRC ${MOC_HEADERS})
 
 add_executable(${PROJECT_NAME} ${SRC_LIST} ${MOC_SRC})
-target_link_libraries(${PROJECT_NAME} ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 file(COPY examples DESTINATION .)
 file(COPY images DESTINATION .)
