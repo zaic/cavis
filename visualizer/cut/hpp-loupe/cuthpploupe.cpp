@@ -45,8 +45,10 @@ void CutHPPLoupe::draw(int x, int y) {
 		if(cell_data & (1 << i)) {
 			for(int k = 0; k <= cell_size / 2; k++)
 				buffer->drawPixel(cell_mid_x + k * dim[i][0], cell_mid_y + k * dim[i][1]);
-			for(int k = 0; k < 4; k++)
-				buffer->drawPixel(cell_mid_x + (cell_size - 1) * dim[i][0] + dim[k][0], cell_mid_y + (cell_size - 1) * dim[i][1] + dim[k][1]);
+			for(int k = 0; k < 4; k++) {
+				for(int q = 1; q < 2; q++)
+				buffer->drawPixel(cell_mid_x + (cell_size / 2 - q) * dim[i][0] + dim[k][0] * q, cell_mid_y + (cell_size / 2 - q) * dim[i][1] + dim[k][1] * q);
+			}
 		}
 }
 
@@ -54,5 +56,6 @@ void CutHPPLoupe::finalize() {
 	qDebug() << "sx = " << shift_x;
 	qDebug() << "sy = " << shift_y;
 	qDebug() << "cell_size = " << cell_size;
+	qDebug() << "count = " << min(buffer->getX() / cell_size, buffer->getY() / cell_size) << endl;
 	// do nothing
 }

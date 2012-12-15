@@ -34,7 +34,7 @@ void Window::createMenuBar() {
 }
 
 QHBoxLayout* Window::createPlayerBar() {
-	player_timer.setInterval(1);
+	player_timer.setInterval(500);
 	connect(&player_timer, SIGNAL(timeout()), this, SLOT(playNextFrame()));
 
 	btn_player_prev = new QPushButton;
@@ -44,6 +44,7 @@ QHBoxLayout* Window::createPlayerBar() {
 	btn_player_start = new QPushButton;
 	//btn_backward->setIcon(QIcon("images/player/start.png"));
 	btn_player_start->setFixedSize(32, 32);
+	connect(btn_player_start, SIGNAL(clicked()), this, SLOT(playerSwitch()));
 
 	btn_player_next = new QPushButton;
 	btn_player_next->setFixedSize(32, 32);

@@ -4,7 +4,13 @@ cmake_minimum_required(VERSION 2.8)
 find_package(Qt4 REQUIRED)
 include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wshadow -O2")
+
+set (BOOST_COMPONENTS
+    system)
+find_package(Boost COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wshadow -O2 -w")
 
 
 aux_source_directory(. SRC_LIST)
@@ -30,6 +36,6 @@ set(MOC_HEADERS
 qt4_wrap_cpp(MOC_SRC ${MOC_HEADERS})
 
 add_executable(${PROJECT_NAME} ${SRC_LIST} ${MOC_SRC})
-target_link_libraries(${PROJECT_NAME} ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
+target_link_libraries(${PROJECT_NAME} ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${Boost_LIBRARIES})
 file(COPY examples DESTINATION .)
 file(COPY images DESTINATION .)

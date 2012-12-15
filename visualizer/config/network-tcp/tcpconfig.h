@@ -2,9 +2,12 @@
 
 #include "../config.h"
 #include <algorithm>
+#include <boost/asio.hpp>
 #include <QDebug>
 
 using std::max;
+using namespace boost;
+using  boost::asio::ip::tcp;
 
 class TcpConfig : public Config {
 	int real_x, real_y;
@@ -12,6 +15,8 @@ class TcpConfig : public Config {
 	int current_frame_id;
 
 	char *real_data;
+
+	tcp::socket *my_socket;
 
 public:
 	TcpConfig(const char *hostname, int port);
