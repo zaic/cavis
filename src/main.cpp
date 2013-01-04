@@ -5,6 +5,7 @@
 #include "cut/life/lifecut.h"
 #include "config/file/filebasedconfig.h"
 #include "config/network-tcp/tcpconfig.h"
+#include "config/stub/stubconfig.h"
 #include "cut/hpp-loupe/cuthpploupe.h"
 
 #include <boost/asio.hpp>
@@ -33,7 +34,8 @@ int main(int argc, char *argv[]) {
 
 	//chdir("examples/current");
 	chdir("/home/zaic/nsu/__ca/data/obmaz");
-	Config *config = new TcpConfig("localhost", 1807);
+	//Config *config = new TcpConfig("localhost", 1807);
+	Config *config = new StubConfig(30, 20);
 	Cut2D *cut = new CutHPPLoupe();
 	Visualizzzator *visualizator = new Visualizzzator(config, cut);
 

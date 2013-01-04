@@ -1,6 +1,6 @@
 #include "config.h"
 
-Config::Config() {
+Config::Config() : current_frame_id(-1) {
 
 }
 

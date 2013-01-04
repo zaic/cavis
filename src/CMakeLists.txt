@@ -29,6 +29,7 @@ add_subdirectory(./config)
 aux_source_directory(./config SRC_LIST)
 aux_source_directory(./config/file SRC_LIST)
 aux_source_directory(./config/network-tcp SRC_LIST)
+aux_source_directory(./config/stub SRC_LIST)
 
 set(MOC_HEADERS
     buffer/qt_buffer/window.h

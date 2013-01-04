@@ -36,7 +36,7 @@ public:
 	virtual bool setFrame(int frame);
 	virtual int getFramesCount() const { return frames_count; }
 
-	virtual char* getRealData() const { return data; }
+    virtual const char* getRealData() const { return data; }
 	virtual int getRealDimSize(int dim) const;
 	virtual int getRealDimSizeX() const { return real_x; }
 	virtual int getRealDimSizeY() const { return real_y; }

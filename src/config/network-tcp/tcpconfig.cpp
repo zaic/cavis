@@ -1,8 +1,6 @@
 #include "tcpconfig.h"
 
-TcpConfig::TcpConfig(const char *, int) : real_x(30), real_y(20), logic_x(30), logic_y(20), current_frame_id(-1) {
-
-
+TcpConfig::TcpConfig(const char *, int) : real_x(30), real_y(20), logic_x(30), logic_y(20) {
 	asio::io_service my_io_service;
 
 	tcp::resolver resolver(my_io_service);
@@ -28,19 +26,11 @@ TcpConfig::~TcpConfig() {
 	if(real_data) delete[] real_data;
 }
 
-bool TcpConfig::prevFrame() {
-	return setFrame(current_frame_id - 1);
-}
-
-bool TcpConfig::nextFrame() {
-	return setFrame(current_frame_id + 1);
-}
-
 bool TcpConfig::setFrame(int frame) {
-	if(frame < current_frame_id) return false;
+    if(frame < current_frame_id) return false;
 	if(frame > current_frame_id + 1) return false;
 	if(frame == current_frame_id + 1) {
-		current_frame_id = frame;
+        current_frame_id = frame;
 	}
 
 	memset(real_data, 0, real_x * real_y);
@@ -62,7 +52,7 @@ bool TcpConfig::setFrame(int frame) {
 }
 
 int TcpConfig::getFramesCount() {
-	int res = max(1, current_frame_id + 1);
+    int res = max(1, current_frame_id + 1);
 	qDebug() << "frames = " << res;
 	return res;
 }
