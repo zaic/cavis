@@ -4,6 +4,10 @@
 #include "buffer/buffer.h"
 #include "config/config.h"
 #include "cut/cut.h"
+#include "common.h"
+
+#include <iostream>
+using namespace std;
 
 /**
  * @brief Хреновина, обеспечивающее взаимодействие между осями
@@ -22,14 +26,14 @@ public:
 	/**
 	 * @brief Публичный указатель на класс отображения логического пространства в буфер экрана
 	 */
-	Cut2D *cut;
+	Cut *cut;
 
 	/**
 	 * @brief Конструктор из конфига и отображения
 	 * @param _config конфиг
 	 * @param _cut маппер из реального пространства в логическое
 	 */
-	Visualizzzator(Config *_config, Cut2D *_cut);
+	Visualizzzator(Config *_config, Cut *_cut);
 
 	/**
 	 * @brief Всеразрушающий деструктор
@@ -40,5 +44,5 @@ public:
 	 * @brief Совершает непотребство с буфером, т.е. рисует на нём
 	 * @param buffer Буфер, на котором будет отрисовываться картинка
 	 */
-	void operator()(GraphicBuffer& buffer);
+	void draw(GraphicBuffer* buffer);
 };

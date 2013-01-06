@@ -17,9 +17,10 @@ int StubConfig::getRealDimSize(int dim) const {
 	return 100500;
 }
 
-bool StubConfig::setFrame(int frame) {
-	if(frame < 0) return false;
-	if(frame > getFramesCount()) return false;
+int StubConfig::setFrame(int frame) {
+	if(frame < 0) return FRAME_NOT_CHANGED;
+	if(frame > getFramesCount()) return FRAME_NOT_CHANGED;
+	qDebug() << "config set frame to " << frame;
 	current_frame_id = frame;
 	memset(real_data, 0, real_x * real_y);
 	switch(frame) {
@@ -31,5 +32,5 @@ bool StubConfig::setFrame(int frame) {
 		real_data[real_x * (frame + 1) + 5] = 4;
 	break;
 	}
-	return true;
+	return frame;
 }

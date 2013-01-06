@@ -2,6 +2,7 @@
 
 #include "../config.h"
 #include <cstring>
+#include <QDebug>
 
 class StubConfig : public Config {
 	int real_x, real_y;
@@ -14,7 +15,7 @@ public:
 	StubConfig(int x, int y);
 	virtual ~StubConfig();
 
-	virtual bool setFrame(int frame);
+	virtual int setFrame(int frame);
 	virtual int getFramesCount() { return real_y - 2; }
 
 	virtual const char* getRealData() const { return real_data; }

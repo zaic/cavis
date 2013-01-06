@@ -1,7 +1,7 @@
 #include <iostream>
 #include "common.h"
 #include "visualizzzator.h"
-#include "buffer/qt_buffer/window.h"
+#include "window.h"
 #include "cut/life/lifecut.h"
 #include "config/file/filebasedconfig.h"
 #include "config/network-tcp/tcpconfig.h"
@@ -36,11 +36,9 @@ int main(int argc, char *argv[]) {
 	chdir("/home/zaic/nsu/__ca/data/obmaz");
 	//Config *config = new TcpConfig("localhost", 1807);
 	Config *config = new StubConfig(30, 20);
-	Cut2D *cut = new CutHPPLoupe();
+	Cut *cut = new CutHPPLoupe();
 	Visualizzzator *visualizator = new Visualizzzator(config, cut);
-
 	Window w(visualizator);
-	w.resetConfig(config);
 	w.show();
 	return app.exec();
 }

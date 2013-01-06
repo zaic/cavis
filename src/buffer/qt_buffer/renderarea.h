@@ -2,25 +2,21 @@
 
 #include <QWidget>
 #include <QPainter>
-#include "qtsimplebuffer.h"
-#include "../../visualizzzator.h"
 
 class RenderArea : public QWidget {
 	Q_OBJECT
 
-	Visualizzzator *visualizator;
+	QImage *buffer_image;
 
 protected:
 	void paintEvent(QPaintEvent *event);
 
 public:
-	explicit RenderArea(Visualizzzator *vis, QWidget *parent = 0);
+	explicit RenderArea(QWidget *parent = 0);
+	void drawImage(QImage *image);
 	
 signals:
 	
 public slots:
-	void setPrevFrame() { visualizator->config->prevFrame(); }
-	void setNextFrame() { visualizator->config->nextFrame(); }
-	void setFrame(int frame) { visualizator->config->setFrame(frame); }
-	
+
 };

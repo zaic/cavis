@@ -31,9 +31,9 @@ public:
 	FileBasedConfig(const char *filename, int x = 0, int y = 0);
 	virtual ~FileBasedConfig();
 
-	virtual bool prev();
-	virtual bool next();
-	virtual bool setFrame(int frame);
+	virtual int prev();
+	virtual int next();
+	virtual int setFrame(int frame);
 	virtual int getFramesCount() const { return frames_count; }
 
     virtual const char* getRealData() const { return data; }

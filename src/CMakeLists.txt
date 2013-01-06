@@ -32,7 +32,7 @@ aux_source_directory(./config/network-tcp SRC_LIST)
 aux_source_directory(./config/stub SRC_LIST)
 
 set(MOC_HEADERS
-    buffer/qt_buffer/window.h
+	window.h
     buffer/qt_buffer/renderarea.h
 )
 qt4_wrap_cpp(MOC_SRC ${MOC_HEADERS})

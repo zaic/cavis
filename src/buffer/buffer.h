@@ -12,8 +12,11 @@ protected:
 public:
 	virtual ~GraphicBuffer();
 
-	virtual int getX() const = 0;
-	virtual int getY() const = 0;
+	virtual bool prepare() = 0;
+	virtual void complete() = 0;
+
+	virtual int width() const = 0;
+	virtual int height() const = 0;
 
 	virtual void setColor(uint color) = 0;
 

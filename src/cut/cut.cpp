@@ -1,7 +1,7 @@
 #include "cut.h"
 
-Cut2D::Cut2D() {
+Cut::Cut() : config(NULL), buffer(NULL) {
 }
 
-Cut2D::~Cut2D() {
+Cut::~Cut() {
 }

@@ -9,8 +9,10 @@
 #include <QTimer>
 #include <QLabel>
 #include <QDebug>
-#include "renderarea.h"
-#include "../../config/config.h"
+#include "buffer/buffer.h"
+#include "config/config.h"
+#include "visualizzzator.h"
+#include "buffer/qt_buffer/qtsimplebuffer.h"
 
 class Window : public QMainWindow {
 	Q_OBJECT
@@ -24,15 +26,16 @@ class Window : public QMainWindow {
 	/*
 	 *	Plyaer bar
 	 */
-	QPushButton *btn_player_prev;	// go to one iteration back
+	QPushButton *btn_player_prev;	// go by one iteration back
 	QPushButton *btn_player_start;	// start/pause button
-	QPushButton *btn_player_next;	// go to one iteration forward;
+	QPushButton *btn_player_next;	// go by one iteration forward;
 	QSlider *sld_progress;
 	QLabel *lbl_frame;
 	QTimer player_timer;
 
+	Visualizzzator *visualizator;
 	Config *config;
-	RenderArea *render_area;
+	GraphicBuffer *buffer;
 
 public:
 	explicit Window(Visualizzzator *vis, QWidget *parent = 0);
@@ -40,11 +43,14 @@ public:
 signals:
 	
 public slots:
-	void resetConfig(Config *config);
+	// player toolbar
 	void playerStart() { player_timer.start(); }
 	void playerStop() { player_timer.stop(); }
 	void playerSwitch();
-	void playNextFrame() { sld_progress->setValue(sld_progress->value() + 1); }
-	void playPrevFrame() { sld_progress->setValue(sld_progress->value() - 1); }
-	void updateFramesCounter();
+	// main actions to control process
+	void nextFrame();
+	void prevFrame();
+	void setFrame(int frame);
+	// update current frame value in slider and label
+	void updateFramesCounter(int frame = Config::FRAME_NOT_CHANGED);
 };

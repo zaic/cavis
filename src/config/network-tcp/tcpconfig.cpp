@@ -26,9 +26,9 @@ TcpConfig::~TcpConfig() {
 	if(real_data) delete[] real_data;
 }
 
-bool TcpConfig::setFrame(int frame) {
-    if(frame < current_frame_id) return false;
-	if(frame > current_frame_id + 1) return false;
+int TcpConfig::setFrame(int frame) {
+	if(frame < current_frame_id) return FRAME_NOT_CHANGED;
+	if(frame > current_frame_id + 1) return FRAME_NOT_CHANGED;
 	if(frame == current_frame_id + 1) {
         current_frame_id = frame;
 	}
@@ -48,7 +48,7 @@ bool TcpConfig::setFrame(int frame) {
 	}
 	qDebug() << "---";
 
-	return true;
+	return frame;
 }
 
 int TcpConfig::getFramesCount() {

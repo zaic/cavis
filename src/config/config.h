@@ -5,19 +5,20 @@ class Config {
 	Config& operator=(const Config& );
 
 protected:
-    int current_frame_id;
+	int current_frame_id;
 
-    Config();
+	Config();
 
 public:
 	virtual ~Config();
 
-    virtual bool prevFrame() { return setFrame(current_frame_id - 1); }
-    virtual bool nextFrame() { return setFrame(current_frame_id + 1); }
-	virtual bool setFrame(int frame) = 0;
-	virtual int getFramesCount() { return 1; }
+	static const int FRAME_NOT_CHANGED = -1807;
+	virtual int prevFrame() { return setFrame(current_frame_id - 1); }
+	virtual int nextFrame() { return setFrame(current_frame_id + 1); }
+	virtual int setFrame(int) { return FRAME_NOT_CHANGED; }
+	virtual int getFramesCount() { return 0; }
 
-    virtual const char* getRealData() const = 0;
+	virtual const char* getRealData() const = 0;
 	virtual int getRealDimSize(int dim) const = 0;
 	virtual int getRealDimSizeX() const { return getRealDimSize(0); }
 	virtual int getRealDimSizeY() const { return getRealDimSize(1); }

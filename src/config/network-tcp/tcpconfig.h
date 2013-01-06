@@ -21,7 +21,7 @@ public:
 	TcpConfig(const char *hostname, int port);
 	virtual ~TcpConfig();
 
-    virtual bool setFrame(int frame);
+	virtual int setFrame(int frame);
 	virtual int getFramesCount();
 
     virtual const char* getRealData() const { return real_data; }

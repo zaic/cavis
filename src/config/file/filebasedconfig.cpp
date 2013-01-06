@@ -37,17 +37,17 @@ inline int FileBasedConfig::getRealDimSize(int dim) const {
 	return 1;
 }
 
-bool FileBasedConfig::prev() {
+int FileBasedConfig::prev() {
 	return setFrame(current_frame - 1);
 }
 
-bool FileBasedConfig::next() {
+int FileBasedConfig::next() {
 	return setFrame(current_frame + 1);
 }
 
-bool FileBasedConfig::setFrame(int frame) {
-	if(frame < 0) return false;
-	if(frame >= frames_count) return false;
+int FileBasedConfig::setFrame(int frame) {
+	if(frame < 0) return FRAME_NOT_CHANGED;
+	if(frame >= frames_count) return FRAME_NOT_CHANGED;
 
 	if(current_frame != frame) {
 		current_frame = frame;
@@ -66,5 +66,5 @@ bool FileBasedConfig::setFrame(int frame) {
 		data_stream.close();
 	}
 
-	return true;
+	return frame;
 }

@@ -2,23 +2,31 @@
  *	2D_Real => 2D_Logic
  */
 
+// TODO: rename to Map
+
 #pragma once
 
 #include "../common.h"
 #include "../config/config.h"
 #include "../buffer/buffer.h"
+#include <QLayout>
 
-class Cut2D {
-	Cut2D(const Cut2D& );
-	Cut2D& operator=(const Cut2D& );
+class Cut {
+	Cut(const Cut& );
+	Cut& operator=(const Cut& );
+
+protected:
+	Config *config;
+	GraphicBuffer *buffer;
 
 public:
-	Cut2D();
-	virtual ~Cut2D();
+	Cut();
+	virtual ~Cut();
 
-	// нужны ли? если да, возможно, занести в protected
-	virtual void setConfig(Config *config) = 0;
-	virtual void setBuffer(GraphicBuffer *buffer) = 0;
+	virtual void setConfig(Config *_config) { config = _config; }
+	virtual void setBuffer(GraphicBuffer *_buffer) { buffer = _buffer; }
+	virtual Config* getConfig() const { return config; }
+	virtual GraphicBuffer* getBuffer() const { return buffer; }
 
 	// call before each iteration
 	virtual void init(Config *config = NULL, GraphicBuffer *buffer = NULL) = 0;
