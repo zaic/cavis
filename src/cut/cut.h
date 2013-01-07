@@ -16,11 +16,11 @@ class Cut {
 	Cut& operator=(const Cut& );
 
 protected:
+	Cut();
 	Config *config;
 	GraphicBuffer *buffer;
 
 public:
-	Cut();
 	virtual ~Cut();
 
 	virtual void setConfig(Config *_config) { config = _config; }

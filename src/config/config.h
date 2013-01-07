@@ -13,6 +13,8 @@ public:
 	virtual ~Config();
 
 	static const int FRAME_NOT_CHANGED = -1807;
+	static const int FRAME_FORCED_UPDATE = -3004;
+
 	virtual int prevFrame() { return setFrame(current_frame_id - 1); }
 	virtual int nextFrame() { return setFrame(current_frame_id + 1); }
 	virtual int setFrame(int) { return FRAME_NOT_CHANGED; }

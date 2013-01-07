@@ -34,8 +34,8 @@ int TcpConfig::setFrame(int frame) {
 	}
 
 	memset(real_data, 0, real_x * real_y);
-	uint64_t remain = real_x * real_y;
-	uint64_t shift = 0;
+	int64_t remain = real_x * real_y;
+	int64_t shift = 0;
 	qDebug() << "---";
 	while(remain) {
 		size_t readed = boost::asio::read(*my_socket, boost::asio::buffer(real_data + shift, remain));

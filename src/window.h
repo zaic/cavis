@@ -9,6 +9,8 @@
 #include <QTimer>
 #include <QLabel>
 #include <QDebug>
+#include <QComboBox>
+#include <QMap>
 #include "buffer/buffer.h"
 #include "config/config.h"
 #include "visualizzzator.h"
@@ -18,14 +20,26 @@ class Window : public QMainWindow {
 	Q_OBJECT
 
 	void createMenuBar();
-	QHBoxLayout* createPlayerBar();
 
+	QVBoxLayout *main_layout;
 	QAction *act_open, *act_quit;
 	QAction *act_about;
 
 	/*
+	 *	Cut config bar
+	 */
+	void initCuts();
+	QVBoxLayout* createCutConfigBar();
+
+	QMap<QString, QWidget*> cuts;
+	QWidget *last_selected_cut;
+	QComboBox *cmb_cut_switch;
+
+	/*
 	 *	Plyaer bar
 	 */
+	QHBoxLayout* createPlayerBar();
+
 	QPushButton *btn_player_prev;	// go by one iteration back
 	QPushButton *btn_player_start;	// start/pause button
 	QPushButton *btn_player_next;	// go by one iteration forward;
@@ -38,19 +52,24 @@ class Window : public QMainWindow {
 	GraphicBuffer *buffer;
 
 public:
-	explicit Window(Visualizzzator *vis, QWidget *parent = 0);
+	explicit Window(Visualizzzator *vis, QWidget *_parent = 0);
 	
 signals:
 	
 public slots:
+	// cut config toolbar
+	void updateCutConfigLayout(const QString& new_layout_name);
+
 	// player toolbar
 	void playerStart() { player_timer.start(); }
 	void playerStop() { player_timer.stop(); }
 	void playerSwitch();
+
 	// main actions to control process
 	void nextFrame();
 	void prevFrame();
 	void setFrame(int frame);
+
 	// update current frame value in slider and label
 	void updateFramesCounter(int frame = Config::FRAME_NOT_CHANGED);
 };

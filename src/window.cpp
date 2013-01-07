@@ -1,13 +1,14 @@
 #include "window.h"
 
-Window::Window(Visualizzzator *vis, QWidget *parent) : QMainWindow(parent), visualizator(vis), config(vis->config) {
+Window::Window(Visualizzzator *vis, QWidget *_parent) : QMainWindow(_parent), visualizator(vis), config(vis->config) {
 	setWindowTitle("Simple Qt render");
 	resize(800, 1);
 
+	initCuts();
 	buffer = new QtSimpleBuffer();
 
 	QHBoxLayout *lay_buttons = new QHBoxLayout;
-	QVBoxLayout *lay_main = new QVBoxLayout;
+	main_layout = new QVBoxLayout;
 
 	QPushButton *btn_render = new QPushButton("render");
 	btn_render->setMaximumWidth(200);
@@ -20,19 +21,64 @@ Window::Window(Visualizzzator *vis, QWidget *parent) : QMainWindow(parent), visu
 	connect(btn_quit, SIGNAL(clicked()), qApp, SLOT(quit()));
 	lay_buttons->addWidget(btn_quit);
 
-	//lay_main->addWidget(render_area);
-	//lay_main->addLayout(lay_buttons);
-	lay_main->addLayout(createPlayerBar());
+	// TODO: must be fixed
+	// cut-config-specific panel must be inserted after combobox
+	main_layout->addLayout(lay_buttons);
+	main_layout->insertLayout(0, createCutConfigBar());
+	main_layout->removeItem(lay_buttons);
+	main_layout->addLayout(createPlayerBar());
 
 	QWidget *central_widget = new QWidget;
-	central_widget->setLayout(lay_main);
+	central_widget->setLayout(main_layout);
 	setCentralWidget(central_widget);
 
 	updateFramesCounter();
 }
 
+void Window::initCuts() {
+	last_selected_cut = NULL;
+
+	QPushButton *btn_one = new QPushButton("i'm one");
+	QHBoxLayout *lay_one = new QHBoxLayout;
+	lay_one->addWidget(btn_one);
+	QWidget *wgt_one = new QWidget;
+	wgt_one->setLayout(lay_one);
+	cuts["ololo"] = wgt_one;
+
+	QPushButton *btn_two = new QPushButton("i'm two");
+	QHBoxLayout *lay_two = new QHBoxLayout;
+	lay_two->addWidget(btn_two);
+	QWidget *wgt_two = new QWidget;
+	wgt_two->setLayout(lay_two);
+	cuts["trtrtrrr"] = wgt_two;
+}
+
 void Window::createMenuBar() {
 
+}
+
+QVBoxLayout* Window::createCutConfigBar() {
+	QLabel *lbl_cut_switch_label = new QLabel("Cut:");
+	//lbl_cut_switch_label->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred));
+
+	cmb_cut_switch = new QComboBox;
+	connect(cmb_cut_switch, SIGNAL(currentIndexChanged(QString)), this, SLOT(updateCutConfigLayout(QString)));
+	cmb_cut_switch->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred));
+
+	QHBoxLayout *lay_cut_config_bar = new QHBoxLayout;
+	lay_cut_config_bar->addWidget(lbl_cut_switch_label);
+	lay_cut_config_bar->addWidget(cmb_cut_switch);
+
+	QVBoxLayout *lay_cut_config_all = new QVBoxLayout;
+	lay_cut_config_all->addLayout(lay_cut_config_bar);
+	//for(const pair<QString, QWidget*>& cut : cuts) {
+	for(QMap<QString, QWidget*>::Iterator it = cuts.begin(); it != cuts.end(); ++it) {
+		it.value()->setVisible(false);
+		lay_cut_config_all->addWidget(it.value());
+		cmb_cut_switch->addItem(it.key());
+	}
+
+	return lay_cut_config_all;
 }
 
 QHBoxLayout* Window::createPlayerBar() {
@@ -94,12 +140,17 @@ void Window::setFrame(int frame_id) {
 }
 
 void Window::updateFramesCounter(int frame) {
-	if(frame != Config::FRAME_NOT_CHANGED /* && frame != sld_progress->value() */) {
+	if(frame == Config::FRAME_FORCED_UPDATE || (frame != Config::FRAME_NOT_CHANGED /*&& frame != sld_progress->value()*/)) {
 		sld_progress->setValue(frame);
-		// TODO prepare buffer (move to vis)
 		visualizator->draw(buffer);
-		// TODO update image on buffer (move to vis)
 	}
 	sld_progress->setMaximum(config->getFramesCount());
 	lbl_frame->setText(QString::number(sld_progress->value()) + QString(" / ") + QString::number(sld_progress->maximum()));
+}
+
+void Window::updateCutConfigLayout(const QString &new_layout_name) {
+	qDebug() << "need update layout: " << new_layout_name;
+	if(last_selected_cut) last_selected_cut->setVisible(false);
+	last_selected_cut = cuts[new_layout_name];
+	last_selected_cut->setVisible(true);
 }

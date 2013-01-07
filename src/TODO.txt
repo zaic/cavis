@@ -1,0 +1,5 @@
+rename:
+buffer/graphicbuffer -> buffer
+config ->
+cut -> map/drawer
+frame -> iteration
