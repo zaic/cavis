@@ -15,7 +15,7 @@ void Visualizzzator::draw(GraphicBuffer* buffer) {
 	// TODO бегать нужно по логическому дву(трёх-)мерному пространству же!
 	//     а пока что работает в предположении прямого отображения
 
-	// TODO выпилить init и finalize
+	// TODO выпилить init и finalize (тогда и предыдущая тудушка не нужна)
 
 	if(!buffer->prepare()) return ;
 	cut->init(config, buffer);

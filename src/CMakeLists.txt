@@ -11,7 +11,7 @@ find_package(Boost COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
 find_package (Threads)
 include_directories(${Boost_INCLUDE_DIRS})
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -O2")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -O2 -D_DEBUG")
 
 
 aux_source_directory(. SRC_LIST)
@@ -35,6 +35,7 @@ set(MOC_HEADERS
 	window.h
     buffer/qt_buffer/renderarea.h
 	cut/gui.h
+    cut/hpp-loupe/gui.h
 )
 qt4_wrap_cpp(MOC_SRC ${MOC_HEADERS})
 

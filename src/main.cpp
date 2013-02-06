@@ -7,11 +7,9 @@
 #include "config/network-tcp/tcpconfig.h"
 #include "config/stub/stubconfig.h"
 #include "cut/hpp-loupe/cuthpploupe.h"
+#include "cut/hpp-loupe/gui.h"
 
 #include <boost/asio.hpp>
-#include <QDebug>
-
-using namespace std;
 
 void test() {
 	using boost::asio::ip::tcp;
@@ -26,7 +24,7 @@ void test() {
 
 	qint64 x;
 	boost::asio::read(my_socket, boost::asio::buffer(&x, sizeof(x)));
-	cerr << "x = " << x << endl;
+	Eo(x);
 }
 
 int main(int argc, char *argv[]) {
@@ -36,9 +34,14 @@ int main(int argc, char *argv[]) {
 	chdir("/home/zaic/nsu/__ca/data/obmaz");
 	//Config *config = new TcpConfig("localhost", 1807);
 	Config *config = new StubConfig(30, 20);
-	Cut *cut = new CutHPPLoupe();
-	Visualizzzator *visualizator = new Visualizzzator(config, cut);
-	Window w(visualizator);
+
+	CutHPPLoupe *cut = new CutHPPLoupe();
+	CutGUI *cutgui = new CutHPPLoupeGUI(cut);
+	QVector<CutGUI*> supported_cuts;
+	supported_cuts << cutgui;
+
+	Visualizzzator *visualizator = new Visualizzzator(config, dynamic_cast<Cut*>(cut));
+	Window w(visualizator, supported_cuts);
 	w.show();
 	return app.exec();
 }

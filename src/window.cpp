@@ -1,10 +1,10 @@
 #include "window.h"
 
-Window::Window(Visualizzzator *vis, QWidget *_parent) : QMainWindow(_parent), visualizator(vis), config(vis->config) {
+Window::Window(Visualizzzator *vis, const QVector<CutGUI *>& supported_cuts, QWidget *_parent) : QMainWindow(_parent), visualizator(vis), config(vis->config) {
 	setWindowTitle("Simple Qt render");
 	resize(800, 1);
 
-	initCuts();
+	initCuts(supported_cuts);
 	buffer = new QtSimpleBuffer();
 
 	QHBoxLayout *lay_buttons = new QHBoxLayout;
@@ -35,22 +35,28 @@ Window::Window(Visualizzzator *vis, QWidget *_parent) : QMainWindow(_parent), vi
 	updateFramesCounter();
 }
 
-void Window::initCuts() {
+void Window::initCuts(const QVector<CutGUI *>& supported_cuts) {
 	last_selected_cut = NULL;
 
+#if 1
+	for(CutGUI* cut_widget : supported_cuts) {
+		cuts[cut_widget->name()] = cut_widget->widget();
+	}
+#else
 	QPushButton *btn_one = new QPushButton("i'm one");
 	QHBoxLayout *lay_one = new QHBoxLayout;
 	lay_one->addWidget(btn_one);
 	QWidget *wgt_one = new QWidget;
 	wgt_one->setLayout(lay_one);
-	cuts["ololo"] = wgt_one;
+	cuts["HPP Loupe"] = wgt_one;
 
-	QPushButton *btn_two = new QPushButton("i'm two");
+	QPushButton *btn_two = new QPushButton("i'm button");
 	QHBoxLayout *lay_two = new QHBoxLayout;
 	lay_two->addWidget(btn_two);
 	QWidget *wgt_two = new QWidget;
 	wgt_two->setLayout(lay_two);
-	cuts["trtrtrrr"] = wgt_two;
+	cuts["Rounding"] = wgt_two;
+#endif
 }
 
 void Window::createMenuBar() {

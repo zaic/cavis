@@ -13,6 +13,7 @@
 #include <QMap>
 #include "buffer/buffer.h"
 #include "config/config.h"
+#include "cut/gui.h"
 #include "visualizzzator.h"
 #include "buffer/qt_buffer/qtsimplebuffer.h"
 
@@ -28,7 +29,7 @@ class Window : public QMainWindow {
 	/*
 	 *	Cut config bar
 	 */
-	void initCuts();
+	void initCuts(const QVector<CutGUI *>& supported_cuts);
 	QVBoxLayout* createCutConfigBar();
 
 	QMap<QString, QWidget*> cuts;
@@ -52,7 +53,7 @@ class Window : public QMainWindow {
 	GraphicBuffer *buffer;
 
 public:
-	explicit Window(Visualizzzator *vis, QWidget *_parent = 0);
+	explicit Window(Visualizzzator *vis, const QVector<CutGUI *>& supported_cuts, QWidget *_parent = 0);
 	
 signals:
 	

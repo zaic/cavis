@@ -12,10 +12,14 @@ void CutHPPLoupe::init(Config *_config, GraphicBuffer *_buffer) {
 	if(_config) config = _config;
 	if(_buffer) buffer = _buffer;
 
-	int cell_width  = (buffer->width() - 2) / config->getRealDimSizeX();
-	int cell_height = (buffer->height() - 2) / config->getRealDimSizeY();
-	cell_size = min(cell_width, cell_height);
-	if(cell_size % 2 == 0) cell_size--;
+	if(autoscale) {
+		int cell_width  = (buffer->width() - 2) / config->getRealDimSizeX();
+		int cell_height = (buffer->height() - 2) / config->getRealDimSizeY();
+		cell_size = min(cell_width, cell_height);
+		if(cell_size % 2 == 0) cell_size--;
+	} else {
+		cell_size = scale_cell_size * 2 + 1;
+	}
 
 	shift_x = (buffer->width() - 2 - cell_size * config->getRealDimSizeX()) / 2;
 	shift_y = (buffer->height() - 2 - cell_size * config->getRealDimSizeY()) / 2;
