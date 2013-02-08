@@ -34,7 +34,7 @@ public:
 	virtual int prev();
 	virtual int next();
 	virtual int setFrame(int frame);
-	virtual int getFramesCount() const { return frames_count; }
+	virtual int getFramesCount() { return frames_count; }
 
     virtual const char* getRealData() const { return data; }
 	virtual int getRealDimSize(int dim) const;
