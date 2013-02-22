@@ -26,6 +26,8 @@ public:
 	CutHPPLoupeGUI(CutHPPLoupe*);
 	virtual ~CutHPPLoupeGUI();
 
+	virtual Cut* getCut() const { return cut; }
+
 	virtual QString name() const { return QString("HPP Loupe"); }
 	virtual QWidget* widget() const;
 

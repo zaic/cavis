@@ -42,7 +42,7 @@ void Window::initCuts(const QVector<CutGUI *>& supported_cuts) {
 
 #if 1
 	for(CutGUI* cut_widget : supported_cuts) {
-		cuts[cut_widget->name()] = cut_widget->widget();
+		cuts[cut_widget->name()] = cut_widget;
 	}
 #else
 	QPushButton *btn_one = new QPushButton("i'm one");
@@ -80,9 +80,9 @@ QVBoxLayout* Window::createCutConfigBar() {
 	QVBoxLayout *lay_cut_config_all = new QVBoxLayout;
 	lay_cut_config_all->addLayout(lay_cut_config_bar);
 	//for(const pair<QString, QWidget*>& cut : cuts) {
-	for(QMap<QString, QWidget*>::Iterator it = cuts.begin(); it != cuts.end(); ++it) {
-		it.value()->setVisible(false);
-		lay_cut_config_all->addWidget(it.value());
+	for(QMap<QString, CutGUI*>::Iterator it = cuts.begin(); it != cuts.end(); ++it) {
+		it.value()->widget()->setVisible(false);
+		lay_cut_config_all->addWidget(it.value()->widget());
 		cmb_cut_switch->addItem(it.key());
 	}
 
@@ -159,6 +159,7 @@ void Window::updateFramesCounter(int frame) {
 void Window::updateCutConfigLayout(const QString &new_layout_name) {
 	qDebug() << "need update layout: " << new_layout_name;
 	if(last_selected_cut) last_selected_cut->setVisible(false);
-	last_selected_cut = cuts[new_layout_name];
+	last_selected_cut = cuts[new_layout_name]->widget();
 	last_selected_cut->setVisible(true);
+	visualizator->cut = cuts[new_layout_name]->getCut();
 }

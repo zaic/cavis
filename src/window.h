@@ -33,7 +33,7 @@ class Window : public QMainWindow {
 	void initCuts(const QVector<CutGUI *>& supported_cuts);
 	QVBoxLayout* createCutConfigBar();
 
-	QMap<QString, QWidget*> cuts;
+	QMap<QString, CutGUI*> cuts;
 	QWidget *last_selected_cut;
 	QComboBox *cmb_cut_switch;
 

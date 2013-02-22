@@ -17,7 +17,7 @@ void Visualizzzator::draw(GraphicBuffer* buffer) {
 
 	// TODO выпилить init и finalize (тогда и предыдущая тудушка не нужна)
 
-	//if(!buffer->prepare()) return ;// moved to cut
+	if(!buffer->prepare()) return ;// moved to cut
 	cut->init(config, buffer);
 	for(int y = 0; y < config->getRealDimSizeY(); y++)
 		for(int x = 0; x < config->getRealDimSizeX(); x++) {

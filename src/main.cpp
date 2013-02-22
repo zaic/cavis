@@ -6,8 +6,8 @@
 #include "config/file/filebasedconfig.h"
 #include "config/network-tcp/tcpconfig.h"
 #include "config/stub/stubconfig.h"
-#include "cut/hpp-loupe/cuthpploupe.h"
 #include "cut/hpp-loupe/gui.h"
+#include "cut/grayscale/gui.h"
 
 #include <boost/asio.hpp>
 
@@ -37,8 +37,11 @@ int main(int argc, char *argv[]) {
 
 	CutHPPLoupe *cut = new CutHPPLoupe();
 	CutGUI *cutgui = new CutHPPLoupeGUI(cut);
+	CutGrayScale *cut_scale = new CutGrayScale();
+	CutGUI *cut_scale_gui = new CutGrayScaleGUI(cut_scale);
 	QVector<CutGUI*> supported_cuts;
 	supported_cuts << cutgui;
+	supported_cuts << cut_scale_gui;
 
 	Visualizzzator *visualizator = new Visualizzzator(config, dynamic_cast<Cut*>(cut));
 	Window w(visualizator, supported_cuts);

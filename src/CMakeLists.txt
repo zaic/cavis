@@ -12,7 +12,7 @@ find_package (Threads)
 include_directories(${Boost_INCLUDE_DIRS})
 
 set(CMAKE_BUILD_TYPE distribution)
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -O2 -D_DEBUG")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -O0 -D_DEBUG -g")
 
 
 aux_source_directory(. SRC_LIST)
@@ -25,6 +25,7 @@ add_subdirectory(./cut)
 aux_source_directory(./cut SRC_LIST)
 aux_source_directory(./cut/life SRC_LIST)
 aux_source_directory(./cut/hpp-loupe SRC_LIST)
+aux_source_directory(./cut/grayscale SRC_LIST)
 
 add_subdirectory(./config)
 aux_source_directory(./config SRC_LIST)
@@ -36,8 +37,9 @@ set(MOC_HEADERS
 	window.h
     windowevent.h
     buffer/qt_buffer/renderarea.h
-	cut/gui.h
+    cut/gui.h
     cut/hpp-loupe/gui.h
+    cut/grayscale/gui.h
 )
 qt4_wrap_cpp(MOC_SRC ${MOC_HEADERS})
 

@@ -16,6 +16,8 @@ public:
 	CutGUI(const Cut*);
 	virtual ~CutGUI();
 
+	virtual Cut* getCut() const = 0;
+
 	virtual QString name() const = 0;
 	virtual QWidget* widget() const = 0;
 };
