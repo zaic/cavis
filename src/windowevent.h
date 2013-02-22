@@ -1,0 +1,24 @@
+#pragma once
+
+#include <QObject>
+
+class WindowEvent : public QObject
+{
+	Q_OBJECT
+
+	explicit WindowEvent(QObject *parent = NULL);
+	WindowEvent(const WindowEvent&);
+	WindowEvent& operator=(const WindowEvent&);
+public:
+	~WindowEvent();
+
+	static WindowEvent* get();
+	
+	void doRequireRepaint();
+
+signals:
+	void requireRepaint();
+	
+public slots:
+	
+};

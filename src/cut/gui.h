@@ -1,5 +1,7 @@
 #pragma once
 
+// TODO: do it less virtual
+
 #include "cut.h"
 #include <QLayout>
 

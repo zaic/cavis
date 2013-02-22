@@ -23,7 +23,10 @@ void CutHPPLoupe::init(Config *_config, GraphicBuffer *_buffer) {
 
 	shift_x = (buffer->width() - 2 - cell_size * config->getRealDimSizeX()) / 2;
 	shift_y = (buffer->height() - 2 - cell_size * config->getRealDimSizeY()) / 2;
+	// TODO: move to buffer
+	shift_x = shift_y = 0;
 
+	buffer->prepare(cell_size * config->getRealDimSizeX(), cell_size * config->getRealDimSizeY());
 }
 
 void CutHPPLoupe::draw(int x, int y) {

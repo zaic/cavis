@@ -11,6 +11,7 @@
 #include <QDebug>
 #include <QComboBox>
 #include <QMap>
+#include "windowevent.h"
 #include "buffer/buffer.h"
 #include "config/config.h"
 #include "cut/gui.h"

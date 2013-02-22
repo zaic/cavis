@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QPainter>
+#include <QScrollBar>
+#include <QGridLayout>
 #include "../buffer.h"
 #include "renderarea.h"
 
@@ -10,13 +12,19 @@ class QtSimpleBuffer : public GraphicBuffer {
 
 	QImage *image;
 	QPainter *painter;
+	QWidget *render_window;
+	QScrollBar *scb_render_width, *scb_render_height;
 	RenderArea *render_area;
 
-public:
-	QtSimpleBuffer() : GraphicBuffer() { render_area = new RenderArea; render_area->show(); }
-	virtual ~QtSimpleBuffer() { delete render_area; }
+private:
+	int shift_x, shift_y;
+	void setupScrollBar(QScrollBar *render_scroll_bar, int real_size, int window_size, int shift);
 
-	virtual bool prepare();
+public:
+	QtSimpleBuffer();
+	virtual ~QtSimpleBuffer() { delete render_window; }
+
+	virtual bool prepare(int real_width = -1, int real_height = -1, int shift_x_ = -1, int shift_y_ = -1);
 	virtual void complete();
 
 	virtual int width() const { return render_area->width(); }

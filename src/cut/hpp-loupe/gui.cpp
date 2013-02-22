@@ -24,6 +24,7 @@ void CutHPPLoupeGUI::buildMainWidget() {
 	QHBoxLayout *laytmpscale = new QHBoxLayout;
 	laytmpscale->addWidget(lbl_scale);
 	laytmpscale->addWidget(spn_scale);
+	// TODO: пыщ пыщ пыщ, да ололо
 	QVBoxLayout *laytmpall = new QVBoxLayout;
 	laytmpall->addWidget(chk_autoscale);
 	laytmpall->addLayout(laytmpscale);

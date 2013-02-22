@@ -12,7 +12,7 @@ protected:
 public:
 	virtual ~GraphicBuffer();
 
-	virtual bool prepare() = 0;
+	virtual bool prepare(int real_width = -1, int real_height = -1, int shift_x = -1, int shift_y = -1) = 0;
 	virtual void complete() = 0;
 
 	virtual int width() const = 0;

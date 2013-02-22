@@ -33,6 +33,8 @@ Window::Window(Visualizzzator *vis, const QVector<CutGUI *>& supported_cuts, QWi
 	setCentralWidget(central_widget);
 
 	updateFramesCounter();
+
+	connect(WindowEvent::get(), SIGNAL(requireRepaint()), this, SLOT(updateFramesCounter(Config::FRAME_FORCED_UPDATE)));
 }
 
 void Window::initCuts(const QVector<CutGUI *>& supported_cuts) {
