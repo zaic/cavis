@@ -12,8 +12,11 @@ QtSimpleBuffer::QtSimpleBuffer() : GraphicBuffer(), shift_x(0), shift_y(0) {
 	lay_main->addWidget(scb_render_width, 1, 0);
 	render_window->setLayout(lay_main);
 
+	// TODO: fix hack
+#if 0
 	render_window->show();
 	render_window->resize(800, 600);
+#endif
 }
 
 void QtSimpleBuffer::setupScrollBar(QScrollBar *render_scroll_bar, int real_size, int window_size, int shift) {
@@ -40,8 +43,8 @@ bool QtSimpleBuffer::prepare(int real_width, int real_height, int shift_x_, int 
 	// TODO rewrite to reference (shift_x, shift_y)?
 	setupScrollBar(scb_render_width, real_width, render_area->width(), shift_x);
 	setupScrollBar(scb_render_height, real_height, render_area->height(), shift_y);
-	shift_x = scb_render_width->value();
-	shift_y = scb_render_height->value();
+	shift_x = scb_render_width->isEnabled() ? scb_render_width->value() : 0;
+	shift_y = scb_render_height->isEnabled() ? scb_render_height->value() : 0;
 
 	// set render area
 	// TODO SMART POINTERS!!!!111

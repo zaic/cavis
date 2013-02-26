@@ -14,13 +14,14 @@ class QtSimpleBuffer : public GraphicBuffer {
 	QPainter *painter;
 	QWidget *render_window;
 	QScrollBar *scb_render_width, *scb_render_height;
-	RenderArea *render_area;
 
-private:
 	int shift_x, shift_y;
 	void setupScrollBar(QScrollBar *render_scroll_bar, int real_size, int window_size, int shift);
 
 public:
+	// TODO: fix hack
+	RenderArea *render_area;
+
 	QtSimpleBuffer();
 	virtual ~QtSimpleBuffer() { delete render_window; }
 

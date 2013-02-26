@@ -11,6 +11,10 @@
 #include <QDebug>
 #include <QComboBox>
 #include <QMap>
+#include <QMdiArea>
+#include <QMenuBar>
+#include <QSplitter>
+#include <QMenu>
 #include "windowevent.h"
 #include "buffer/buffer.h"
 #include "config/config.h"
@@ -21,17 +25,21 @@
 class Window : public QMainWindow {
 	Q_OBJECT
 
-	void createMenuBar();
-
 	QVBoxLayout *main_layout;
 	QAction *act_open, *act_quit;
 	QAction *act_about;
 
 	/*
+	 *	MDI
+	 */
+	void createMenuBar();
+	QMdiArea *mdi_area;
+
+	/*
 	 *	Cut config bar
 	 */
 	void initCuts(const QVector<CutGUI *>& supported_cuts);
-	QVBoxLayout* createCutConfigBar();
+	QWidget *createCutConfigBar();
 
 	QMap<QString, CutGUI*> cuts;
 	QWidget *last_selected_cut;

@@ -1,11 +1,17 @@
 #include "window.h"
 
 Window::Window(Visualizzzator *vis, const QVector<CutGUI *>& supported_cuts, QWidget *_parent) : QMainWindow(_parent), visualizator(vis), config(vis->config) {
-	setWindowTitle("Simple Qt render");
+	setWindowTitle("Simulus");
 	resize(800, 1);
 
+	mdi_area = new QMdiArea(this);
+	mdi_area->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+	mdi_area->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
 	initCuts(supported_cuts);
-	buffer = new QtSimpleBuffer();
+	QtSimpleBuffer* qt_buffer = new QtSimpleBuffer();
+	buffer = qt_buffer;
+	mdi_area->addSubWindow(qt_buffer->render_area);
 
 	QHBoxLayout *lay_buttons = new QHBoxLayout;
 	main_layout = new QVBoxLayout;
@@ -21,11 +27,18 @@ Window::Window(Visualizzzator *vis, const QVector<CutGUI *>& supported_cuts, QWi
 	connect(btn_quit, SIGNAL(clicked()), qApp, SLOT(quit()));
 	lay_buttons->addWidget(btn_quit);
 
+	QSplitter *spl_cut = new QSplitter;
+	spl_cut->addWidget(mdi_area);
+	spl_cut->addWidget(createCutConfigBar());
+
 	// TODO: must be fixed
 	// cut-config-specific panel must be inserted after combobox
-	main_layout->addLayout(lay_buttons);
-	main_layout->insertLayout(0, createCutConfigBar());
-	main_layout->removeItem(lay_buttons);
+	createMenuBar();
+	//main_layout->addWidget(mdi_area);
+	//main_layout->addLayout(lay_buttons);
+	//main_layout->insertLayout(0, createCutConfigBar());
+	//main_layout->removeItem(lay_buttons);
+	main_layout->addWidget(spl_cut);
 	main_layout->addLayout(createPlayerBar());
 
 	QWidget *central_widget = new QWidget;
@@ -62,10 +75,21 @@ void Window::initCuts(const QVector<CutGUI *>& supported_cuts) {
 }
 
 void Window::createMenuBar() {
+	QMenu *mnu_file = menuBar()->addMenu(tr("&File"));
+	mnu_file->addAction("New Project");
+	mnu_file->addAction("Open Project");
+	mnu_file->addSeparator();
+	mnu_file->addAction("Quit");
 
+	QMenu *mnu_model = menuBar()->addMenu(tr("&Model"));
+	mnu_model->addSeparator();
+
+	QMenu *mnu_help = menuBar()->addMenu(tr("&About"));
+	mnu_help->addAction(tr("About Simulus"));
+	mnu_help->addAction(tr("&About Qt"));
 }
 
-QVBoxLayout* Window::createCutConfigBar() {
+QWidget* Window::createCutConfigBar() {
 	QLabel *lbl_cut_switch_label = new QLabel("Cut:");
 	//lbl_cut_switch_label->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred));
 
@@ -85,8 +109,11 @@ QVBoxLayout* Window::createCutConfigBar() {
 		lay_cut_config_all->addWidget(it.value()->widget());
 		cmb_cut_switch->addItem(it.key());
 	}
+	lay_cut_config_all->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
-	return lay_cut_config_all;
+	QWidget *tmp_widget = new QWidget(this);
+	tmp_widget->setLayout(lay_cut_config_all);
+	return tmp_widget;
 }
 
 QHBoxLayout* Window::createPlayerBar() {
