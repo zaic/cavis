@@ -1,0 +1,51 @@
+CONNECT [-SYNC|-ASYNC]
+	Запрос на подключение
+
+OK -GRID GRID_NUM_SIZE GRID_SIZE_X [...] -ITERATION IT_NUMBER
+	Удачно подключение. В ответ размер сетки и текущую итерацию.
+
+FAIL
+	Не очень удачно подключение. В ответ что угодно, один фиг фэил :(
+---
+
+CALC [-ITERATIONS IT_COUNT]
+	Начать считать. Для синхронного режима IT_COUNT - кол-во итераций, которое посчитать, иначе одну итерацию. Для асинхронного IT_COUNT можно игнорировать.
+
+OK
+	Ушёл считать.
+
+FAIL
+	Эх :(
+---
+
+GET -TYPE TYPE [...]
+	Получить что-нибудь.
+
+OK -SIZE DATA_SIZE -DATA DATA
+	DATA_SIZE - размер данных DATA. А как передать данные можно подумать.
+
+FAIL
+	Ой.
+---
+
+DISCONNECT
+	Пока-покa.
+---
+
+
+
+COMPLETE
+	Посчитал.
+---
+
+
+Example:
+
+CONNECT -SYNC
+	OK -GRID 2 1920 1080 -ITERATION 0
+CALC -ITERATIONS 10
+	OK
+	COMPLETE
+GET -TYPE DENSITY
+	OK -SIZE 2073600 -DATA *%(&^$#&^$)(#@&$(*@&#)$&
+DISCONNECT
