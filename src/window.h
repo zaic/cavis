@@ -18,7 +18,7 @@
 #include "windowevent.h"
 #include "buffer/buffer.h"
 #include "config/config.h"
-#include "cut/gui.h"
+#include "renderer/gui.h"
 #include "visualizzzator.h"
 #include "buffer/qt_buffer/qtsimplebuffer.h"
 
@@ -38,10 +38,10 @@ class Window : public QMainWindow {
 	/*
 	 *	Cut config bar
 	 */
-	void initCuts(const QVector<CutGUI *>& supported_cuts);
+	void initCuts(const QVector<RendererGUI *>& supported_cuts);
 	QWidget *createCutConfigBar();
 
-	QMap<QString, CutGUI*> cuts;
+	QMap<QString, RendererGUI*> cuts;
 	QWidget *last_selected_cut;
 	QComboBox *cmb_cut_switch;
 
@@ -62,7 +62,7 @@ class Window : public QMainWindow {
 	GraphicBuffer *buffer;
 
 public:
-	explicit Window(Visualizzzator *vis, const QVector<CutGUI *>& supported_cuts, QWidget *_parent = 0);
+	explicit Window(Visualizzzator *vis, const QVector<RendererGUI *>& supported_cuts, QWidget *_parent = 0);
 	
 signals:
 	

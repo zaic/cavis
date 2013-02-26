@@ -1,14 +1,14 @@
-#include "cuthpploupe.h"
+#include "hpploupe.h"
 
-CutHPPLoupe::CutHPPLoupe() : cell_size(0), shift_x(0), shift_y(0) {
-
-}
-
-CutHPPLoupe::~CutHPPLoupe() {
+HPPLoupeRenderer::HPPLoupeRenderer() : cell_size(0), shift_x(0), shift_y(0) {
 
 }
 
-void CutHPPLoupe::init(Config *_config, GraphicBuffer *_buffer) {
+HPPLoupeRenderer::~HPPLoupeRenderer() {
+
+}
+
+void HPPLoupeRenderer::init(Config *_config, GraphicBuffer *_buffer) {
 	if(_config) config = _config;
 	if(_buffer) buffer = _buffer;
 
@@ -29,7 +29,7 @@ void CutHPPLoupe::init(Config *_config, GraphicBuffer *_buffer) {
 	buffer->prepare(cell_size * config->getRealDimSizeX(), cell_size * config->getRealDimSizeY());
 }
 
-void CutHPPLoupe::draw(int x, int y) {
+void HPPLoupeRenderer::draw(int x, int y) {
 	// тут за нами полный выбор где рисовать
 	uchar* data = (uchar*)config->getRealData();
 	const int rx = config->getRealDimSizeX();
@@ -59,7 +59,7 @@ void CutHPPLoupe::draw(int x, int y) {
 		}
 }
 
-void CutHPPLoupe::finalize() {
+void HPPLoupeRenderer::finalize() {
 	qDebug() << "sx = " << shift_x;
 	qDebug() << "sy = " << shift_y;
 	qDebug() << "cell_size = " << cell_size;

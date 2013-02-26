@@ -1,9 +1,3 @@
-/*
- *	2D_Real => 2D_Logic
- */
-
-// TODO: rename to Map
-
 #pragma once
 
 #include "../common.h"
@@ -11,17 +5,17 @@
 #include "../buffer/buffer.h"
 #include <QLayout>
 
-class Cut {
-	Cut(const Cut& );
-	Cut& operator=(const Cut& );
+class Renderer {
+	Renderer(const Renderer& );
+	Renderer& operator=(const Renderer& );
 
 protected:
-	Cut();
+	Renderer();
 	Config *config;
 	GraphicBuffer *buffer;
 
 public:
-	virtual ~Cut();
+	virtual ~Renderer();
 
 	virtual void setConfig(Config *_config) { config = _config; }
 	virtual void setBuffer(GraphicBuffer *_buffer) { buffer = _buffer; }

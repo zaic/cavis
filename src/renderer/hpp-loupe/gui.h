@@ -5,31 +5,27 @@
 #include <QSpinBox>
 #include <QBoxLayout>
 
-#include "cuthpploupe.h"
+#include "hpploupe.h"
 #include "../gui.h"
 
-class CutHPPLoupeGUI : public CutGUI {
+class HPPLoupeGUI : public RendererGUI {
 	Q_OBJECT
 
-	CutHPPLoupeGUI();
-	CutHPPLoupeGUI(const CutHPPLoupeGUI& );
-	CutHPPLoupeGUI& operator=(const CutHPPLoupeGUI& );
+	HPPLoupeGUI();
+	HPPLoupeGUI(const HPPLoupeGUI& );
+	HPPLoupeGUI& operator=(const HPPLoupeGUI& );
 
-	CutHPPLoupe *cut;
-	QWidget *main_widget;
+	HPPLoupeRenderer *renderer;
 	QCheckBox *chk_autoscale;
 	QSpinBox *spn_scale;
 
 	void buildMainWidget();
 
 public:
-	CutHPPLoupeGUI(CutHPPLoupe*);
-	virtual ~CutHPPLoupeGUI();
-
-	virtual Cut* getCut() const { return cut; }
+	HPPLoupeGUI(HPPLoupeRenderer*);
+	virtual ~HPPLoupeGUI();
 
 	virtual QString name() const { return QString("HPP Loupe"); }
-	virtual QWidget* widget() const;
 
 public slots:
 	void autoscaleToggled(bool value);

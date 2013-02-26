@@ -3,7 +3,7 @@
 #include <cstdio>
 #include "buffer/buffer.h"
 #include "config/config.h"
-#include "cut/cut.h"
+#include "renderer/renderer.h"
 #include "common.h"
 
 #include <iostream>
@@ -26,14 +26,14 @@ public:
 	/**
 	 * @brief Публичный указатель на класс отображения логического пространства в буфер экрана
 	 */
-	Cut *cut;
+	Renderer *cut;
 
 	/**
 	 * @brief Конструктор из конфига и отображения
 	 * @param _config конфиг
 	 * @param _cut маппер из реального пространства в логическое
 	 */
-	Visualizzzator(Config *_config, Cut *_cut);
+	Visualizzzator(Config *_config, Renderer *_cut);
 
 	/**
 	 * @brief Всеразрушающий деструктор

@@ -1,18 +1,18 @@
-#include "cutgrayscale.h"
+#include "grayscale.h"
 
-CutGrayScale::CutGrayScale() {
+GrayScaleRenderer::GrayScaleRenderer() {
 }
 
-CutGrayScale::~CutGrayScale() {
+GrayScaleRenderer::~GrayScaleRenderer() {
 
 }
 
-void CutGrayScale::init(Config *_config, GraphicBuffer *_buffer) {
+void GrayScaleRenderer::init(Config *_config, GraphicBuffer *_buffer) {
 	if(_config) config = _config;
 	if(_buffer) buffer = _buffer;
 }
 
-void CutGrayScale::draw(int x, int y) {
+void GrayScaleRenderer::draw(int x, int y) {
 	uchar* data = (uchar*)config->getRealData();
 	const int rx = config->getRealDimSizeX();
 	int id = (y * rx + x);
@@ -29,6 +29,6 @@ void CutGrayScale::draw(int x, int y) {
 
 }
 
-void CutGrayScale::finalize() {
+void GrayScaleRenderer::finalize() {
 
 }

@@ -1,6 +1,6 @@
 #include "window.h"
 
-Window::Window(Visualizzzator *vis, const QVector<CutGUI *>& supported_cuts, QWidget *_parent) : QMainWindow(_parent), visualizator(vis), config(vis->config) {
+Window::Window(Visualizzzator *vis, const QVector<RendererGUI *> &supported_cuts, QWidget *_parent) : QMainWindow(_parent), visualizator(vis), config(vis->config) {
 	setWindowTitle("Simulus");
 	resize(800, 1);
 
@@ -50,11 +50,11 @@ Window::Window(Visualizzzator *vis, const QVector<CutGUI *>& supported_cuts, QWi
 	connect(WindowEvent::get(), SIGNAL(requireRepaint()), this, SLOT(updateFramesCounter(Config::FRAME_FORCED_UPDATE)));
 }
 
-void Window::initCuts(const QVector<CutGUI *>& supported_cuts) {
+void Window::initCuts(const QVector<RendererGUI *> &supported_cuts) {
 	last_selected_cut = NULL;
 
 #if 1
-	for(CutGUI* cut_widget : supported_cuts) {
+	for(RendererGUI* cut_widget : supported_cuts) {
 		cuts[cut_widget->name()] = cut_widget;
 	}
 #else
@@ -104,7 +104,7 @@ QWidget* Window::createCutConfigBar() {
 	QVBoxLayout *lay_cut_config_all = new QVBoxLayout;
 	lay_cut_config_all->addLayout(lay_cut_config_bar);
 	//for(const pair<QString, QWidget*>& cut : cuts) {
-	for(QMap<QString, CutGUI*>::Iterator it = cuts.begin(); it != cuts.end(); ++it) {
+	for(QMap<QString, RendererGUI*>::Iterator it = cuts.begin(); it != cuts.end(); ++it) {
 		it.value()->widget()->setVisible(false);
 		lay_cut_config_all->addWidget(it.value()->widget());
 		cmb_cut_switch->addItem(it.key());
@@ -122,15 +122,20 @@ QHBoxLayout* Window::createPlayerBar() {
 
 	btn_player_prev = new QPushButton;
 	btn_player_prev->setFixedSize(32, 32);
+	btn_player_prev->setIcon(QIcon("/home/zaic/nsu/cavis/data/icons/media-skip-backward.png"));
+	btn_player_prev->setIconSize(QSize(24, 24));
 	connect(btn_player_prev, SIGNAL(clicked()), this, SLOT(prevFrame()));
 
 	btn_player_start = new QPushButton;
-	//btn_backward->setIcon(QIcon("images/player/start.png"));
 	btn_player_start->setFixedSize(32, 32);
+	btn_player_start->setIcon(QIcon("/home/zaic/nsu/cavis/data/icons/media-playback-start.png"));
+	btn_player_start->setIconSize(QSize(24, 24));
 	connect(btn_player_start, SIGNAL(clicked()), this, SLOT(playerSwitch()));
 
 	btn_player_next = new QPushButton;
 	btn_player_next->setFixedSize(32, 32);
+	btn_player_next->setIcon(QIcon("/home/zaic/nsu/cavis/data/icons/media-skip-forward.png"));
+	btn_player_next->setIconSize(QSize(24, 24));
 	connect(btn_player_next, SIGNAL(clicked()), this, SLOT(nextFrame()));
 
 	lbl_frame = new QLabel("?/?");
@@ -156,10 +161,13 @@ QHBoxLayout* Window::createPlayerBar() {
 }
 
 void Window::playerSwitch() {
-	if(player_timer.isActive())
+	if(player_timer.isActive()) {
 		player_timer.stop();
-	else
+		btn_player_start->setIcon(QIcon("/home/zaic/nsu/cavis/data/icons/media-playback-start.png"));
+	} else {
 		player_timer.start();
+		btn_player_start->setIcon(QIcon("/home/zaic/nsu/cavis/data/icons/media-playback-pause.png"));
+	}
 }
 
 void Window::prevFrame() {
@@ -188,5 +196,5 @@ void Window::updateCutConfigLayout(const QString &new_layout_name) {
 	if(last_selected_cut) last_selected_cut->setVisible(false);
 	last_selected_cut = cuts[new_layout_name]->widget();
 	last_selected_cut->setVisible(true);
-	visualizator->cut = cuts[new_layout_name]->getCut();
+	visualizator->cut = cuts[new_layout_name]->getRenderer();
 }

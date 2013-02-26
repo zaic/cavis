@@ -2,12 +2,11 @@
 #include "common.h"
 #include "visualizzzator.h"
 #include "window.h"
-#include "cut/life/lifecut.h"
 #include "config/file/filebasedconfig.h"
 #include "config/network-tcp/tcpconfig.h"
 #include "config/stub/stubconfig.h"
-#include "cut/hpp-loupe/gui.h"
-#include "cut/grayscale/gui.h"
+#include "renderer/hpp-loupe/gui.h"
+#include "renderer/grayscale/gui.h"
 
 #include <boost/asio.hpp>
 
@@ -31,19 +30,18 @@ int main(int argc, char *argv[]) {
 	QApplication app(argc, argv);
 
 	//chdir("examples/current");
-	chdir("/home/zaic/nsu/__ca/data/obmaz");
 	//Config *config = new TcpConfig("localhost", 1807);
 	Config *config = new StubConfig(30, 20);
 
-	CutHPPLoupe *cut = new CutHPPLoupe();
-	CutGUI *cutgui = new CutHPPLoupeGUI(cut);
-	CutGrayScale *cut_scale = new CutGrayScale();
-	CutGUI *cut_scale_gui = new CutGrayScaleGUI(cut_scale);
-	QVector<CutGUI*> supported_cuts;
+	HPPLoupeRenderer *cut = new HPPLoupeRenderer();
+	RendererGUI *cutgui = new HPPLoupeGUI(cut);
+	GrayScaleRenderer *cut_scale = new GrayScaleRenderer();
+	RendererGUI *cut_scale_gui = new GrayScaleGUI(cut_scale);
+	QVector<RendererGUI*> supported_cuts;
 	supported_cuts << cutgui;
 	supported_cuts << cut_scale_gui;
 
-	Visualizzzator *visualizator = new Visualizzzator(config, dynamic_cast<Cut*>(cut));
+	Visualizzzator *visualizator = new Visualizzzator(config, dynamic_cast<Renderer*>(cut));
 	Window w(visualizator, supported_cuts);
 	w.show();
 	return app.exec();

@@ -1,20 +1,20 @@
 #include "gui.h"
 
-CutHPPLoupeGUI::CutHPPLoupeGUI(CutHPPLoupe *_cut) : CutGUI(dynamic_cast<Cut*>(cut)), cut(_cut) {
+HPPLoupeGUI::HPPLoupeGUI(HPPLoupeRenderer *_renderer) : RendererGUI(dynamic_cast<Renderer*>(_renderer)), renderer(_renderer) {
 	buildMainWidget();
 }
 
-CutHPPLoupeGUI::~CutHPPLoupeGUI() {
+HPPLoupeGUI::~HPPLoupeGUI() {
 	delete main_widget;
 }
 
-void CutHPPLoupeGUI::buildMainWidget() {
+void HPPLoupeGUI::buildMainWidget() {
 	chk_autoscale = new QCheckBox;
 	chk_autoscale->setText("autoscale");
 
 	QLabel *lbl_scale = new QLabel(tr("scale:"));
 	spn_scale = new QSpinBox;
-	spn_scale->setMinimum(3);
+	spn_scale->setMinimum(10);
 
 	connect(chk_autoscale, SIGNAL(toggled(bool)), spn_scale, SLOT(setDisabled(bool)));
 	connect(chk_autoscale, SIGNAL(toggled(bool)), this, SLOT(autoscaleToggled(bool)));
@@ -33,16 +33,12 @@ void CutHPPLoupeGUI::buildMainWidget() {
 	main_widget->setLayout(laytmpall);
 }
 
-QWidget *CutHPPLoupeGUI::widget() const {
-	return main_widget;
-}
-
-void CutHPPLoupeGUI::autoscaleToggled(bool value) {
-	cut->setAutoscale(value);
+void HPPLoupeGUI::autoscaleToggled(bool value) {
+	renderer->setAutoscale(value);
 	if(!value)
 		scaleChanged(spn_scale->value());
 }
 
-void CutHPPLoupeGUI::scaleChanged(int value) {
-	cut->setScale(value);
+void HPPLoupeGUI::scaleChanged(int value) {
+	renderer->setScale(value);
 }

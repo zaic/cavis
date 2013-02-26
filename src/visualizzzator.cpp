@@ -1,6 +1,6 @@
 #include "visualizzzator.h"
 
-Visualizzzator::Visualizzzator(Config *_config, Cut *_cut) :
+Visualizzzator::Visualizzzator(Config *_config, Renderer *_cut) :
 	config(_config),
 	cut(_cut)
 {

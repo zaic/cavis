@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../cut.h"
+#include "../renderer.h"
 #include "../../common.h"
 #include "../../config/config.h"
 #include <algorithm>
@@ -8,7 +8,7 @@
 
 using std::min;
 
-class CutHPPLoupe : public Cut {
+class HPPLoupeRenderer : public Renderer {
 	int cell_size;
 	int shift_x, shift_y;
 
@@ -16,8 +16,8 @@ class CutHPPLoupe : public Cut {
 	int scale_cell_size;
 
 public:
-	CutHPPLoupe();
-	virtual ~CutHPPLoupe();
+	HPPLoupeRenderer();
+	virtual ~HPPLoupeRenderer();
 
 	void setAutoscale(bool value) { autoscale = value; }
 	void setScale(int value) { scale_cell_size = value; }
