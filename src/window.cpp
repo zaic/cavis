@@ -12,20 +12,9 @@ Window::Window(Visualizzzator *vis, const QVector<RendererGUI *> &supported_cuts
 	QtSimpleBuffer* qt_buffer = new QtSimpleBuffer();
 	buffer = qt_buffer;
 	mdi_area->addSubWindow(qt_buffer->render_area);
+    mdi_area->currentSubWindow()->showMaximized();
 
-	QHBoxLayout *lay_buttons = new QHBoxLayout;
-	main_layout = new QVBoxLayout;
-
-	QPushButton *btn_render = new QPushButton("render");
-	btn_render->setMaximumWidth(200);
-	//connect(btn_render, SIGNAL(clicked()), render_area, SLOT(setNextFrame()));
-	//connect(btn_render, SIGNAL(clicked()), render_area, SLOT(repaint()));
-	lay_buttons->addWidget(btn_render);
-
-	QPushButton *btn_quit = new QPushButton("quit");
-	btn_quit->setMaximumWidth(200);
-	connect(btn_quit, SIGNAL(clicked()), qApp, SLOT(quit()));
-	lay_buttons->addWidget(btn_quit);
+    main_layout = new QVBoxLayout;
 
 	QSplitter *spl_cut = new QSplitter;
 	spl_cut->addWidget(mdi_area);
@@ -37,7 +26,6 @@ Window::Window(Visualizzzator *vis, const QVector<RendererGUI *> &supported_cuts
 	//main_layout->addWidget(mdi_area);
 	//main_layout->addLayout(lay_buttons);
 	//main_layout->insertLayout(0, createCutConfigBar());
-	//main_layout->removeItem(lay_buttons);
 	main_layout->addWidget(spl_cut);
 	main_layout->addLayout(createPlayerBar());
 
@@ -53,25 +41,9 @@ Window::Window(Visualizzzator *vis, const QVector<RendererGUI *> &supported_cuts
 void Window::initCuts(const QVector<RendererGUI *> &supported_cuts) {
 	last_selected_cut = NULL;
 
-#if 1
 	for(RendererGUI* cut_widget : supported_cuts) {
 		cuts[cut_widget->name()] = cut_widget;
 	}
-#else
-	QPushButton *btn_one = new QPushButton("i'm one");
-	QHBoxLayout *lay_one = new QHBoxLayout;
-	lay_one->addWidget(btn_one);
-	QWidget *wgt_one = new QWidget;
-	wgt_one->setLayout(lay_one);
-	cuts["HPP Loupe"] = wgt_one;
-
-	QPushButton *btn_two = new QPushButton("i'm button");
-	QHBoxLayout *lay_two = new QHBoxLayout;
-	lay_two->addWidget(btn_two);
-	QWidget *wgt_two = new QWidget;
-	wgt_two->setLayout(lay_two);
-	cuts["Rounding"] = wgt_two;
-#endif
 }
 
 void Window::createMenuBar() {
@@ -120,6 +92,7 @@ QHBoxLayout* Window::createPlayerBar() {
 	player_timer.setInterval(500);
 	connect(&player_timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
 
+    // TODO: repacle by render area refresh button
 	btn_player_prev = new QPushButton;
 	btn_player_prev->setFixedSize(32, 32);
 	btn_player_prev->setIcon(QIcon("/home/zaic/nsu/cavis/data/icons/media-skip-backward.png"));

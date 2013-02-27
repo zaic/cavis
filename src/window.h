@@ -12,6 +12,7 @@
 #include <QComboBox>
 #include <QMap>
 #include <QMdiArea>
+#include <QMdiSubWindow>
 #include <QMenuBar>
 #include <QSplitter>
 #include <QMenu>
