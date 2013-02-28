@@ -1,6 +1,10 @@
 #pragma once
 
-class Config {
+// TODO: replace REAL by NOTHING
+// TODO: replace data type from char to void
+
+class Config
+{
 	Config(const Config& );
 	Config& operator=(const Config& );
 
@@ -25,7 +29,4 @@ public:
 	virtual int getRealDimSizeX() const { return getRealDimSize(0); }
 	virtual int getRealDimSizeY() const { return getRealDimSize(1); }
 	virtual int getRealDimSizeZ() const { return getRealDimSize(2); }
-
-	// TODO: thinking...
-	//virtual void setLogicSize(int x, int y) = 0;
 };

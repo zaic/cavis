@@ -5,8 +5,10 @@
 #include "config/file/filebasedconfig.h"
 #include "config/network-tcp/tcpconfig.h"
 #include "config/stub/stubconfig.h"
+#include "config/local/localfileconfig.h"
 #include "renderer/hpp-loupe/gui.h"
 #include "renderer/grayscale/gui.h"
+#include "renderer/projection/gui.h"
 
 #include <boost/asio.hpp>
 
@@ -29,19 +31,35 @@ void test() {
 int main(int argc, char *argv[]) {
 	QApplication app(argc, argv);
 
-	//chdir("examples/current");
+	/*
+	 *	CONFIG
+	 */
 	//Config *config = new TcpConfig("localhost", 1807);
 	Config *config = new StubConfig(30, 20);
+	Config *local_config = new LocalFileConfig("/storage/tmp/ca_dumps/density");
 
+	/*
+	 *	RENDERER
+	 */
 	HPPLoupeRenderer *cut = new HPPLoupeRenderer();
 	RendererGUI *cutgui = new HPPLoupeGUI(cut);
+
 	GrayScaleRenderer *cut_scale = new GrayScaleRenderer();
 	RendererGUI *cut_scale_gui = new GrayScaleGUI(cut_scale);
+
+	ProjectionRenderer *cut_proj = new ProjectionRenderer();
+	ProjectionGUI *cut_proj_gui = new ProjectionGUI(cut_proj);
+
 	QVector<RendererGUI*> supported_cuts;
+	// fill supported cuts list
+	supported_cuts << cut_proj_gui;
 	supported_cuts << cutgui;
 	supported_cuts << cut_scale_gui;
 
-	Visualizzzator *visualizator = new Visualizzzator(config, dynamic_cast<Renderer*>(cut));
+	/*
+	 *	APPLICATION
+	 */
+	Visualizzzator *visualizator = new Visualizzzator(local_config, dynamic_cast<Renderer*>(cut_proj));
 	Window w(visualizator, supported_cuts);
 	w.show();
 	return app.exec();

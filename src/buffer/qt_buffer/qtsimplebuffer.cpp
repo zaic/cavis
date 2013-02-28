@@ -7,6 +7,7 @@ QtSimpleBuffer::QtSimpleBuffer() : GraphicBuffer(), shift_x(0), shift_y(0) {
 	render_window = new QWidget;
 
 	QGridLayout *lay_main = new QGridLayout;
+	//lay_main->setSpacing(1);
 	lay_main->addWidget(render_area, 0, 0);
 	lay_main->addWidget(scb_render_height, 0, 1);
 	lay_main->addWidget(scb_render_width, 1, 0);

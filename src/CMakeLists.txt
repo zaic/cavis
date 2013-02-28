@@ -25,12 +25,17 @@ add_subdirectory(./renderer)
 aux_source_directory(./renderer SRC_LIST)
 aux_source_directory(./renderer/hpp-loupe SRC_LIST)
 aux_source_directory(./renderer/grayscale SRC_LIST)
+aux_source_directory(./renderer/projection SRC_LIST)
+
+add_subdirectory(./layer)
+aux_source_directory(./layer SRC_LIST)
 
 add_subdirectory(./config)
 aux_source_directory(./config SRC_LIST)
 aux_source_directory(./config/file SRC_LIST)
 aux_source_directory(./config/network-tcp SRC_LIST)
 aux_source_directory(./config/stub SRC_LIST)
+aux_source_directory(./config/local SRC_LIST)
 
 set(MOC_HEADERS
 	window.h
@@ -39,6 +44,7 @@ set(MOC_HEADERS
     renderer/gui.h
     renderer/hpp-loupe/gui.h
     renderer/grayscale/gui.h
+    renderer/projection/gui.h
 )
 qt4_wrap_cpp(MOC_SRC ${MOC_HEADERS})
 
