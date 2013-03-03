@@ -15,7 +15,5 @@ public:
 	GrayScaleRenderer();
 	virtual ~GrayScaleRenderer();
 
-	virtual void init(Config *_config = NULL, GraphicBuffer *_buffer = NULL);
-	virtual void draw(int x, int y);
-	virtual void finalize();
+	virtual void draw();
 };

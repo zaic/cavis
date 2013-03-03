@@ -30,7 +30,13 @@ void QtSimpleBuffer::setupScrollBar(QScrollBar *render_scroll_bar, int real_size
 	render_scroll_bar->setValue(shift);
 }
 
-bool QtSimpleBuffer::prepare(int real_width, int real_height, int shift_x_, int shift_y_) {
+void QtSimpleBuffer::create() {
+	// TODO
+}
+
+void QtSimpleBuffer::prepare(int real_width, int real_height, int shift_x_, int shift_y_) {
+	// TODO: add some exceptions
+
 	// set scrollbars
 #if 0
 	if(shift_x_ >= 0)
@@ -51,13 +57,11 @@ bool QtSimpleBuffer::prepare(int real_width, int real_height, int shift_x_, int 
 	// TODO SMART POINTERS!!!!111
 	// call new without delete :'(
 	image = new QImage(width(), height(), QImage::Format_RGB32);
-	if(image == NULL) return false;
+	if(image == NULL) return ;
 	image->fill(Qt::white);
 
 	painter = new QPainter(image);
-	if(painter == NULL) return false;
-
-	return true;
+	if(painter == NULL) return ;
 }
 
 void QtSimpleBuffer::complete() {
@@ -73,4 +77,12 @@ void QtSimpleBuffer::setColor(uint color) {
 
 void QtSimpleBuffer::drawPixel(int x, int y) {
 	painter->drawPoint(x + 1 - shift_x, y + 1 - shift_y);
+}
+
+void QtSimpleBuffer::drawLine(int x0, int y0, int x1, int y1) {
+	painter->drawLine(x0, y0, x1, y1);
+}
+
+void QtSimpleBuffer::drawText(int x, int y, const char *text) {
+	painter->drawText(x, y, text);
 }

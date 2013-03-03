@@ -25,7 +25,8 @@ public:
 	QtSimpleBuffer();
 	virtual ~QtSimpleBuffer() { delete render_window; }
 
-	virtual bool prepare(int real_width = -1, int real_height = -1, int shift_x_ = -1, int shift_y_ = -1);
+	virtual void create();
+	virtual void prepare(int real_width = -1, int real_height = -1, int shift_x_ = -1, int shift_y_ = -1);
 	virtual void complete();
 
 	virtual int width() const { return render_area->width(); }
@@ -34,4 +35,6 @@ public:
 	virtual void setColor(uint color);
 
 	virtual void drawPixel(int x, int y);
+	virtual void drawLine(int x0, int y0, int x1, int y1);
+	virtual void drawText(int x, int y, const char *text);
 };

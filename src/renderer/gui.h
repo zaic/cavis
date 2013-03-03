@@ -1,16 +1,18 @@
 #pragma once
 
-#include "renderer.h"
 #include <QLabel>
 
-class RendererGUI : public QObject {
+class Renderer;
+
+class RendererGUI : public QObject
+{
 	Q_OBJECT
 
 	RendererGUI();
 	RendererGUI(const RendererGUI& );
 	RendererGUI& operator=(const RendererGUI& );
 
-	Renderer *_renderer;
+	Renderer *p_renderer;
 
 protected:
 	QWidget *main_widget;
@@ -19,8 +21,8 @@ public:
 	RendererGUI(Renderer *);
 	virtual ~RendererGUI();
 
-	virtual Renderer* getRenderer() const { return _renderer; }
+	virtual Renderer* getRenderer() const { return p_renderer; }
 
-	virtual QString name() const = 0;
-	virtual QWidget* widget() const { return main_widget; }
+	virtual QString getName() const = 0;
+	virtual QWidget* getWidget() const { return main_widget; }
 };

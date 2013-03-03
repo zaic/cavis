@@ -8,10 +8,7 @@ HPPLoupeRenderer::~HPPLoupeRenderer() {
 
 }
 
-void HPPLoupeRenderer::init(Config *_config, GraphicBuffer *_buffer) {
-	if(_config) config = _config;
-	if(_buffer) buffer = _buffer;
-
+void HPPLoupeRenderer::draw() {
 	if(autoscale) {
 		int cell_width  = (buffer->width() - 2) / config->getRealDimSizeX();
 		int cell_height = (buffer->height() - 2) / config->getRealDimSizeY();
@@ -27,42 +24,36 @@ void HPPLoupeRenderer::init(Config *_config, GraphicBuffer *_buffer) {
 	shift_x = shift_y = 0;
 
 	buffer->prepare(cell_size * config->getRealDimSizeX(), cell_size * config->getRealDimSizeY());
-}
 
-void HPPLoupeRenderer::draw(int x, int y) {
-	// тут за нами полный выбор где рисовать
-	uchar* data = (uchar*)config->getRealData();
-	const int rx = config->getRealDimSizeX();
-	int id = (y * rx + x);
-	uchar cell_data = data[id];
-	uint value = 0xffeeeeee;
+	for(int y = 0; y < config->getRealDimSizeY(); y++) {
+		for(int x = 0; x < config->getRealDimSizeX(); x++) {
+			// тут за нами полный выбор где рисовать
+			uchar* data = (uchar*)config->getRealData();
+			const int rx = config->getRealDimSizeX();
+			int id = (y * rx + x);
+			uchar cell_data = data[id];
+			uint value = 0xffeeeeee;
 
-	// TODO replace to fillRectangle
-	// TODO draw lightgray rectangle
-	buffer->setColor(value);
-	for(int i = 1; i < cell_size; i++)
-		for(int j = 1; j < cell_size; j++)
-			buffer->drawPixel(shift_x + x * cell_size + i, shift_y + y * cell_size + j);
+			// TODO replace to fillRectangle
+			// TODO draw lightgray rectangle
+			buffer->setColor(value);
+			for(int i = 1; i < cell_size; i++)
+				for(int j = 1; j < cell_size; j++)
+					buffer->drawPixel(shift_x + x * cell_size + i, shift_y + y * cell_size + j);
 
-	const int dim[4][2] = { {0, -1}, {1, 0}, {0, 1}, {-1, 0} };
-	const int cell_mid_x = shift_x + x * cell_size + cell_size / 2 + 1;
-	const int cell_mid_y = shift_y + y * cell_size + cell_size / 2 + 1;
-	buffer->setColor(0xff000000);
-	for(int i = 0; i < 4; i++)
-		if(cell_data & (1 << i)) {
-			for(int k = 0; k <= cell_size / 2; k++)
-				buffer->drawPixel(cell_mid_x + k * dim[i][0], cell_mid_y + k * dim[i][1]);
-			for(int k = 0; k < 4; k++) {
-				for(int q = 1; q < 2; q++)
-				buffer->drawPixel(cell_mid_x + (cell_size / 2 - q) * dim[i][0] + dim[k][0] * q, cell_mid_y + (cell_size / 2 - q) * dim[i][1] + dim[k][1] * q);
-			}
+			const int dim[4][2] = { {0, -1}, {1, 0}, {0, 1}, {-1, 0} };
+			const int cell_mid_x = shift_x + x * cell_size + cell_size / 2 + 1;
+			const int cell_mid_y = shift_y + y * cell_size + cell_size / 2 + 1;
+			buffer->setColor(0xff000000);
+			for(int i = 0; i < 4; i++)
+				if(cell_data & (1 << i)) {
+					for(int k = 0; k <= cell_size / 2; k++)
+						buffer->drawPixel(cell_mid_x + k * dim[i][0], cell_mid_y + k * dim[i][1]);
+					for(int k = 0; k < 4; k++) {
+						for(int q = 1; q < 2; q++)
+							buffer->drawPixel(cell_mid_x + (cell_size / 2 - q) * dim[i][0] + dim[k][0] * q, cell_mid_y + (cell_size / 2 - q) * dim[i][1] + dim[k][1] * q);
+					}
+				}
 		}
-}
-
-void HPPLoupeRenderer::finalize() {
-	qDebug() << "sx = " << shift_x;
-	qDebug() << "sy = " << shift_y;
-	qDebug() << "cell_size = " << cell_size;
-	//qDebug() << "count = " << min(buffer->getX() / cell_size, buffer->getY() / cell_size) << endl;
-	// do nothing
+	}
 }

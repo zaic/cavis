@@ -1,8 +1,8 @@
 #include "visualizzzator.h"
 
-Visualizzzator::Visualizzzator(Config *_config, Renderer *_cut) :
+Visualizzzator::Visualizzzator(Config *_config, Renderer *_renderer) :
 	config(_config),
-	cut(_cut)
+	renderer(_renderer)
 {
 
 }
@@ -11,19 +11,11 @@ Visualizzzator::~Visualizzzator() {
 
 }
 
-void Visualizzzator::draw(GraphicBuffer* buffer) {
-	// TODO бегать нужно по логическому дву(трёх-)мерному пространству же!
-	//     а пока что работает в предположении прямого отображения
-
-	// TODO выпилить init и finalize (тогда и предыдущая тудушка не нужна)
-
-	if(!buffer->prepare()) return ;// moved to cut
-	cut->init(config, buffer);
-	for(int y = 0; y < config->getRealDimSizeY(); y++)
-		for(int x = 0; x < config->getRealDimSizeX(); x++) {
-			cut->draw(x, y);
-		}
-	cut->finalize();
+void Visualizzzator::draw() {
+	buffer->create();
+	renderer->setConfig(config);
+	renderer->setBuffer(buffer);
+	renderer->draw();
 	buffer->complete();
 #if 0
 	for(int y = 0; y < config->getRealDimSize(0); y++)

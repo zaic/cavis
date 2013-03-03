@@ -1,24 +1,36 @@
 #pragma once
 
-#include "projection.h"
+#include <QSpinBox>
+//#include "projection.h"
+#include "../renderer.h"
 #include "../gui.h"
+
+class ProjectionRenderer;
 
 class ProjectionGUI : public RendererGUI
 {
+	Q_OBJECT
+
 	ProjectionGUI();
 	ProjectionGUI(const ProjectionGUI& );
 	ProjectionGUI& operator=(const ProjectionGUI& );
 
-	ProjectionRenderer *renderer;
+	//ProjectionRenderer *renderer;
+	QSpinBox *scale;
+	QSpinBox *factor;
+
+	void builMainWidget();
+
+	friend class ProjectionRenderer;
 
 public:
-	ProjectionGUI(ProjectionRenderer*);
+	ProjectionGUI(Renderer*);
 	virtual ~ProjectionGUI();
 	
-	virtual QString name() const { return "1D Projection"; }
+	virtual QString getName() const { return tr("1D Projection"); }
 
 signals:
 	
 public slots:
-	
+
 };

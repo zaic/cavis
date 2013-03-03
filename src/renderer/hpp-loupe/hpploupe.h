@@ -22,7 +22,5 @@ public:
 	void setAutoscale(bool value) { autoscale = value; }
 	void setScale(int value) { scale_cell_size = value; }
 
-	virtual void init(Config *_config = NULL, GraphicBuffer *_buffer = NULL);
-	virtual void draw(int x, int y);
-	virtual void finalize();
+	virtual void draw();
 };

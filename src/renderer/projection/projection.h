@@ -1,25 +1,29 @@
 #pragma once
 
 #include <QDebug>
+#include <root/Math/Interpolator.h>
 #include "../renderer.h"
-#include "../gui.h"
 #include <algorithm>
+#include <vector>
+#include "gui.h"
 
 using std::min;
+using std::max;
+using std::vector;
+using ROOT::Math::Interpolator;
 
 class ProjectionRenderer : public Renderer
 {
 	ProjectionRenderer(const ProjectionRenderer& );
 	ProjectionRenderer& operator=(const ProjectionRenderer& );
 
-	double last_value;
-	int buffer_using_width;
+	ProjectionGUI *parameters;
 
 public:
 	ProjectionRenderer();
 	virtual ~ProjectionRenderer();
 
-	virtual void init(Config *_config = NULL, GraphicBuffer *_buffer = NULL);
-	virtual void draw(int x, int y);
-	virtual void finalize();
+	virtual void setParameters(RendererGUI *_parameters) { parameters = qobject_cast<ProjectionGUI*>(_parameters); }
+
+	virtual void draw();
 };
