@@ -70,7 +70,6 @@ void ProjectionRenderer::draw()
 	}
 	uint color = 0xffff0000;
 	buffer->setColor(color);
-
 	for(int x = 0; x < nn; x++) {
 		const int rx = x; //config->getRealDimSizeX();
 		int value = int(inter.Eval(x) + .5);
@@ -82,5 +81,16 @@ void ProjectionRenderer::draw()
 			buffer->drawPixel(rx, value);
 		last_value = value;
 	}
+
+    color = 0xff00cc00;
+    buffer->setColor(color);
+    int px = data_x[0];
+    int py = data_y[0];
+    for(int ii = 1; ii < n / 10; ii++) {
+        int i = ii * 10;
+        buffer->drawLine(px, value_invert - py, data_x[i], value_invert - data_y[i]);
+        px = data_x[i];
+        py = data_y[i];
+    }
 	// TODO: draw numbers
 }

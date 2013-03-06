@@ -49,3 +49,27 @@ CALC -ITERATIONS 10
 GET -TYPE DENSITY
 	OK -SIZE 2073600 -DATA *%(&^$#&^$)(#@&$(*@&#)$&
 DISCONNECT
+
+---
+
+CONNECT -ASYNC
+	OK
+CALC
+	OK
+GET
+	OK
+GET
+	OK
+
+---
+
+init
+data
+run
+
+---
+
+int init(int sync);
+int calc();
+void* data(); // ?
+void quit();
