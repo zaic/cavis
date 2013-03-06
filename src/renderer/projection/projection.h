@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <root/Math/Interpolator.h>
 #include "../renderer.h"
+#include "../../common.h"
 #include <algorithm>
 #include <vector>
 #include "gui.h"

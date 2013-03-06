@@ -16,8 +16,8 @@ class ProjectionGUI : public RendererGUI
 	ProjectionGUI& operator=(const ProjectionGUI& );
 
 	//ProjectionRenderer *renderer;
-	QSpinBox *scale;
-	QSpinBox *factor;
+	QSpinBox *x_scale;
+	QSpinBox *y_scale;
 
 	void builMainWidget();
 

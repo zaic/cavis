@@ -43,7 +43,7 @@ aux_source_directory(./config/stub SRC_LIST)
 aux_source_directory(./config/local SRC_LIST)
 
 set(MOC_HEADERS
-	window.h
+    window.h
     windowevent.h
     buffer/qt_buffer/renderarea.h
     renderer/gui.h

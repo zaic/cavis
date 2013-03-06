@@ -1,10 +1,12 @@
 #include "renderarea.h"
 
-RenderArea::RenderArea(QWidget *_parent) : QWidget(_parent), buffer_image(NULL) {
+RenderArea::RenderArea(QWidget *_parent) : QWidget(_parent), buffer_image(NULL)
+{
 
 }
 
-void RenderArea::paintEvent(QPaintEvent* ) {
+void RenderArea::paintEvent(QPaintEvent* )
+{
 	QPainter painter(this);
 	painter.setPen(Qt::black);
 	painter.fillRect(0, 0, width(), height(), Qt::white);
@@ -20,7 +22,8 @@ void RenderArea::paintEvent(QPaintEvent* ) {
 	*/
 }
 
-void RenderArea::drawImage(QImage *image) {
+void RenderArea::drawImage(QImage *image)
+{
 	buffer_image = image;
 	this->update();
 }

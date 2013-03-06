@@ -2,7 +2,8 @@
 
 #include "../common.h"
 
-class GraphicBuffer {
+class GraphicBuffer
+{
 	GraphicBuffer(const GraphicBuffer& );
 	GraphicBuffer& operator=(const GraphicBuffer& );
 
@@ -19,10 +20,27 @@ public:
 	// вызывается визуализатором после того, как Renderer нарисовался
 	virtual void complete() = 0;
 
+	// поддержка скроллинга
+	static const int SCROLL_DISABLE = -1807;
+	static const int SCROLL_PREVIOUS_VALUE = -2911;
+	// TODO: AUTO and set it by default. и можно ещё enum запилить.
+	virtual void setXScroll(int max_value, int current_value = SCROLL_PREVIOUS_VALUE) = 0;
+	virtual int  getXScroll() const = 0;
+	virtual void setYScroll(int max_value, int current_value = SCROLL_PREVIOUS_VALUE) = 0;
+	virtual int  getYScroll() const = 0;
+
+	// возвращается непосредственно объект, для которого сделана обёртка
+	virtual void* getRawPaintDevice() = 0;
+
+	// ширина видимой для рисования площади
 	virtual int width() const = 0;
+	// высота видимой для рисования площади
 	virtual int height() const = 0;
 
-	// TODO migrate to QPainter ?
+	// актуально, когда надо рисовать, игнорируя полосы прокрутки
+	virtual int getX(int x) const { return x; }
+	virtual int getY(int y) const { return y; }
+
 	virtual void setColor(uint color) = 0;
 
 	virtual void drawPixel(int x, int y) = 0;
