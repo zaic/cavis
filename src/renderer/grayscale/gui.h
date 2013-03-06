@@ -24,7 +24,7 @@ public:
 	GrayScaleGUI(GrayScaleRenderer*);
 	virtual ~GrayScaleGUI();
 
-	virtual QString name() const { return QString("Gray scale"); }
+	virtual QString getName() const { return QString("Gray scale"); }
 
 public slots:
 

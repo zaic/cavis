@@ -2,6 +2,7 @@
 
 // TODO: replace REAL by NOTHING
 // TODO: replace data type from char to void
+// TODO: add opportunity to get data by type
 
 class Config
 {

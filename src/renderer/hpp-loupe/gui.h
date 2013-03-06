@@ -25,7 +25,7 @@ public:
 	HPPLoupeGUI(HPPLoupeRenderer*);
 	virtual ~HPPLoupeGUI();
 
-	virtual QString name() const { return QString("HPP Loupe"); }
+	virtual QString getName() const { return QString("HPP Loupe"); }
 
 public slots:
 	void autoscaleToggled(bool value);

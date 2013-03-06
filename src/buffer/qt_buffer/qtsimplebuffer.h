@@ -3,10 +3,12 @@
 #include <QPainter>
 #include <QScrollBar>
 #include <QGridLayout>
+#include <QDebug>
 #include "../buffer.h"
 #include "renderarea.h"
 
-class QtSimpleBuffer : public GraphicBuffer {
+class QtSimpleBuffer : public GraphicBuffer
+{
 	QtSimpleBuffer(const QtSimpleBuffer& );
 	QtSimpleBuffer& operator=(const QtSimpleBuffer& );
 
@@ -25,13 +27,26 @@ public:
 	QtSimpleBuffer();
 	virtual ~QtSimpleBuffer() { delete render_window; }
 
-	virtual bool prepare(int real_width = -1, int real_height = -1, int shift_x_ = -1, int shift_y_ = -1);
+	virtual void create();
+	virtual void prepare(int real_width = -1, int real_height = -1, int shift_x_ = -1, int shift_y_ = -1);
 	virtual void complete();
+
+	virtual void setXScroll(int max_value, int current_value = SCROLL_PREVIOUS_VALUE);
+	virtual int  getXScroll() const { return scb_render_width->value(); }
+	virtual void setYScroll(int max_value, int current_value = SCROLL_PREVIOUS_VALUE);
+	virtual int  getYScroll() const { return scb_render_height->value(); }
+
+	virtual void* getRawPaintDevice() { return painter; }
 
 	virtual int width() const { return render_area->width(); }
 	virtual int height() const { return render_area->height(); }
 
+	virtual int getX(int x) const { return x + shift_x; }
+	virtual int getY(int y) const { return y + shift_y; }
+
 	virtual void setColor(uint color);
 
 	virtual void drawPixel(int x, int y);
+	virtual void drawLine(int x0, int y0, int x1, int y1);
+	virtual void drawText(int x, int y, const char *text);
 };

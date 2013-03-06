@@ -8,6 +8,7 @@
 #include "config/local/localfileconfig.h"
 #include "renderer/hpp-loupe/gui.h"
 #include "renderer/grayscale/gui.h"
+#include "renderer/projection/projection.h"
 #include "renderer/projection/gui.h"
 
 #include <boost/asio.hpp>
@@ -62,5 +63,6 @@ int main(int argc, char *argv[]) {
 	Visualizzzator *visualizator = new Visualizzzator(local_config, dynamic_cast<Renderer*>(cut_proj));
 	Window w(visualizator, supported_cuts);
 	w.show();
+	w.resize(1280, 800);
 	return app.exec();
 }

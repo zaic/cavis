@@ -26,14 +26,19 @@ public:
 	/**
 	 * @brief Публичный указатель на класс отображения логического пространства в буфер экрана
 	 */
-	Renderer *cut;
+	Renderer *renderer;
+
+	/**
+	 * @brief Публичный указатель на окно для рисования
+	 */
+	GraphicBuffer* buffer;
 
 	/**
 	 * @brief Конструктор из конфига и отображения
 	 * @param _config конфиг
 	 * @param _cut маппер из реального пространства в логическое
 	 */
-	Visualizzzator(Config *_config, Renderer *_cut);
+	Visualizzzator(Config *_config, Renderer *_renderer);
 
 	/**
 	 * @brief Всеразрушающий деструктор
@@ -44,5 +49,5 @@ public:
 	 * @brief Совершает непотребство с буфером, т.е. рисует на нём
 	 * @param buffer Буфер, на котором будет отрисовываться картинка
 	 */
-	void draw(GraphicBuffer* buffer);
+	void draw();
 };

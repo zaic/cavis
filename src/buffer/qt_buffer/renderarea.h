@@ -3,7 +3,8 @@
 #include <QWidget>
 #include <QPainter>
 
-class RenderArea : public QWidget {
+class RenderArea : public QWidget
+{
 	Q_OBJECT
 
 	QImage *buffer_image;
