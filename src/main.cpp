@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 	 */
 	//Config *config = new TcpConfig("localhost", 1807);
 	Config *config = new StubConfig(30, 20);
-	Config *local_config = new LocalFileConfig("/storage/tmp/ca_dumps/density");
+    Config *local_config = new LocalFileConfig("/home/zaic/tmp/ca_dumps/density");
 
 	/*
 	 *	RENDERER
