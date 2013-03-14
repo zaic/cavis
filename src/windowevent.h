@@ -14,7 +14,7 @@ public:
 
 	static WindowEvent* get();
 	
-	void doRequireRepaint();
+    void doRequireRepaint() { emit requireRepaint(); }
 
 signals:
 	void requireRepaint();

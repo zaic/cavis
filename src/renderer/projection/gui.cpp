@@ -4,7 +4,7 @@ ProjectionGUI::ProjectionGUI(Renderer *_renderer) : RendererGUI(dynamic_cast<Ren
 {
 	// тили-тили
 	_renderer->setParameters(this);
-	builMainWidget();
+    buildMainWidget();
 }
 
 ProjectionGUI::~ProjectionGUI()
@@ -12,35 +12,40 @@ ProjectionGUI::~ProjectionGUI()
 	// трали-вали
 }
 
-void ProjectionGUI::builMainWidget() {
-	// Scale
-	QLabel *lbl_scale = new QLabel(tr("X-scale:"));
-	x_scale = new QSpinBox;
-	x_scale->setMinimum(1);
-	x_scale->setMaximum(100500);
-	x_scale->setValue(100);
+QHBoxLayout* ProjectionGUI::buildScalePanel(QSpinBox*& spin_box, const char* name)
+{
+    QLabel *lbl_scale = new QLabel(QObject::tr(name));
+    spin_box = new QSpinBox;
+    spin_box->setMinimum(1);
+    spin_box->setMaximum(100500);
+    spin_box->setValue(100);
+    spin_box->setSuffix("%");
 
-	QLabel *lbl_factor = new QLabel(tr("Y-factor:"));
-	y_scale = new QSpinBox;
-	y_scale->setMinimum(1);
-	y_scale->setMaximum(100500);
-	y_scale->setValue(100);
+    // TODO: move icons to another resource file
+    // TODO: create actions
+    QPushButton *btn_zoom_out = createButtonFromIcon(":/icons/zoom-out.png", 24);
+    QPushButton *btn_zoom_in  = createButtonFromIcon(":/icons/zoom-in.png",  24);
 
-	// Interpolation
+    QHBoxLayout *laytmpscale = new QHBoxLayout;
+    laytmpscale->addWidget(lbl_scale);
+    laytmpscale->addWidget(spin_box);
+    laytmpscale->addWidget(btn_zoom_out);
+    laytmpscale->addWidget(btn_zoom_in);
+
+    return laytmpscale;
+}
+
+void ProjectionGUI::buildMainWidget() {
+    // Scale
+    QHBoxLayout *lay_scale_x = buildScalePanel(x_scale, "X-scale:");
+    QHBoxLayout *lay_scale_y = buildScalePanel(y_scale, "Y-scale:");
+
+    // Interpolation
 	// TODO
 
-	// Layouts
-	QHBoxLayout *laytmpscale = new QHBoxLayout;
-	laytmpscale->addWidget(lbl_scale);
-	laytmpscale->addWidget(x_scale);
-
-	QHBoxLayout *laytmpfactor = new QHBoxLayout;
-	laytmpfactor->addWidget(lbl_factor);
-	laytmpfactor->addWidget(y_scale);
-
-	QVBoxLayout *laytmpall = new QVBoxLayout;
-	laytmpall->addLayout(laytmpscale);
-	laytmpall->addLayout(laytmpfactor);
+    QVBoxLayout *laytmpall = new QVBoxLayout;
+    laytmpall->addLayout(lay_scale_x);
+    laytmpall->addLayout(lay_scale_y);
 
 	main_widget = new QWidget;
 	main_widget->setLayout(laytmpall);

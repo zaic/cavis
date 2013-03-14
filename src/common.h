@@ -36,14 +36,16 @@ typedef float real;
 #include <sstream>
 
 template<typename T>
-std::string toStdString(const T& val) {
+std::string toStdString(const T& val)
+{
 	std::ostringstream ss;
 	ss << val;
 	return ss.str();
 }
 
 template<typename T>
-T fromStdString(const std::string& s) {
+T fromStdString(const std::string& s)
+{
 	std::istringstream ss(s);
 	T val;
 	ss >> val;
@@ -55,6 +57,11 @@ T fromStdString(const std::string& s) {
  */
 
 template<typename T>
-inline T divup(const T& a, const T& b) {
+inline T divup(const T& a, const T& b)
+{
 	return (a + b - 1) / a;
 }
+
+#include <QPushButton>
+#include <QSize>
+QPushButton* createButtonFromIcon(const char* icon_path, int icon_size, int button_size = -1);

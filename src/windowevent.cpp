@@ -11,7 +11,3 @@ WindowEvent* WindowEvent::get() {
 	static WindowEvent *obj = new WindowEvent;
 	return obj;
 }
-
-void WindowEvent::doRequireRepaint() {
-	emit requireRepaint();
-}

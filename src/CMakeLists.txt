@@ -41,6 +41,7 @@ aux_source_directory(./config/file SRC_LIST)
 aux_source_directory(./config/network-tcp SRC_LIST)
 aux_source_directory(./config/stub SRC_LIST)
 aux_source_directory(./config/local SRC_LIST)
+aux_source_directory(./config/dll SRC_LIST)
 
 set(MOC_HEADERS
     window.h

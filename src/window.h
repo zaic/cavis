@@ -22,6 +22,7 @@
 #include "renderer/gui.h"
 #include "visualizzzator.h"
 #include "buffer/qt_buffer/qtsimplebuffer.h"
+#include "common.h"
 
 class Window : public QMainWindow {
 	Q_OBJECT
@@ -77,10 +78,10 @@ public slots:
 	void playerSwitch();
 
 	// main actions to control process
-	void nextFrame();
-	void prevFrame();
-	void setFrame(int frame);
+    void nextFrame() { updateFramesCounter(config->nextFrame()); }
+    void prevFrame() { updateFramesCounter(config->prevFrame()); }
+    void setFrame(int frame) { updateFramesCounter(config->setFrame(frame)); }
 
 	// update current frame value in slider and label
-	void updateFramesCounter(int frame = Config::FRAME_NOT_CHANGED);
+    void updateFramesCounter(int frame = Config::FRAME_FORCED_UPDATE);
 };
