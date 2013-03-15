@@ -6,7 +6,7 @@ class WindowEvent : public QObject
 {
 	Q_OBJECT
 
-	explicit WindowEvent(QObject *parent = NULL);
+	explicit WindowEvent(QObject *_parent = NULL);
 	WindowEvent(const WindowEvent&);
 	WindowEvent& operator=(const WindowEvent&);
 public:

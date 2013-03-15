@@ -17,7 +17,7 @@ include_directories(${ROOT_INCLUDE_DIR} "${ROOT_INCLUDE_DIR}/root")
 link_directories("${ROOT_LIBRARY_DIR}/root") # TODO: fix
 
 #set(CMAKE_BUILD_TYPE distribution) do nothing :(
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -O0 -D_DEBUG -g")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -Wold-style-cast -Wfloat-equal -Woverloaded-virtual -O0 -D_DEBUG -g")
 
 
 aux_source_directory(. SRC_LIST)

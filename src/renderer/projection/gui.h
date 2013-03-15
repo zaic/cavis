@@ -2,6 +2,7 @@
 
 #include <QSpinBox>
 #include <QPushButton>
+#include <QCheckBox>
 #include "../renderer.h"
 #include "../gui.h"
 #include "../../common.h"
@@ -18,6 +19,7 @@ class ProjectionGUI : public RendererGUI
 
     QSpinBox *x_scale;
     QSpinBox *y_scale;
+	QCheckBox *chk_interpolation, *chk_segments;
 
     void buildMainWidget();
     QHBoxLayout* buildScalePanel(QSpinBox*&, const char *);

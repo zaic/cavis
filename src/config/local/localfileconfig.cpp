@@ -49,17 +49,17 @@ int LocalFileConfig::setFrame(int frame_id) {
 	return frame_id;
 }
 
-int LocalFileConfig::getRealDimSize(int dim) const {
+int LocalFileConfig::getDimSize(int dim) const {
 	if(dim < 0 || dim > 2)
 		return 1;
 	return dim_size[dim];
 }
 
-const char* LocalFileConfig::getRealData() const {
+void* LocalFileConfig::getData(void*) {
 	if(data.empty()) {
 		// ну ой, такого быть не должно
 		qDebug() << "There are no any loaded data :(";
 	}
 	qDebug() << "[config/local] data size = " << data.size();
-	return reinterpret_cast<const char*>(data.data());
+	return reinterpret_cast<void*>(data.data());
 }

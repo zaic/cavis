@@ -29,7 +29,7 @@ FileBasedConfig::~FileBasedConfig() {
 	if(data) delete[] data;
 }
 
-inline int FileBasedConfig::getRealDimSize(int dim) const {
+inline int FileBasedConfig::getDimSize(int dim) const {
 	switch(dim) {
 	case 0: return real_x;
 	case 1: return real_y;

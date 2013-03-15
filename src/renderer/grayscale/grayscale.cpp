@@ -1,28 +1,33 @@
 #include "grayscale.h"
 
-GrayScaleRenderer::GrayScaleRenderer() {
-}
-
-GrayScaleRenderer::~GrayScaleRenderer() {
+GrayScaleRenderer::GrayScaleRenderer()
+{
 
 }
 
-void GrayScaleRenderer::draw() {
+GrayScaleRenderer::~GrayScaleRenderer()
+{
+
+}
+
+void GrayScaleRenderer::draw()
+{
 #if 0
 	for(int y = 0; y < config->getRealDimSizeY(); y++)
 		for(int x = 0; x < config->getRealDimSizeX(); x++) {
 			renderer->draw(x, y);
 		}
 #endif
-	for(int y = 0; y < config->getRealDimSizeY(); y++)
-		for(int x = 0; x < config->getRealDimSizeX(); x++) {
-			uchar* data = (uchar*)config->getRealData();
-			const int rx = config->getRealDimSizeX();
+	const int cell_size = 15;
+	buffer->prepare(cell_size * config->getDimSizeX(), cell_size * config->getDimSizeY());
+	for(int y = 0; y < config->getDimSizeY(); y++)
+		for(int x = 0; x < config->getDimSizeX(); x++) {
+			uchar* data = reinterpret_cast<uchar*>(config->getData());
+			const int rx = config->getDimSizeX();
 			int id = (y * rx + x);
 			uchar cell_data = data[id];
 			int bits = __builtin_popcount(cell_data);
 			uint value = 0xffeeeeee - 0x333333 * bits;
-			int cell_size = 15;
 			int shift_x = 0, shift_y = 0;
 
 			buffer->setColor(value);

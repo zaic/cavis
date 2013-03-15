@@ -36,11 +36,11 @@ public:
 	virtual int setFrame(int frame);
 	virtual int getFramesCount() { return frames_count; }
 
-    virtual const char* getRealData() const { return data; }
-	virtual int getRealDimSize(int dim) const;
-	virtual int getRealDimSizeX() const { return real_x; }
-	virtual int getRealDimSizeY() const { return real_y; }
-	virtual int getRealDimSizeZ() const { return 1; }
+	virtual void* getData(void* = NULL) { return data; }
+	virtual int getDimSize(int dim) const;
+	virtual int getDimSizeX() const { return real_x; }
+	virtual int getDimSizeY() const { return real_y; }
+	virtual int getDimSizeZ() const { return 1; }
 
 	virtual void setLogicSize(int x, int y) { logic_x = x; logic_y = y; }
 };

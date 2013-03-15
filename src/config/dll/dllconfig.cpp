@@ -10,7 +10,7 @@ DLLConfig::~DLLConfig()
     // TODO
 }
 
-int DLLConfig::getRealDimSize(int dim) const {
+int DLLConfig::getDimSize(int dim) const {
     if(dim == 0) return size_x;
     if(dim == 1) return size_y;
     return 1;

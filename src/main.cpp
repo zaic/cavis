@@ -11,37 +11,22 @@
 #include "renderer/projection/projection.h"
 #include "renderer/projection/gui.h"
 
-#include <boost/asio.hpp>
-
-void test() {
-	using boost::asio::ip::tcp;
-	boost::asio::io_service my_io_service;
-
-	tcp::resolver resolver(my_io_service);
-	tcp::resolver::query query("192.168.1.101", "1807");
-	tcp::resolver::iterator my_endpoint_iterator = resolver.resolve(query);
-
-	tcp::socket my_socket(my_io_service);
-	boost::asio::connect(my_socket, my_endpoint_iterator);
-
-	qint64 x;
-	boost::asio::read(my_socket, boost::asio::buffer(&x, sizeof(x)));
-	Eo(x);
-}
-
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 	QApplication app(argc, argv);
 
 	/*
 	 *	CONFIG
 	 */
-	//Config *config = new TcpConfig("localhost", 1807);
-	Config *config = new StubConfig(30, 20);
+	Config *config = NULL;
+	Config *stub_config = new StubConfig(30, 20);
     Config *local_config = new LocalFileConfig("/home/zaic/tmp/ca_dumps/density");
 
 	/*
 	 *	RENDERER
 	 */
+	Renderer *renderer = NULL;
+
 	HPPLoupeRenderer *cut = new HPPLoupeRenderer();
 	RendererGUI *cutgui = new HPPLoupeGUI(cut);
 
@@ -52,15 +37,24 @@ int main(int argc, char *argv[]) {
 	ProjectionGUI *cut_proj_gui = new ProjectionGUI(cut_proj);
 
 	QVector<RendererGUI*> supported_cuts;
-	// fill supported cuts list
+
+#if 1 /* PROJECTION */
+	config = local_config;
+	renderer = cut_proj;
 	supported_cuts << cut_proj_gui;
+
+#elif 1 /* HPP */
+	config = stub_config;
+	renderer = cut_scale;
 	supported_cuts << cutgui;
 	supported_cuts << cut_scale_gui;
+#endif
 
 	/*
 	 *	APPLICATION
 	 */
-	Visualizzzator *visualizator = new Visualizzzator(local_config, dynamic_cast<Renderer*>(cut_proj));
+	// TODO: remove renderer
+	Visualizzzator *visualizator = new Visualizzzator(config, renderer);
 	Window w(visualizator, supported_cuts);
 	w.show();
 	w.resize(1280, 800);

@@ -1,8 +1,6 @@
 #pragma once
 
-// TODO: replace REAL by NOTHING
-// TODO: replace data type from char to void
-// TODO: add opportunity to get data by type
+#include <cstddef>
 
 class Config
 {
@@ -25,9 +23,9 @@ public:
 	virtual int setFrame(int) { return FRAME_NOT_CHANGED; }
 	virtual int getFramesCount() { return 0; }
 
-	virtual const char* getRealData() const = 0;
-	virtual int getRealDimSize(int dim) const = 0;
-	virtual int getRealDimSizeX() const { return getRealDimSize(0); }
-	virtual int getRealDimSizeY() const { return getRealDimSize(1); }
-	virtual int getRealDimSizeZ() const { return getRealDimSize(2); }
+	virtual void* getData(void* data_type = NULL) = 0;
+	virtual int getDimSize(int dim) const = 0;
+	virtual int getDimSizeX() const { return getDimSize(0); }
+	virtual int getDimSizeY() const { return getDimSize(1); }
+	virtual int getDimSizeZ() const { return getDimSize(2); }
 };

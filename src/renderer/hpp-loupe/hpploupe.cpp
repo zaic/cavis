@@ -10,26 +10,26 @@ HPPLoupeRenderer::~HPPLoupeRenderer() {
 
 void HPPLoupeRenderer::draw() {
 	if(autoscale) {
-		int cell_width  = (buffer->width() - 2) / config->getRealDimSizeX();
-		int cell_height = (buffer->height() - 2) / config->getRealDimSizeY();
+		int cell_width  = (buffer->width() - 2) / config->getDimSizeX();
+		int cell_height = (buffer->height() - 2) / config->getDimSizeY();
 		cell_size = min(cell_width, cell_height);
 		if(cell_size % 2 == 0) cell_size--;
 	} else {
 		cell_size = scale_cell_size * 2 + 1;
 	}
 
-	shift_x = (buffer->width() - 2 - cell_size * config->getRealDimSizeX()) / 2;
-	shift_y = (buffer->height() - 2 - cell_size * config->getRealDimSizeY()) / 2;
+	shift_x = (buffer->width() - 2 - cell_size * config->getDimSizeX()) / 2;
+	shift_y = (buffer->height() - 2 - cell_size * config->getDimSizeY()) / 2;
 	// TODO: move to buffer
 	shift_x = shift_y = 0;
 
-	buffer->prepare(cell_size * config->getRealDimSizeX(), cell_size * config->getRealDimSizeY());
+	buffer->prepare(cell_size * config->getDimSizeX(), cell_size * config->getDimSizeY());
 
-	for(int y = 0; y < config->getRealDimSizeY(); y++) {
-		for(int x = 0; x < config->getRealDimSizeX(); x++) {
+	for(int y = 0; y < config->getDimSizeY(); y++) {
+		for(int x = 0; x < config->getDimSizeX(); x++) {
 			// тут за нами полный выбор где рисовать
-			uchar* data = (uchar*)config->getRealData();
-			const int rx = config->getRealDimSizeX();
+			uchar* data = reinterpret_cast<uchar*>(config->getData());
+			const int rx = config->getDimSizeX();
 			int id = (y * rx + x);
 			uchar cell_data = data[id];
 			uint value = 0xffeeeeee;

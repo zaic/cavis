@@ -24,11 +24,11 @@ public:
 	virtual int setFrame(int frame);
 	virtual int getFramesCount();
 
-    virtual const char* getRealData() const { return real_data; }
-	virtual int getRealDimSize(int dim) const;
-	virtual int getRealDimSizeX() const { return getRealDimSize(0); }
-	virtual int getRealDimSizeY() const { return getRealDimSize(1); }
-	virtual int getRealDimSizeZ() const { return getRealDimSize(2); }
+	virtual void* getData(void* = NULL) { return real_data; }
+	virtual int getDimSize(int dim) const;
+	virtual int getDimSizeX() const { return getDimSize(0); }
+	virtual int getDimSizeY() const { return getDimSize(1); }
+	virtual int getDimSizeZ() const { return getDimSize(2); }
 
 	//virtual void setLogicSize(int x, int y);
 };

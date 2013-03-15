@@ -57,7 +57,7 @@ int TcpConfig::getFramesCount() {
 	return res;
 }
 
-int TcpConfig::getRealDimSize(int dim) const {
+int TcpConfig::getDimSize(int dim) const {
 	switch(dim) {
 	case 0: return real_x;
 	case 1: return real_y;

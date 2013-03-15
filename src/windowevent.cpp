@@ -1,6 +1,6 @@
 #include "windowevent.h"
 
-WindowEvent::WindowEvent(QObject *parent) : QObject(parent) {
+WindowEvent::WindowEvent(QObject *_parent) : QObject(_parent) {
 }
 
 WindowEvent::~WindowEvent() {

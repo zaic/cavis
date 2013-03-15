@@ -2,14 +2,13 @@
 
 ProjectionGUI::ProjectionGUI(Renderer *_renderer) : RendererGUI(dynamic_cast<Renderer*>(_renderer))
 {
-	// тили-тили
 	_renderer->setParameters(this);
     buildMainWidget();
 }
 
 ProjectionGUI::~ProjectionGUI()
 {
-	// трали-вали
+
 }
 
 QHBoxLayout* ProjectionGUI::buildScalePanel(QSpinBox*& spin_box, const char* name)
@@ -35,17 +34,22 @@ QHBoxLayout* ProjectionGUI::buildScalePanel(QSpinBox*& spin_box, const char* nam
     return laytmpscale;
 }
 
-void ProjectionGUI::buildMainWidget() {
+void ProjectionGUI::buildMainWidget()
+{
     // Scale
     QHBoxLayout *lay_scale_x = buildScalePanel(x_scale, "X-scale:");
     QHBoxLayout *lay_scale_y = buildScalePanel(y_scale, "Y-scale:");
 
     // Interpolation
-	// TODO
+	chk_interpolation = new QCheckBox(tr("Interpolation"));
+	chk_interpolation->setChecked(true);
+	chk_segments = new QCheckBox(tr("Segments"));
 
     QVBoxLayout *laytmpall = new QVBoxLayout;
     laytmpall->addLayout(lay_scale_x);
     laytmpall->addLayout(lay_scale_y);
+	laytmpall->addWidget(chk_interpolation);
+	laytmpall->addWidget(chk_segments);
 
 	main_widget = new QWidget;
 	main_widget->setLayout(laytmpall);
