@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include <QPainter>
+#include "../../windowevent.h"
 
 class RenderArea : public QWidget
 {
@@ -17,6 +18,7 @@ public:
 	void drawImage(QImage *image);
 	
 signals:
+
 	
 public slots:
 

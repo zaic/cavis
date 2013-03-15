@@ -7,6 +7,10 @@ RenderArea::RenderArea(QWidget *_parent) : QWidget(_parent), buffer_image(NULL)
 
 void RenderArea::paintEvent(QPaintEvent* )
 {
+    if(!buffer_image) {
+        WindowEvent::get()->doRequireRepaint();
+        return ;
+    }
 	QPainter painter(this);
 	painter.setPen(Qt::black);
 	painter.fillRect(0, 0, width(), height(), Qt::white);
@@ -14,6 +18,8 @@ void RenderArea::paintEvent(QPaintEvent* )
 	if(buffer_image) {
 		painter.drawImage(this->rect(), *(this->buffer_image));
 	}
+    delete buffer_image;
+    buffer_image = NULL;
 
 	/*
 	static int xshift = 0;

@@ -79,7 +79,6 @@ QWidget* Window::createCutConfigBar()
 
     QVBoxLayout *lay_cut_config_all = new QVBoxLayout;
     lay_cut_config_all->addLayout(lay_cut_config_bar);
-    //for(const pair<QString, QWidget*>& cut : cuts) {
     for(QMap<QString, RendererGUI*>::Iterator it = cuts.begin(); it != cuts.end(); ++it) {
         it.value()->getWidget()->setVisible(false);
         lay_cut_config_all->addWidget(it.value()->getWidget());
@@ -136,6 +135,7 @@ void Window::playerSwitch()
 void Window::updateFramesCounter(int frame)
 {
     if(frame == Config::FRAME_FORCED_UPDATE || frame != Config::FRAME_NOT_CHANGED) {
+        if(frame == Config::FRAME_FORCED_UPDATE) frame = sld_progress->value();
         sld_progress->setValue(frame);
         visualizator->buffer = buffer;
         visualizator->draw();
