@@ -7,6 +7,7 @@ RenderArea::RenderArea(QWidget *_parent) : QWidget(_parent), buffer_image(NULL)
 
 void RenderArea::paintEvent(QPaintEvent* )
 {
+    // TODO fix startup errors
     if(!buffer_image) {
         WindowEvent::get()->doRequireRepaint();
         return ;

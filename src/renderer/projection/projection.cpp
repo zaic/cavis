@@ -24,8 +24,8 @@ void ProjectionRenderer::draw()
 	qDebug() << "[render/proj] start drawing...";
 
 	// preparing data for interpolation
-	const int n = config->getDimSizeX();
-	const double* data = reinterpret_cast<const double*>(config->getData());
+    const int n = config->getDimSizeX();
+    const double* data = reinterpret_cast<const double*>(config->getData());
 
 	vector<double> data_x, data_y;
 	double max_value = data[0], min_value = data[0];
@@ -44,10 +44,16 @@ void ProjectionRenderer::draw()
 	const int nn = int(x_scaled);
 	int last_value = -1;
 
-	buffer->prepare(nn, int(min_value + max_value) + 1, -50, 0);
+    buffer->prepare(nn, int(min_value + max_value) + 1, -50, 0);
 	// Draw grid
 	const int frame_size = 50;
 	const int value_invert = buffer->height() - frame_size;
+
+    QPicture digits_picuture;
+    QPainter digits_painter;
+    digits_painter.begin(&digits_picuture);
+    digits_painter.set
+    digits_painter.fillRect(0, 0, frame_size, buffer->height(), QB);
 
 	for(int i = 0; i <= buffer->height() / parameters->y_scale->value(); i++) {
 		int x = buffer->getX(frame_size);
@@ -68,34 +74,35 @@ void ProjectionRenderer::draw()
 			buffer->drawText(x - frame_size * 4 / 5, y, toStdString<double>(i + 1.0 / (cnt + 1) * (j)).substr(0, 4).c_str());
 		}
 	}
+    digits_painter.end();
 
-	uint color = 0xffcc0000;
-	if(parameters->chk_interpolation->isChecked()) {
-		buffer->setColor(color);
-		for(int x = 0; x < nn; x++) {
-			const int rx = x; //config->getRealDimSizeX();
-			int value = int(inter.Eval(x) + .5);
-			//qDebug() << "value on x" << x << "is" << value;
-			value = value_invert - value;
-			if(last_value != -1)
-				buffer->drawLine(x - 1, last_value, x, value);
-			else
-				buffer->drawPixel(rx, value);
-			last_value = value;
-		}
-	}
+    uint color = 0xffcc0000;
+    if(parameters->chk_interpolation->isChecked()) {
+        buffer->setColor(color);
+        for(int x = 0; x < nn; x++) {
+            const int rx = x;
+            int value = int(inter.Eval(x) + .5);
+            //qDebug() << "value on x" << x << "is" << value;
+            value = value_invert - value;
+            if(last_value != -1)
+                buffer->drawLine(x - 1, last_value, x, value);
+            else
+                buffer->drawPixel(rx, value);
+            last_value = value;
+        }
+    }
 
-	if(parameters->chk_segments->isChecked()) {
-		color = 0xff00cc00;
-		buffer->setColor(color);
-		int px = data_x[0];
-		int py = data_y[0];
-		for(int ii = 1; ii < n / 10; ii++) {
-			int i = ii * 10;
-			buffer->drawLine(px, value_invert - py, data_x[i], value_invert - data_y[i]);
-			px = data_x[i];
-			py = data_y[i];
-		}
-	}
+    if(parameters->chk_segments->isChecked()) {
+        color = 0xff00cc00;
+        buffer->setColor(color);
+        int px = data_x[0];
+        int py = data_y[0];
+        for(int ii = 1; ii < n / 10; ii++) {
+            int i = ii * 10;
+            buffer->drawLine(px, value_invert - py, data_x[i], value_invert - data_y[i]);
+            px = data_x[i];
+            py = data_y[i];
+        }
+    }
 	// TODO: draw numbers
 }

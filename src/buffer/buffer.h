@@ -41,6 +41,7 @@ public:
 	virtual int getX(int x) const { return x; }
 	virtual int getY(int y) const { return y; }
 
+    // TODO: set RGB/RGBA or set(r, g, b, a = 0xff);
 	virtual void setColor(uint color) = 0;
 
 	virtual void drawPixel(int x, int y) = 0;

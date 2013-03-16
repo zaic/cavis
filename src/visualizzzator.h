@@ -12,7 +12,8 @@ using namespace std;
 /**
  * @brief Хреновина, обеспечивающее взаимодействие между осями
  */
-class Visualizzzator {
+class Visualizzzator
+{
 	Visualizzzator();
 	Visualizzzator(const Visualizzzator& );
 	Visualizzzator& operator=(const Visualizzzator& );
