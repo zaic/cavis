@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QDebug>
 #ifdef _DEBUG
 
 #include <iostream>

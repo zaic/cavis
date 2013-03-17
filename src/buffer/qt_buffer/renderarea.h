@@ -6,20 +6,20 @@
 
 class RenderArea : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	QImage *buffer_image;
+    QImage *buffer_image;
 
 protected:
-	void paintEvent(QPaintEvent* );
+    void paintEvent(QPaintEvent* );
 
 public:
-	explicit RenderArea(QWidget *_parent = 0);
-	void drawImage(QImage *image);
-	
+    explicit RenderArea(QWidget *_parent = 0);
+    void drawImage(QImage *image);
+
 signals:
 
-	
+
 public slots:
 
 };

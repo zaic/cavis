@@ -18,7 +18,7 @@ public:
     virtual int setFrame(int frame);
     virtual int getFramesCount() { return current_frame_id; }
 
-	virtual void* getData(void* = NULL) { return NULL; }
+    virtual void* getData(void* = NULL) { return NULL; }
     virtual int getDimSize(int dim) const;
     virtual int getDimSizeX() const { return size_x; }
     virtual int getDimSizeY() const { return size_y; }
