@@ -39,18 +39,18 @@ typedef float real;
 template<typename T>
 std::string toStdString(const T& val)
 {
-	std::ostringstream ss;
-	ss << val;
-	return ss.str();
+    std::ostringstream ss;
+    ss << val;
+    return ss.str();
 }
 
 template<typename T>
 T fromStdString(const std::string& s)
 {
-	std::istringstream ss(s);
-	T val;
-	ss >> val;
-	return val;
+    std::istringstream ss(s);
+    T val;
+    ss >> val;
+    return val;
 }
 
 /*

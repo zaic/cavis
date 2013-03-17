@@ -1,8 +1,8 @@
 #include "visualizzzator.h"
 
 Visualizzzator::Visualizzzator(Config *_config, Renderer *_renderer) :
-	config(_config),
-	renderer(_renderer)
+    config(_config),
+    renderer(_renderer)
 {
 
 }

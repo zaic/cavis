@@ -4,21 +4,21 @@
 
 class WindowEvent : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	explicit WindowEvent(QObject *_parent = NULL);
-	WindowEvent(const WindowEvent&);
-	WindowEvent& operator=(const WindowEvent&);
+    explicit WindowEvent(QObject *_parent = NULL);
+    WindowEvent(const WindowEvent&);
+    WindowEvent& operator=(const WindowEvent&);
 public:
-	~WindowEvent();
+    ~WindowEvent();
 
-	static WindowEvent* get();
-	
+    static WindowEvent* get();
+
     void doRequireRepaint() { emit requireRepaint(); }
 
 signals:
-	void requireRepaint();
-	
+    void requireRepaint();
+
 public slots:
-	
+
 };

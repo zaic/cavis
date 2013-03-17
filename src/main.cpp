@@ -13,50 +13,50 @@
 
 int main(int argc, char *argv[])
 {
-	QApplication app(argc, argv);
+    QApplication app(argc, argv);
 
-	/*
-	 *	CONFIG
-	 */
-	Config *config = NULL;
-	Config *stub_config = new StubConfig(30, 20);
+    /*
+     *	CONFIG
+     */
+    Config *config = NULL;
+    Config *stub_config = new StubConfig(30, 20);
     Config *local_config = new LocalFileConfig("/home/zaic/tmp/ca_dumps/density");
 
-	/*
-	 *	RENDERER
-	 */
-	Renderer *renderer = NULL;
+    /*
+     *	RENDERER
+     */
+    Renderer *renderer = NULL;
 
-	HPPLoupeRenderer *cut = new HPPLoupeRenderer();
-	RendererGUI *cutgui = new HPPLoupeGUI(cut);
+    HPPLoupeRenderer *cut = new HPPLoupeRenderer();
+    RendererGUI *cutgui = new HPPLoupeGUI(cut);
 
-	GrayScaleRenderer *cut_scale = new GrayScaleRenderer();
-	RendererGUI *cut_scale_gui = new GrayScaleGUI(cut_scale);
+    GrayScaleRenderer *cut_scale = new GrayScaleRenderer();
+    RendererGUI *cut_scale_gui = new GrayScaleGUI(cut_scale);
 
-	ProjectionRenderer *cut_proj = new ProjectionRenderer();
-	ProjectionGUI *cut_proj_gui = new ProjectionGUI(cut_proj);
+    ProjectionRenderer *cut_proj = new ProjectionRenderer();
+    ProjectionGUI *cut_proj_gui = new ProjectionGUI(cut_proj);
 
-	QVector<RendererGUI*> supported_cuts;
+    QVector<RendererGUI*> supported_cuts;
 
 #if 0 /* PROJECTION */
-	config = local_config;
-	renderer = cut_proj;
-	supported_cuts << cut_proj_gui;
+    config = local_config;
+    renderer = cut_proj;
+    supported_cuts << cut_proj_gui;
 
 #elif 1 /* HPP */
-	config = stub_config;
-	renderer = cut_scale;
-	supported_cuts << cutgui;
-	supported_cuts << cut_scale_gui;
+    config = stub_config;
+    renderer = cut_scale;
+    supported_cuts << cutgui;
+    supported_cuts << cut_scale_gui;
 #endif
 
-	/*
-	 *	APPLICATION
-	 */
-	// TODO: remove renderer
-	Visualizzzator *visualizator = new Visualizzzator(config, renderer);
-	Window w(visualizator, supported_cuts);
-	w.show();
-	w.resize(1280, 800);
-	return app.exec();
+    /*
+     *	APPLICATION
+     */
+    // TODO: remove renderer
+    Visualizzzator *visualizator = new Visualizzzator(config, renderer);
+    Window w(visualizator, supported_cuts);
+    w.show();
+    w.resize(1280, 800);
+    return app.exec();
 }
