@@ -60,7 +60,7 @@ void QtSimpleBuffer::prepare(int real_width, int real_height, int shift_x_, int 
     // TODO SMART POINTERS!!!!111
     // call new without delete :'(
 
-    qDebug() << "[buffer/qt] shift_x =" << shift_x << ", shift_y =" << shift_y;
+    //qDebug() << "[buffer/qt] shift_x =" << shift_x << ", shift_y =" << shift_y;
     image = new QImage(width(), height(), QImage::Format_RGB32);
     if(image == NULL) return ;
     image->fill(Qt::white);

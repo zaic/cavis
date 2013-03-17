@@ -2,14 +2,9 @@
 
 #include <QApplication>
 #include <QMainWindow>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QPushButton>
+#include <QtGui>
 #include <QSlider>
 #include <QTimer>
-#include <QLabel>
-#include <QDebug>
-#include <QComboBox>
 #include <QMap>
 #include <QMdiArea>
 #include <QMdiSubWindow>
@@ -23,6 +18,8 @@
 #include "visualizzzator.h"
 #include "buffer/qt_buffer/qtsimplebuffer.h"
 #include "common.h"
+
+#include "config/dll/dllconfig.h"
 
 class Window : public QMainWindow {
 	Q_OBJECT
@@ -84,4 +81,9 @@ public slots:
 
 	// update current frame value in slider and label
     void updateFramesCounter(int frame = Config::FRAME_FORCED_UPDATE);
+
+    /*
+     *  Menu
+     */
+    void actModelLoad();
 };

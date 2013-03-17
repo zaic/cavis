@@ -17,7 +17,9 @@ include_directories(${ROOT_INCLUDE_DIR} "${ROOT_INCLUDE_DIR}/root")
 link_directories("${ROOT_LIBRARY_DIR}/root") # TODO: fix
 
 #set(CMAKE_BUILD_TYPE distribution) do nothing :(
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -Wold-style-cast -Wfloat-equal -Woverloaded-virtual -O0 -D_DEBUG -g")
+set(CMAKE_C_FLAGS "-std=c99 -Wall -Wextra -Wshadow -Wfloat-equal -O0 -D_DEBUG -g -ldl")
+#set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -Wold-style-cast -Wfloat-equal -Woverloaded-virtual -O0 -D_DEBUG -g")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -Wold-style-cast -Woverloaded-virtual -O0 -D_DEBUG -g")
 
 
 aux_source_directory(. SRC_LIST)
@@ -56,6 +58,6 @@ qt4_wrap_cpp(MOC_SRC ${MOC_HEADERS})
 qt4_add_resources(RESOURCES_SRC "../data/icons.qrc")
 
 add_executable(${PROJECT_NAME} ${SRC_LIST} ${MOC_SRC} ${RESOURCES_SRC})
-target_link_libraries(${PROJECT_NAME} ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} "/usr/lib64/root/libMathMore.so")
+target_link_libraries(${PROJECT_NAME} ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS} "/usr/lib64/root/libMathMore.so")
 file(COPY examples DESTINATION .)
 file(COPY images DESTINATION .)

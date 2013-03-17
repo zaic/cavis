@@ -56,8 +56,15 @@ void Window::createMenuBar()
     mnu_file->addSeparator();
     mnu_file->addAction("Quit");
 
+    /*
+     *  Model
+     */
     QMenu *mnu_model = menuBar()->addMenu(tr("&Model"));
-    mnu_model->addSeparator();
+    //  Load new model
+    QAction *act_model_load = new QAction(this);
+    act_model_load->setText("Load model...");
+    connect(act_model_load, SIGNAL(triggered()), this, SLOT(actModelLoad()));
+    mnu_model->addAction(act_model_load);
 
     QMenu *mnu_help = menuBar()->addMenu(tr("&About"));
     mnu_help->addAction(tr("About Simulus"));
@@ -151,4 +158,13 @@ void Window::updateCutConfigLayout(const QString &new_layout_name)
     last_selected_cut = cuts[new_layout_name]->getWidget();
     last_selected_cut->setVisible(true);
     visualizator->renderer = cuts[new_layout_name]->getRenderer();
+}
+
+void Window::actModelLoad()
+{
+    QString modelFileName = QFileDialog::getOpenFileName(this, tr("Load model"));
+    if(modelFileName.isNull()) return ;
+    DLLConfig *dll_config = new DLLConfig(modelFileName.toStdString().c_str());
+    config = dynamic_cast<Config*>(dll_config);
+    visualizator->config = config;
 }

@@ -2,6 +2,8 @@
 
 #include <cstddef>
 
+// TODO: add some factory for creating needed ConfigClass for opened model?
+
 class Config
 {
     Config(const Config& );
@@ -15,7 +17,7 @@ protected:
 public:
     virtual ~Config();
 
-    static const int FRAME_NOT_CHANGED = -1807;
+    static const int FRAME_NOT_CHANGED = -1807; // TODO remove
     static const int FRAME_FORCED_UPDATE = -3004;
 
     virtual int prevFrame() { return setFrame(current_frame_id - 1); }
