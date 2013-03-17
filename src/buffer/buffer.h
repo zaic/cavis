@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QPainter>
 #include "../common.h"
 
 class GraphicBuffer
@@ -30,7 +31,7 @@ public:
 	virtual int  getYScroll() const = 0;
 
 	// возвращается непосредственно объект, для которого сделана обёртка
-	virtual void* getRawPaintDevice() = 0;
+    virtual QPainter* getRawPaintDevice() = 0;
 
 	// ширина видимой для рисования площади
 	virtual int width() const = 0;

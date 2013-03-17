@@ -1,5 +1,4 @@
 port to Qt5
-buffer interface: move to QPainter
 
 projects:
 	создание/открытие модели

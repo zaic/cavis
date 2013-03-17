@@ -36,7 +36,7 @@ public:
 	virtual void setYScroll(int max_value, int current_value = SCROLL_PREVIOUS_VALUE);
 	virtual int  getYScroll() const { return scb_render_height->value(); }
 
-	virtual void* getRawPaintDevice() { return painter; }
+    virtual QPainter* getRawPaintDevice() { return painter; }
 
 	virtual int width() const { return render_area->width(); }
 	virtual int height() const { return render_area->height(); }
