@@ -12,7 +12,7 @@ class DLLConfig : public Config
     int size_x, size_y;
 
 public:
-    DLLConfig();
+    DLLConfig(const char *path);
     virtual ~DLLConfig();
 
     virtual int setFrame(int frame);

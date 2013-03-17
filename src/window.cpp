@@ -12,7 +12,7 @@ Window::Window(Visualizzzator *vis, const QVector<RendererGUI *> &supported_cuts
     initCuts(supported_cuts);
     QtSimpleBuffer* qt_buffer = new QtSimpleBuffer();
     buffer = qt_buffer;
-    mdi_area->addSubWindow(qt_buffer->render_area);
+    mdi_area->addSubWindow(qt_buffer->render_window);
     mdi_area->currentSubWindow()->showMaximized();
 
     main_layout = new QVBoxLayout;

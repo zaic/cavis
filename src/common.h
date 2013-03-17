@@ -59,7 +59,7 @@ T fromStdString(const std::string& s)
 template<typename T>
 inline T divup(const T& a, const T& b)
 {
-	return (a + b - 1) / a;
+    return (a + b - 1) / b;
 }
 
 #include <QPushButton>

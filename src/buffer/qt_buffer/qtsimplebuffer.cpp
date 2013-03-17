@@ -4,15 +4,17 @@ QtSimpleBuffer::QtSimpleBuffer() : GraphicBuffer(), shift_x(0), shift_y(0)
 {
 	render_area = new RenderArea;
 	scb_render_height = new QScrollBar(Qt::Vertical);
+    QObject::connect(scb_render_height, SIGNAL(valueChanged(int)), render_area, SLOT(update()));
 	scb_render_width = new QScrollBar(Qt::Horizontal);
+    QObject::connect(scb_render_width, SIGNAL(valueChanged(int)), render_area, SLOT(update()));
 	render_window = new QWidget;
 
 	QGridLayout *lay_main = new QGridLayout;
 	//lay_main->setSpacing(1);
 	lay_main->addWidget(render_area, 0, 0);
 	lay_main->addWidget(scb_render_height, 0, 1);
-	lay_main->addWidget(scb_render_width, 1, 0);
-	render_window->setLayout(lay_main);
+    lay_main->addWidget(scb_render_width, 1, 0);
+    render_window->setLayout(lay_main);
 
 	// TODO: fix hack
 #if 0
@@ -34,7 +36,8 @@ void QtSimpleBuffer::setupScrollBar(QScrollBar *render_scroll_bar, int real_size
 
 void QtSimpleBuffer::create()
 {
-	// TODO
+    scb_render_width->setVisible(false);
+    scb_render_height->setVisible(false);
 }
 
 void QtSimpleBuffer::prepare(int real_width, int real_height, int shift_x_, int shift_y_)
@@ -75,10 +78,11 @@ void QtSimpleBuffer::complete()
 void QtSimpleBuffer::setXScroll(int max_value, int current_value)
 {
 	if(max_value == GraphicBuffer::SCROLL_DISABLE) {
-		scb_render_width->setEnabled(false);
+        //scb_render_width->setVisible(false);
 		return ;
 	}
-	scb_render_width->setEnabled(true);
+    scb_render_width->setVisible(true);
+    scb_render_width->setMaximum(max_value);
 	if(current_value != GraphicBuffer::SCROLL_PREVIOUS_VALUE)
 		scb_render_width->setValue(current_value);
 }

@@ -43,6 +43,14 @@ void ProjectionRenderer::draw()
     const int nn = int(x_scaled);
     int last_value = -1;
 
+    qDebug() << "xscal" << x_scaled << "buf->width" << buffer->width();
+    if(buffer->width() - 50 < x_scaled)
+        buffer->setXScroll(divup<int>(x_scaled - buffer->width() - 50, 100));
+    else
+        buffer->setXScroll(GraphicBuffer::SCROLL_DISABLE);
+    // TODO y-scroll
+    // TODO more nice view
+    // TODO 100 should be constant
     buffer->prepare(nn, int(min_value + max_value) + 1, -50, 0);
     QPainter *painter = buffer->getRawPaintDevice();
 
@@ -50,6 +58,7 @@ void ProjectionRenderer::draw()
      * Draw grid
      */
     const int frame_size = 50;
+    const int shift_x = frame_size - buffer->getXScroll() * 100;
     const int value_invert = buffer->height() - frame_size;
 
     QPicture digits_picuture;
@@ -68,8 +77,8 @@ void ProjectionRenderer::draw()
         const int cnt = parameters->y_scale->value() / 25;
         const int secondary_height = parameters->y_scale->value() / cnt;
         for(int j = 1; j < cnt; j++) {
-            digits_painter.setPen(QColor(0xDD, 0xDD, 0xDD));
             y -= secondary_height;
+            digits_painter.setPen(QColor(0xDD, 0xDD, 0xDD));
             digits_painter.drawLine(x, y, buffer->width(), y);
             digits_painter.setPen(QColor(0x55, 0x55, 0x55));
             digits_painter.drawText(x - frame_size * 4 / 5, y, toStdString<double>(i + 1.0 / (cnt + 1) * (j)).substr(0, 4).c_str());
@@ -87,9 +96,9 @@ void ProjectionRenderer::draw()
             int value = int(inter.Eval(x) + .5);
             value = value_invert - value;
             if(last_value != -1)
-                painter->drawLine(x - 1 + frame_size, last_value, x + frame_size, value);
+                painter->drawLine(x - 1 + shift_x, last_value, x + shift_x, value);
             else
-                painter->drawPoint(x + frame_size, value - frame_size);
+                painter->drawPoint(x + shift_x, value);
             last_value = value;
         }
     }
@@ -103,7 +112,7 @@ void ProjectionRenderer::draw()
         int py = data_y[0];
         for(int ii = 1; ii < n / 10; ii++) {
             int i = ii * 10;
-            painter->drawLine(px + frame_size, value_invert - py, data_x[i] + frame_size, value_invert - data_y[i]);
+            painter->drawLine(px + shift_x, value_invert - py, data_x[i] + shift_x, value_invert - data_y[i]);
             px = data_x[i];
             py = data_y[i];
         }

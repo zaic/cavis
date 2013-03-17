@@ -14,7 +14,7 @@ class QtSimpleBuffer : public GraphicBuffer
 
 	QImage *image;
 	QPainter *painter;
-	QWidget *render_window;
+    RenderArea *render_area;
 	QScrollBar *scb_render_width, *scb_render_height;
 
 	int shift_x, shift_y;
@@ -22,7 +22,7 @@ class QtSimpleBuffer : public GraphicBuffer
 
 public:
 	// TODO: fix hack
-	RenderArea *render_area;
+    QWidget *render_window;
 
 	QtSimpleBuffer();
 	virtual ~QtSimpleBuffer() { delete render_window; }

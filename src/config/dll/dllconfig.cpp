@@ -1,6 +1,6 @@
 #include "dllconfig.h"
 
-DLLConfig::DLLConfig()
+DLLConfig::DLLConfig(const char *path)
 {
     // TODO
 }

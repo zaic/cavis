@@ -38,6 +38,7 @@ public:
 	// высота видимой для рисования площади
 	virtual int height() const = 0;
 
+    // TODO: delete follow methods
 	// актуально, когда надо рисовать, игнорируя полосы прокрутки
 	virtual int getX(int x) const { return x; }
 	virtual int getY(int y) const { return y; }
