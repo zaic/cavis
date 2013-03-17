@@ -20,6 +20,7 @@ Window::Window(Visualizzzator *vis, const QVector<RendererGUI *> &supported_cuts
     QSplitter *spl_cut = new QSplitter;
     spl_cut->addWidget(mdi_area);
     spl_cut->addWidget(createCutConfigBar());
+    tmp_buffers << QPair<GraphicBuffer*, Config*>(buffer, config);
 
     // TODO: must be fixed
     // cut-config-specific panel must be inserted after combobox
@@ -145,7 +146,14 @@ void Window::updateFramesCounter(int frame)
         if(frame == Config::FRAME_FORCED_UPDATE) frame = sld_progress->value();
         sld_progress->setValue(frame);
         visualizator->buffer = buffer;
-        visualizator->draw();
+        //visualizator->draw();
+
+        for(auto it : tmp_buffers) {
+            visualizator->buffer = it.first;
+            visualizator->config = it.second;
+            visualizator->draw();
+        }
+
     }
     sld_progress->setMaximum(config->getFramesCount());
     lbl_frame->setText(QString::number(sld_progress->value()) + QString(" / ") + QString::number(sld_progress->maximum()));
@@ -164,7 +172,14 @@ void Window::actModelLoad()
 {
     QString modelFileName = QFileDialog::getOpenFileName(this, tr("Load model"));
     if(modelFileName.isNull()) return ;
+
     DLLConfig *dll_config = new DLLConfig(modelFileName.toStdString().c_str());
     config = dynamic_cast<Config*>(dll_config);
     visualizator->config = config;
+
+    QtSimpleBuffer* qt_buffer = new QtSimpleBuffer();
+    buffer = qt_buffer;
+    mdi_area->addSubWindow(qt_buffer->render_window);
+
+    tmp_buffers << QPair<GraphicBuffer*, Config*>(buffer, config);
 }

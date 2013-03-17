@@ -10,6 +10,8 @@
 #include <QMdiSubWindow>
 #include <QMenuBar>
 #include <QSplitter>
+#include <QVector>
+#include <QPair>
 #include <QMenu>
 #include "windowevent.h"
 #include "buffer/buffer.h"
@@ -60,6 +62,9 @@ class Window : public QMainWindow
     Visualizzzator *visualizator;
     Config *config;
     GraphicBuffer *buffer;
+
+    // TODO: fix stub
+    QVector<QPair<GraphicBuffer*, Config*>> tmp_buffers;
 
 public:
     explicit Window(Visualizzzator *vis, const QVector<RendererGUI *>& supported_cuts, QWidget *_parent = 0);
