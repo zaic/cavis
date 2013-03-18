@@ -1,3 +1,5 @@
+CMakeLists.txt*
+CMakeFiles
 *.o
 *.sw*
 *build

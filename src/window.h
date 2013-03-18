@@ -2,7 +2,10 @@
 
 #include <QApplication>
 #include <QMainWindow>
-#include <QtGui>
+
+//#include <QtGui>
+#include <QtWidgets>
+
 #include <QSlider>
 #include <QTimer>
 #include <QMap>

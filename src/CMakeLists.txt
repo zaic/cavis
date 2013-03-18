@@ -1,8 +1,15 @@
 project(visualizer)
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.8)
 
-find_package(Qt4 REQUIRED)
-include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR}) # wtf? TODO
+find_package(Qt5Gui REQUIRED)
+find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Core REQUIRED)
+
+#message(${Qt5Widgets_LIBRARIES})
+include_directories(${CMAKE_CURRENT_BINARY_DIR}) # wtf? TODO
+include_directories(${Qt5Gui_INCLUDE_DIRS})
+include_directories(${Qt5Core_INCLUDE_DIRS})
+include_directories(${Qt5Widgets_INCLUDE_DIRS})
 
 
 set (BOOST_COMPONENTS
@@ -54,10 +61,11 @@ set(MOC_HEADERS
     renderer/grayscale/gui.h
     renderer/projection/gui.h
 )
-qt4_wrap_cpp(MOC_SRC ${MOC_HEADERS})
-qt4_add_resources(RESOURCES_SRC "../data/icons.qrc")
+qt5_wrap_cpp(MOC_SRC ${MOC_HEADERS})
+qt5_add_resources(RESOURCES_SRC "../data/icons.qrc")
 
 add_executable(${PROJECT_NAME} ${SRC_LIST} ${MOC_SRC} ${RESOURCES_SRC})
-target_link_libraries(${PROJECT_NAME} ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS} "/usr/lib64/root/libMathMore.so")
+qt5_use_modules(${PROJECT_NAME} Core Gui Widgets)
+target_link_libraries(${PROJECT_NAME} ${Qt5Core_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS} "/usr/lib64/root/libMathMore.so")
 file(COPY examples DESTINATION .)
 file(COPY images DESTINATION .)

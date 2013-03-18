@@ -180,6 +180,7 @@ void Window::actModelLoad()
     QtSimpleBuffer* qt_buffer = new QtSimpleBuffer();
     buffer = qt_buffer;
     mdi_area->addSubWindow(qt_buffer->render_window);
+    qt_buffer->render_window->showMaximized();
 
     tmp_buffers << QPair<GraphicBuffer*, Config*>(buffer, config);
 }
