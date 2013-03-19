@@ -22,6 +22,8 @@ class ProjectionRenderer : public Renderer
 
 	ProjectionGUI *parameters;
 
+    static const int FRAME_SIZE = 50;
+
 public:
 	ProjectionRenderer();
 	virtual ~ProjectionRenderer();

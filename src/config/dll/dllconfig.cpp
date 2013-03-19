@@ -43,12 +43,12 @@ int DLLConfig::getDimSize(int dim) const {
     return 1;
 }
 
-int DLLConfig::setFrame(int frame) {
-    if(frame < current_frame_id || frame > current_frame_id + 1) return Config::FRAME_NOT_CHANGED;
-    if(frame == current_frame_id + 1) {
+int DLLConfig::setIteration(int iteration) {
+    if(iteration < current_iteration_id || iteration > current_iteration_id + 1) return current_iteration_id;
+    if(iteration == current_iteration_id + 1) {
         lib_calc();
         data = lib_data();
-        current_frame_id = frame;
+        current_iteration_id = iteration;
     }
-    return current_frame_id;
+    return current_iteration_id;
 }

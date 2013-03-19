@@ -12,7 +12,7 @@ class LocalFileConfig : public Config
 
     int dim_size[3];
     QVector<double> data;
-    QStringList frames_list;
+    QStringList iterations_list;
     QDir working_dir;
 
 public:
@@ -21,8 +21,8 @@ public:
 
     bool resetDirectory(const char *path);
 
-    virtual int setFrame(int);
-    virtual int getFramesCount() { return frames_list.size() - 1; }
+    virtual int setIteration(int iteration_id);
+    virtual int getIterationsCount() { return iterations_list.size() - 1; }
 
     virtual void* getData(void* data_type = NULL);
     virtual int getDimSize(int dim) const;

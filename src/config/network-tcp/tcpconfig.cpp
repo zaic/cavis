@@ -28,12 +28,12 @@ TcpConfig::~TcpConfig()
     if(real_data) delete[] real_data;
 }
 
-int TcpConfig::setFrame(int frame)
+int TcpConfig::setIteration(int iteration)
 {
-    if(frame < current_frame_id) return FRAME_NOT_CHANGED;
-    if(frame > current_frame_id + 1) return FRAME_NOT_CHANGED;
-    if(frame == current_frame_id + 1) {
-        current_frame_id = frame;
+    if(iteration < current_iteration_id) return current_iteration_id;
+    if(iteration > current_iteration_id + 1) return current_iteration_id;
+    if(iteration == current_iteration_id + 1) {
+        current_iteration_id = iteration;
     }
 
     memset(real_data, 0, real_x * real_y);
@@ -51,13 +51,13 @@ int TcpConfig::setFrame(int frame)
     }
     qDebug() << "---";
 
-    return frame;
+    return iteration;
 }
 
-int TcpConfig::getFramesCount()
+int TcpConfig::getIterationsCount()
 {
-    int res = max(1, current_frame_id + 1);
-    qDebug() << "frames = " << res;
+    int res = max(1, current_iteration_id + 1);
+    qDebug() << "iterations = " << res;
     return res;
 }
 

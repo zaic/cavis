@@ -30,10 +30,10 @@ Window::Window(Visualizzzator *vis, const QVector<RendererGUI *> &supported_cuts
     central_widget->setLayout(main_layout);
     setCentralWidget(central_widget);
 
-    updateFramesCounter(Config::FRAME_NOT_CHANGED);
+    updateIterationCounter(Config::FORCED_UPDATE);
 
     // TODO: not working, shoul be fixed
-    connect(WindowEvent::get(), SIGNAL(requireRepaint()), this, SLOT(updateFramesCounter()));
+    connect(WindowEvent::get(), SIGNAL(requireRepaint()), this, SLOT(updateIterationCounter()));
 }
 
 void Window::initCuts(const QVector<RendererGUI *>& supported_cuts)
@@ -73,7 +73,7 @@ QWidget* Window::createCutConfigBar()
     //lbl_cut_switch_label->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred));
 
     cmb_cut_switch = new QComboBox;
-    connect(cmb_cut_switch, SIGNAL(currentIndexChanged(QString)), this, SLOT(updateCutConfigLayout(QString)));
+    connect(cmb_cut_switch, SIGNAL(currentIndexChanged(QString)), this, SLOT(updateRendererConfigLayout(QString)));
     cmb_cut_switch->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred));
 
     QHBoxLayout *lay_cut_config_bar = new QHBoxLayout;
@@ -97,30 +97,30 @@ QWidget* Window::createCutConfigBar()
 QHBoxLayout* Window::createPlayerBar()
 {
     player_timer.setInterval(500);
-    connect(&player_timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
+    connect(&player_timer, SIGNAL(timeout()), this, SLOT(nextIteration()));
 
     // TODO: repacle by render area refresh button
     btn_player_prev = createButtonFromIcon(":/icons/media-skip-backward.png", 24, 32);
-    connect(btn_player_prev, SIGNAL(clicked()), this, SLOT(prevFrame()));
+    connect(btn_player_prev, SIGNAL(clicked()), this, SLOT(prevIteration()));
     btn_player_start = createButtonFromIcon(":/icons/media-playback-start.png", 24, 32);
     connect(btn_player_start, SIGNAL(clicked()), this, SLOT(playerSwitch()));
     btn_player_next = createButtonFromIcon(":/icons/media-skip-forward.png", 24, 32);
-    connect(btn_player_next, SIGNAL(clicked()), this, SLOT(nextFrame()));
+    connect(btn_player_next, SIGNAL(clicked()), this, SLOT(nextIteration()));
 
-    lbl_frame = new QLabel("?/?");
-    lbl_frame->setFixedHeight(32);
+    lbl_iteration = new QLabel("?/?");
+    lbl_iteration->setFixedHeight(32);
 
     sld_progress = new QSlider(Qt::Horizontal);
     sld_progress->setMinimum(0);
     sld_progress->setMaximum(0);
-    connect(sld_progress, SIGNAL(valueChanged(int)), this, SLOT(setFrame(int)));
+    connect(sld_progress, SIGNAL(valueChanged(int)), this, SLOT(setIteration(int)));
 
     QHBoxLayout *lay_player_bar = new QHBoxLayout;
     lay_player_bar->addWidget(btn_player_prev);
     lay_player_bar->addWidget(btn_player_start);
     lay_player_bar->addWidget(btn_player_next);
     lay_player_bar->addWidget(sld_progress);
-    lay_player_bar->addWidget(lbl_frame);
+    lay_player_bar->addWidget(lbl_iteration);
     return lay_player_bar;
 }
 
@@ -135,11 +135,12 @@ void Window::playerSwitch()
     }
 }
 
-void Window::updateFramesCounter(int frame)
+void Window::updateIterationCounter(int iteration)
 {
-    if(frame == Config::FRAME_FORCED_UPDATE || frame != Config::FRAME_NOT_CHANGED) {
-        if(frame == Config::FRAME_FORCED_UPDATE) frame = sld_progress->value();
-        sld_progress->setValue(frame);
+    // TODO: move FORCED_UPDATE into Config and remove following condition
+    if(iteration == Config::FORCED_UPDATE || iteration != sld_progress->value() || iteration == 0) {
+        if(iteration == Config::FORCED_UPDATE) iteration = sld_progress->value();
+        sld_progress->setValue(iteration);
         visualizator->buffer = buffer;
         //visualizator->draw();
 
@@ -150,11 +151,11 @@ void Window::updateFramesCounter(int frame)
         }
 
     }
-    sld_progress->setMaximum(config->getFramesCount());
-    lbl_frame->setText(QString::number(sld_progress->value()) + QString(" / ") + QString::number(sld_progress->maximum()));
+    sld_progress->setMaximum(config->getIterationsCount());
+    lbl_iteration->setText(QString::number(sld_progress->value()) + QString(" / ") + QString::number(sld_progress->maximum()));
 }
 
-void Window::updateCutConfigLayout(const QString &new_layout_name)
+void Window::updateRendererConfigLayout(const QString &new_layout_name)
 {
     qDebug() << "need to update layout: " << new_layout_name;
     if(last_selected_cut) last_selected_cut->setVisible(false);

@@ -26,8 +26,8 @@ public:
     DLLConfig(const char *path);
     virtual ~DLLConfig();
 
-    virtual int setFrame(int frame);
-    virtual int getFramesCount() { return current_frame_id; }
+    virtual int setIteration(int iteration);
+    virtual int getIterationsCount() { return current_iteration_id; }
 
     virtual void* getData(void* = NULL) { return data; }
     virtual int getDimSize(int dim) const;

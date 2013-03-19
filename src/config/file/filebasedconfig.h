@@ -23,9 +23,9 @@ class FileBasedConfig : public Config
     int real_x, real_y, element_size;
     int logic_x, logic_y;
 
-    int frames_count;
+    int iterations_count;
 
-    int current_frame;
+    int current_iteration;
     char* data;
 
 public:
@@ -34,8 +34,8 @@ public:
 
     virtual int prev();
     virtual int next();
-    virtual int setFrame(int frame);
-    virtual int getFramesCount() { return frames_count; }
+    virtual int setIteration(int iteration);
+    virtual int getIterationsCount() { return iterations_count; }
 
     virtual void* getData(void* = NULL) { return data; }
     virtual int getDimSize(int dim) const;

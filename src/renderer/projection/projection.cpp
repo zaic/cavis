@@ -13,15 +13,6 @@ ProjectionRenderer::~ProjectionRenderer()
 void ProjectionRenderer::draw()
 {
     qDebug() << "[render/proj] start!";
-    // TODO: remove ?
-#if 0
-    int buffer_using_width = min(config->getRealDimSizeX(), buffer->width());
-    int shift_x = 0;
-    if(buffer_using_width < buffer->width()) {
-        shift_x = (buffer->width() - buffer_using_width) / 2;
-    }
-#endif
-    qDebug() << "[render/proj] start drawing...";
 
     // preparing data for interpolation
     const int n = config->getDimSizeX();
@@ -61,24 +52,23 @@ void ProjectionRenderer::draw()
     /*
      * Draw grid
      */
-    const int frame_size = 50;
-    const int shift_x = frame_size - buffer->getXScroll() * 100;
-    const int value_invert = buffer->height() - frame_size;
+    const int shift_x = FRAME_SIZE - buffer->getXScroll() * 100;
+    const int value_invert = buffer->height() - FRAME_SIZE;
 
     QPicture digits_picuture;
     QPainter digits_painter(&digits_picuture);
 
     // y-axis
-    digits_painter.fillRect(0, 0, frame_size, buffer->height(), Qt::white);
+    digits_painter.fillRect(0, 0, FRAME_SIZE, buffer->height(), Qt::white);
     for(int i = 0; i <= buffer->height() / parameters->y_scale->value(); i++) {
-        int x = frame_size;
+        int x = FRAME_SIZE;
         int y = value_invert - i * parameters->y_scale->value();
 
         // primary dark grid
         painter->setPen(QColor(0xAA, 0xAA, 0xAA));
         painter->drawLine(x, y, buffer->width(), y);
         digits_painter.setPen(Qt::black);
-        digits_painter.drawText(x - frame_size * 4 / 5, y, toStdString<int>(i).c_str());
+        digits_painter.drawText(x - FRAME_SIZE * 4 / 5, y, toStdString<int>(i).c_str());
 
         // secondary light grid
         const int cnt = parameters->y_scale->value() / 25;
@@ -88,22 +78,22 @@ void ProjectionRenderer::draw()
         for(int j = 1; j < cnt; j++) {
             y -= secondary_height;
             painter->drawLine(x, y, buffer->width(), y);
-            digits_painter.drawText(x - frame_size * 4 / 5, y, toStdString<double>(i + 1.0 / (cnt + 1) * (j)).substr(0, 4).c_str());
+            digits_painter.drawText(x - FRAME_SIZE * 4 / 5, y, toStdString<double>(i + 1.0 / (cnt + 1) * (j)).substr(0, 4).c_str());
         }
     }
 
     // x-axis
     digits_painter.begin(&digits_picuture);
-    digits_painter.fillRect(0, 0, buffer->width(), frame_size, Qt::white);
+    digits_painter.fillRect(0, 0, buffer->width(), FRAME_SIZE, Qt::white);
     for(int i = 0; i <= buffer->width() / parameters->x_scale->value(); i++) {
-        int x = frame_size + i * parameters->x_scale->value();
+        int x = FRAME_SIZE + i * parameters->x_scale->value();
         int y = value_invert;
 
         // primary dark grid
         painter->setPen(QColor(0xAA, 0xAA, 0xAA));
         painter->drawLine(x, y, x, 0);
         digits_painter.setPen(Qt::black);
-        digits_painter.drawText(x, y + frame_size / 2, toStdString<int>(i * 100 + buffer->getXScroll() * 100).c_str());
+        digits_painter.drawText(x, y + FRAME_SIZE / 2, toStdString<int>(i * 100 + buffer->getXScroll() * 100).c_str());
     }
     // TODO: draw numbers
 

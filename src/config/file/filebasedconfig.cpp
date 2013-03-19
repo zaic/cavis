@@ -3,7 +3,7 @@
 FileBasedConfig::FileBasedConfig(const char *filename, int x, int y) :
     logic_x(x),
     logic_y(y),
-    current_frame(-1)
+    current_iteration(-1)
 {
     ifstream config_stream;
     config_stream.exceptions(ifstream::failbit | ifstream::badbit);
@@ -13,12 +13,12 @@ FileBasedConfig::FileBasedConfig(const char *filename, int x, int y) :
         config_stream >> dim;
         assert(dim == 2);
         config_stream >> real_y >> real_x >> element_size;
-        if(!(config_stream >> frames_count) || frames_count == 0)
-            frames_count = -1;
+        if(!(config_stream >> iterations_count) || iterations_count == 0)
+            iterations_count = -1;
         data = new char[real_x * real_y * element_size];
         config_stream.close();
 
-        setFrame(0);
+        setIteration(0);
     } catch(ifstream::failure& e) {
         cerr << "some error :(" << endl;
         throw e;
@@ -41,25 +41,25 @@ inline int FileBasedConfig::getDimSize(int dim) const
 
 int FileBasedConfig::prev()
 {
-    return setFrame(current_frame - 1);
+    return setIteration(current_iteration - 1);
 }
 
 int FileBasedConfig::next()
 {
-    return setFrame(current_frame + 1);
+    return setIteration(current_iteration + 1);
 }
 
-int FileBasedConfig::setFrame(int frame)
+int FileBasedConfig::setIteration(int iteration)
 {
-    if(frame < 0) return FRAME_NOT_CHANGED;
-    if(frame >= frames_count) return FRAME_NOT_CHANGED;
+    if(iteration < 0) return current_iteration_id;
+    if(iteration >= iterations_count) return current_iteration_id;
 
-    if(current_frame != frame) {
-        current_frame = frame;
+    if(current_iteration != iteration) {
+        current_iteration = iteration;
 
         stringstream filename;
         //filename << "data";
-        filename << current_frame;
+        filename << current_iteration;
         string fn = filename.str();
         while(fn.length() < 4) fn = "0" + fn;
         fn = fn + ".bin";
@@ -71,5 +71,5 @@ int FileBasedConfig::setFrame(int frame)
         data_stream.close();
     }
 
-    return frame;
+    return iteration;
 }

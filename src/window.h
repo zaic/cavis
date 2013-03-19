@@ -1,21 +1,9 @@
 #pragma once
 
-#include <QApplication>
-#include <QMainWindow>
-
-//#include <QtGui>
+#include <QtCore>
+#include <QtGui>
 #include <QtWidgets>
 
-#include <QSlider>
-#include <QTimer>
-#include <QMap>
-#include <QMdiArea>
-#include <QMdiSubWindow>
-#include <QMenuBar>
-#include <QSplitter>
-#include <QVector>
-#include <QPair>
-#include <QMenu>
 #include "windowevent.h"
 #include "buffer/buffer.h"
 #include "config/config.h"
@@ -59,7 +47,7 @@ class Window : public QMainWindow
     QPushButton *btn_player_start;	// start/pause button
     QPushButton *btn_player_next;	// go by one iteration forward;
     QSlider *sld_progress;
-    QLabel *lbl_frame;
+    QLabel *lbl_iteration;
     QTimer player_timer;
 
     Visualizzzator *visualizator;
@@ -76,7 +64,7 @@ signals:
 
 public slots:
     // cut config toolbar
-    void updateCutConfigLayout(const QString& new_layout_name);
+    void updateRendererConfigLayout(const QString& new_layout_name);
 
     // player toolbar
     void playerStart() { player_timer.start(); }
@@ -84,12 +72,12 @@ public slots:
     void playerSwitch();
 
     // main actions to control process
-    void nextFrame() { updateFramesCounter(config->nextFrame()); }
-    void prevFrame() { updateFramesCounter(config->prevFrame()); }
-    void setFrame(int frame) { updateFramesCounter(config->setFrame(frame)); }
+    void nextIteration() { updateIterationCounter(config->nextIteration()); }
+    void prevIteration() { updateIterationCounter(config->prevIteration()); }
+    void setIteration(int iteration) { updateIterationCounter(config->setIteration(iteration)); }
 
-    // update current frame value in slider and label
-    void updateFramesCounter(int frame = Config::FRAME_FORCED_UPDATE);
+    // update current iteration value in slider and label
+    void updateIterationCounter(int iteration = Config::FORCED_UPDATE);
 
     /*
      *  Menu

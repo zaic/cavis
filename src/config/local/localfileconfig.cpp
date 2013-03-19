@@ -19,27 +19,23 @@ LocalFileConfig::~LocalFileConfig()
 
 bool LocalFileConfig::resetDirectory(const char *path)
 {
-    current_frame_id = -1;
+    current_iteration_id = -1;
     data.clear();
-    frames_list.clear();
+    iterations_list.clear();
     working_dir.setPath(path);
     if(!working_dir.isReadable())
         return false;
-    frames_list = working_dir.entryList();
-    /*
-    for(auto i : frames_list)
-        qDebug() << i << endl;
-    */
+    iterations_list = working_dir.entryList();
     return true;
 }
 
-int LocalFileConfig::setFrame(int frame_id)
+int LocalFileConfig::setIteration(int iteration_id)
 {
-    qDebug() << "[config/local] set frame id = " << frame_id;
-    if(frame_id < 0 || frame_id > getFramesCount()) return Config::FRAME_NOT_CHANGED;
-    current_frame_id = frame_id;
+    qDebug() << "[config/local] set iteration = " << iteration_id;
+    if(iteration_id < 0 || iteration_id > getIterationsCount()) return current_iteration_id;
+    current_iteration_id = iteration_id;
     data.clear();
-    QFile f(working_dir.filePath(frames_list.at(current_frame_id)));
+    QFile f(working_dir.filePath(iterations_list.at(current_iteration_id)));
     if(f.open(QFile::ReadOnly)) {
         char buf[128];
         while(f.canReadLine() || true) {
@@ -51,7 +47,7 @@ int LocalFileConfig::setFrame(int frame_id)
     }
     dim_size[0] = data.size();
     qDebug() << "[config/local] Ok, elements in data = " << data.size();
-    return frame_id;
+    return iteration_id;
 }
 
 int LocalFileConfig::getDimSize(int dim) const

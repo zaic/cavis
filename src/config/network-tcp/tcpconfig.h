@@ -22,8 +22,8 @@ public:
     TcpConfig(const char *hostname, int port);
     virtual ~TcpConfig();
 
-    virtual int setFrame(int frame);
-    virtual int getFramesCount();
+    virtual int setIteration(int iteration);
+    virtual int getIterationsCount();
 
     virtual void* getData(void* = NULL) { return real_data; }
     virtual int getDimSize(int dim) const;

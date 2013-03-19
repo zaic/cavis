@@ -16,8 +16,8 @@ public:
     StubConfig(int x, int y);
     virtual ~StubConfig();
 
-    virtual int setFrame(int frame);
-    virtual int getFramesCount() { return real_y - 2; }
+    virtual int setIteration(int iteration);
+    virtual int getIterationsCount() { return real_y - 2; }
 
     virtual void* getData(void* = NULL) { return real_data; }
     virtual int getDimSize(int dim) const;
