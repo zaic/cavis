@@ -24,7 +24,7 @@ int StubConfig::setFrame(int frame)
 {
     if(frame < 0) return FRAME_NOT_CHANGED;
     if(frame > getFramesCount()) return FRAME_NOT_CHANGED;
-    qDebug() << "config set frame to " << frame;
+    qDebug() << "[config/stub] set frame to " << frame;
     current_frame_id = frame;
     memset(real_data, 0, real_x * real_y);
     switch(frame) {

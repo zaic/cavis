@@ -38,6 +38,11 @@ void ProjectionRenderer::draw()
         min_value = min(min_value, data[i]);
     }
 
+    if(config->getDimSizeX() == 0) {
+        buffer->prepare(1, 1, -50, 0);
+        return ;
+    }
+
     // interpolation
     Interpolator inter(data_x, data_y);
     const int nn = int(x_scaled);

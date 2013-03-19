@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 
     QVector<RendererGUI*> supported_cuts;
 
-#if 0 /* PROJECTION */
+#if 1 /* PROJECTION */
     config = local_config;
     renderer = cut_proj;
     supported_cuts << cut_proj_gui;

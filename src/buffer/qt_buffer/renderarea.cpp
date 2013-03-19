@@ -7,14 +7,13 @@ RenderArea::RenderArea(QWidget *_parent) : QWidget(_parent), buffer_image(NULL)
 
 void RenderArea::paintEvent(QPaintEvent* )
 {
-    // TODO fix startup errors
     if(!buffer_image) {
         WindowEvent::get()->doRequireRepaint();
         return ;
     }
     QPainter painter(this);
     painter.setPen(Qt::black);
-    painter.fillRect(0, 0, width(), height(), Qt::white);
+    //painter.fillRect(0, 0, width(), height(), Qt::white);
     painter.drawRect(0, 0, width() - 1, height() - 1);
     if(buffer_image) {
         painter.drawImage(this->rect(), *(this->buffer_image));

@@ -1,6 +1,6 @@
 #include "dlltest.h"
 
-#define size_x 128
+#define size_x 192
 #define size_y 128
 #define size ((size_x) * (size_y))
 
@@ -10,7 +10,7 @@ char *prev_data;
 static char simple_u_random(float prob) {
     int r = rand();
     float fr = (float)r / RAND_MAX;
-    return (fr > prob);
+    return (fr < prob);
 }
 
 static void simple_swap() {
@@ -24,7 +24,7 @@ void init()
     prev_data = (char*)malloc(size);
     next_data = (char*)malloc(size);
     for(int i = 0; i < size_x; i++) {
-        float prob = (float)(size_x - 1) / i;
+        float prob = (float)i / (size_x - 1);
         for(int j = 0; j < size_y; j++)
             for(int k = 0; k < 4; k++)
                 if(simple_u_random(prob))

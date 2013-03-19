@@ -3,9 +3,12 @@
 #include <QSpinBox>
 #include <QPushButton>
 #include <QCheckBox>
+#include <algorithm>
 #include "../renderer.h"
 #include "../gui.h"
 #include "../../common.h"
+
+using std::max;
 
 class ProjectionRenderer;
 

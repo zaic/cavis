@@ -26,8 +26,10 @@ bool LocalFileConfig::resetDirectory(const char *path)
     if(!working_dir.isReadable())
         return false;
     frames_list = working_dir.entryList();
+    /*
     for(auto i : frames_list)
         qDebug() << i << endl;
+    */
     return true;
 }
 

@@ -7,12 +7,12 @@ find_package(Qt5Core REQUIRED)
 
 #message(${Qt5Widgets_LIBRARIES})
 include_directories(${CMAKE_CURRENT_BINARY_DIR}) # wtf? TODO
-include_directories(${Qt5Gui_INCLUDE_DIRS})
 include_directories(${Qt5Core_INCLUDE_DIRS})
+include_directories(${Qt5Gui_INCLUDE_DIRS})
 include_directories(${Qt5Widgets_INCLUDE_DIRS})
 
 
-set (BOOST_COMPONENTS
+set(BOOST_COMPONENTS
     system)
 find_package(Boost COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
 find_package(Threads)

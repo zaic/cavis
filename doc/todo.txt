@@ -1,13 +1,11 @@
 description one menu function
 
 projects:
-	создание/открытие модели
 	модель = интерфейс (правила без конкретных значений, решётка)
 hpp (large models (2-3 simple models?), run, 3d)
 move player to dockable window, option to modify iteration value
 mdi
 
-port to Qt5
 scroll
 
 dockable

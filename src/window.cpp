@@ -22,12 +22,7 @@ Window::Window(Visualizzzator *vis, const QVector<RendererGUI *> &supported_cuts
     spl_cut->addWidget(createCutConfigBar());
     tmp_buffers << QPair<GraphicBuffer*, Config*>(buffer, config);
 
-    // TODO: must be fixed
-    // cut-config-specific panel must be inserted after combobox
     createMenuBar();
-    //main_layout->addWidget(mdi_area);
-    //main_layout->addLayout(lay_buttons);
-    //main_layout->insertLayout(0, createCutConfigBar());
     main_layout->addWidget(spl_cut);
     main_layout->addLayout(createPlayerBar());
 

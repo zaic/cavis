@@ -21,9 +21,10 @@ QHBoxLayout* ProjectionGUI::buildScalePanel(QSpinBox*& spin_box, const char* nam
     spin_box->setSuffix("%");
 
     // TODO: move icons to another resource file
-    // TODO: create actions
     QPushButton *btn_zoom_out = createButtonFromIcon(":/icons/zoom-out.png", 24);
+    QObject::connect(btn_zoom_out, &QPushButton::clicked, [=](){ spin_box->setValue(max(1, spin_box->value() / 2)); });
     QPushButton *btn_zoom_in  = createButtonFromIcon(":/icons/zoom-in.png",  24);
+    QObject::connect(btn_zoom_in,  &QPushButton::clicked, [=](){ spin_box->setValue(spin_box->value() * 2); });
 
     QHBoxLayout *laytmpscale = new QHBoxLayout;
     laytmpscale->addWidget(lbl_scale);
