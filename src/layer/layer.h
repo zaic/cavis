@@ -4,9 +4,15 @@
 
 class Layer
 {
+    Layer(const Layer& );
+    Layer& operator=(const Layer& );
+
+protected:
+    QPainter *painter;
+
 public:
 	Layer();
 	virtual ~Layer();
 
-	virtual void setBuffer(QPainter *) = 0;
+    virtual void setPainter(QPainter *_painter) { painter = _painter; }
 };

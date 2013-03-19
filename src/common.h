@@ -26,6 +26,11 @@
 
 #endif /* __unix */
 
+#include <algorithm>
+
+using std::min;
+using std::max;
+
 typedef unsigned char uchar;
 typedef unsigned int uint;
 typedef float real;

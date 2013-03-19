@@ -46,8 +46,8 @@ int main(int argc, char *argv[])
 #elif 1 /* HPP */
     config = stub_config;
     renderer = cut_scale;
-    supported_cuts << cutgui;
     supported_cuts << cut_scale_gui;
+    supported_cuts << cutgui;
 #endif
 
     /*

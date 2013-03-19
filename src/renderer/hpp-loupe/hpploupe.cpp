@@ -2,7 +2,8 @@
 
 HPPLoupeRenderer::HPPLoupeRenderer() : cell_size(0), shift_x(0), shift_y(0)
 {
-
+    arrow_layer.setArrowEndLength(3);
+    arrow_layer.setColor(Qt::black);
 }
 
 HPPLoupeRenderer::~HPPLoupeRenderer()
@@ -23,12 +24,13 @@ void HPPLoupeRenderer::draw()
 
     shift_x = (buffer->width() - 2 - cell_size * config->getDimSizeX()) / 2;
     shift_y = (buffer->height() - 2 - cell_size * config->getDimSizeY()) / 2;
-    // TODO: move to buffer
-    shift_x = shift_y = 0;
 
     buffer->prepare();
     QPainter *painter = buffer->getRawPaintDevice();
 
+    arrow_layer.setPainter(painter);
+    arrow_layer.setArrowLength(cell_size / 2 - 1);
+    arrow_layer.setArrowEndLength(max(2, cell_size / 13));
     for(int y = 0; y < config->getDimSizeY(); y++) {
         for(int x = 0; x < config->getDimSizeX(); x++) {
             // тут за нами полный выбор где рисовать
@@ -38,27 +40,13 @@ void HPPLoupeRenderer::draw()
             uchar cell_data = data[id];
             uint value = 0xffeeeeee;
 
-            // TODO replace to fillRectangle
             // TODO draw lightgray rectangle
 
-            painter->setPen(value);
-            for(int i = 1; i < cell_size; i++)
-                for(int j = 1; j < cell_size; j++)
-                    painter->drawPoint(shift_x + x * cell_size + i, shift_y + y * cell_size + j);
+            painter->fillRect(shift_x + x * cell_size, shift_y + y * cell_size, cell_size - 1, cell_size - 1, QColor(value));
 
-            const int dim[4][2] = { {0, -1}, {1, 0}, {0, 1}, {-1, 0} };
             const int cell_mid_x = shift_x + x * cell_size + cell_size / 2 + 1;
             const int cell_mid_y = shift_y + y * cell_size + cell_size / 2 + 1;
-            painter->setPen(Qt::black);
-            for(int i = 0; i < 4; i++)
-                if(cell_data & (1 << i)) {
-                    for(int k = 0; k <= cell_size / 2; k++)
-                        painter->drawPoint(cell_mid_x + k * dim[i][0], cell_mid_y + k * dim[i][1]);
-                    for(int k = 0; k < 4; k++) {
-                        for(int q = 1; q < 2; q++)
-                            painter->drawPoint(cell_mid_x + (cell_size / 2 - q) * dim[i][0] + dim[k][0] * q, cell_mid_y + (cell_size / 2 - q) * dim[i][1] + dim[k][1] * q);
-                    }
-                }
+            arrow_layer.draw(cell_mid_x, cell_mid_y, cell_data, 4, M_PI / 2.0);
         }
     }
 }

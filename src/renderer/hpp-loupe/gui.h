@@ -6,7 +6,7 @@
 #include <QBoxLayout>
 
 #include "hpploupe.h"
-#include "../gui.h"
+#include "renderer/gui.h"
 
 class HPPLoupeGUI : public RendererGUI {
 	Q_OBJECT

@@ -1,6 +1,6 @@
 #include "layer.h"
 
-Layer::Layer()
+Layer::Layer() : painter(NULL)
 {
 }
 

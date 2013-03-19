@@ -1,12 +1,10 @@
 #pragma once
 
-#include "../renderer.h"
-#include "../../common.h"
-#include "../../config/config.h"
-#include <algorithm>
+#include "renderer/renderer.h"
+#include "common.h"
+#include "config/config.h"
+#include "layer/arrow/arrow.h"
 #include <QDebug>
-
-using std::min;
 
 class HPPLoupeRenderer : public Renderer {
 	int cell_size;
@@ -14,6 +12,8 @@ class HPPLoupeRenderer : public Renderer {
 
 	bool autoscale;
 	int scale_cell_size;
+
+    ArrowLayer arrow_layer;
 
 public:
 	HPPLoupeRenderer();

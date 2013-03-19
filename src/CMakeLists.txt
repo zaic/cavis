@@ -43,6 +43,7 @@ aux_source_directory(./renderer/projection SRC_LIST)
 
 add_subdirectory(./layer)
 aux_source_directory(./layer SRC_LIST)
+aux_source_directory(./layer/arrow SRC_LIST)
 
 add_subdirectory(./config)
 aux_source_directory(./config SRC_LIST)
