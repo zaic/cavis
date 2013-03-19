@@ -39,14 +39,13 @@ void ProjectionRenderer::draw()
     }
 
     if(config->getDimSizeX() == 0) {
-        buffer->prepare(1, 1, -50, 0);
+        buffer->prepare();
         return ;
     }
 
     // interpolation
     Interpolator inter(data_x, data_y);
     const int nn = int(x_scaled);
-    int last_value = -1;
 
     qDebug() << "xscal" << x_scaled << "buf->width" << buffer->width();
     if(buffer->width() - 50 < x_scaled)
@@ -56,7 +55,7 @@ void ProjectionRenderer::draw()
     // TODO y-scroll
     // TODO more nice view
     // TODO 100 should be constant
-    buffer->prepare(nn, int(min_value + max_value) + 1, -50, 0);
+    buffer->prepare();
     QPainter *painter = buffer->getRawPaintDevice();
 
     /*
@@ -67,36 +66,55 @@ void ProjectionRenderer::draw()
     const int value_invert = buffer->height() - frame_size;
 
     QPicture digits_picuture;
-    QPainter digits_painter;
-    digits_painter.begin(&digits_picuture);
+    QPainter digits_painter(&digits_picuture);
+
+    // y-axis
     digits_painter.fillRect(0, 0, frame_size, buffer->height(), Qt::white);
-    for(int i = 0; i <= buffer->height() / parameters->y_scale->value(); i++) { // TODO: fix? y_scale in per cents
+    for(int i = 0; i <= buffer->height() / parameters->y_scale->value(); i++) {
         int x = frame_size;
         int y = value_invert - i * parameters->y_scale->value();
+
         // primary dark grid
-        digits_painter.setPen(QColor(0xAA, 0xAA, 0xAA));
-        digits_painter.drawLine(x, y, buffer->width(), y);
+        painter->setPen(QColor(0xAA, 0xAA, 0xAA));
+        painter->drawLine(x, y, buffer->width(), y);
         digits_painter.setPen(Qt::black);
         digits_painter.drawText(x - frame_size * 4 / 5, y, toStdString<int>(i).c_str());
+
         // secondary light grid
         const int cnt = parameters->y_scale->value() / 25;
         const int secondary_height = parameters->y_scale->value() / cnt;
+        painter->setPen(QColor(0xDD, 0xDD, 0xDD));
+        digits_painter.setPen(QColor(0x55, 0x55, 0x55));
         for(int j = 1; j < cnt; j++) {
             y -= secondary_height;
-            digits_painter.setPen(QColor(0xDD, 0xDD, 0xDD));
-            digits_painter.drawLine(x, y, buffer->width(), y);
-            digits_painter.setPen(QColor(0x55, 0x55, 0x55));
+            painter->drawLine(x, y, buffer->width(), y);
             digits_painter.drawText(x - frame_size * 4 / 5, y, toStdString<double>(i + 1.0 / (cnt + 1) * (j)).substr(0, 4).c_str());
         }
     }
+
+    // x-axis
+    digits_painter.begin(&digits_picuture);
+    digits_painter.fillRect(0, 0, buffer->width(), frame_size, Qt::white);
+    for(int i = 0; i <= buffer->width() / parameters->x_scale->value(); i++) {
+        int x = frame_size + i * parameters->x_scale->value();
+        int y = value_invert;
+
+        // primary dark grid
+        painter->setPen(QColor(0xAA, 0xAA, 0xAA));
+        painter->drawLine(x, y, x, 0);
+        digits_painter.setPen(Qt::black);
+        digits_painter.drawText(x, y + frame_size / 2, toStdString<int>(i * 100 + buffer->getXScroll() * 100).c_str());
+    }
+    // TODO: draw numbers
+
     digits_painter.end();
-    painter->drawPicture(0, 0, digits_picuture);
 
     /*
      *  Draw interpolation values
      */
     if(parameters->chk_interpolation->isChecked()) {
         painter->setPen(QColor(0xCC, 0x00, 0x00));
+        int last_value = -1;
         for(int x = 0; x < nn; x++) {
             int value = int(inter.Eval(x) + .5);
             value = value_invert - value;
@@ -123,5 +141,5 @@ void ProjectionRenderer::draw()
         }
     }
 
-    // TODO: draw numbers
+    painter->drawPicture(0, 0, digits_picuture);
 }

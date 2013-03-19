@@ -26,7 +26,7 @@ void HPPLoupeRenderer::draw()
     // TODO: move to buffer
     shift_x = shift_y = 0;
 
-    buffer->prepare(cell_size * config->getDimSizeX(), cell_size * config->getDimSizeY());
+    buffer->prepare();
     QPainter *painter = buffer->getRawPaintDevice();
 
     for(int y = 0; y < config->getDimSizeY(); y++) {

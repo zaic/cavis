@@ -13,7 +13,7 @@ GrayScaleRenderer::~GrayScaleRenderer()
 void GrayScaleRenderer::draw()
 {
     const int cell_size = 2;
-    buffer->prepare(cell_size * config->getDimSizeX(), cell_size * config->getDimSizeY());
+    buffer->prepare();
     QPainter *painter = buffer->getRawPaintDevice();
     for(int y = 0; y < config->getDimSizeY(); y++)
         for(int x = 0; x < config->getDimSizeX(); x++) {
