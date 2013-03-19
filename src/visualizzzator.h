@@ -10,7 +10,7 @@
 using namespace std;
 
 /**
- * @brief Хреновина, обеспечивающее взаимодействие между осями
+ * @brief Ненужная хреновина
  */
 class Visualizzzator
 {

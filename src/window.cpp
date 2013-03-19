@@ -1,6 +1,6 @@
 #include "window.h"
 
-Window::Window(Visualizzzator *vis, const QVector<RendererGUI *> &supported_cuts, QWidget *_parent) : QMainWindow(_parent), visualizator(vis), config(vis->config)
+Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_cuts, QWidget *_parent) : QMainWindow(_parent)
 {
     setWindowTitle("Simulus");
     resize(800, 1);
@@ -10,17 +10,26 @@ Window::Window(Visualizzzator *vis, const QVector<RendererGUI *> &supported_cuts
     mdi_area->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
     initCuts(supported_cuts);
-    QtSimpleBuffer* qt_buffer = new QtSimpleBuffer();
-    buffer = qt_buffer;
-    mdi_area->addSubWindow(qt_buffer->render_window);
+
+    // create example project
+    project = new Project;
+
+    // create example model
+    QtSimpleBuffer *example_buffer = new QtSimpleBuffer();
+    QMdiSubWindow *example_mdisubwindow = mdi_area->addSubWindow(example_buffer->render_window);
     mdi_area->currentSubWindow()->showMaximized();
+    Model* example_model = new Model;
+    mdi_models[example_mdisubwindow] = example_model;
+    example_model->buffer = example_buffer;
+    example_model->config = example_config;
+    example_model->renderer = supported_cuts.first()->getRenderer();
+    project->addModel(example_model);
 
     main_layout = new QVBoxLayout;
 
     QSplitter *spl_cut = new QSplitter;
     spl_cut->addWidget(mdi_area);
     spl_cut->addWidget(createCutConfigBar());
-    tmp_buffers << QPair<GraphicBuffer*, Config*>(buffer, config);
 
     createMenuBar();
     main_layout->addWidget(spl_cut);
@@ -31,8 +40,6 @@ Window::Window(Visualizzzator *vis, const QVector<RendererGUI *> &supported_cuts
     setCentralWidget(central_widget);
 
     updateIterationCounter(Config::FORCED_UPDATE);
-
-    // TODO: not working, shoul be fixed
     connect(WindowEvent::get(), SIGNAL(requireRepaint()), this, SLOT(updateIterationCounter()));
 }
 
@@ -135,23 +142,41 @@ void Window::playerSwitch()
     }
 }
 
+void Window::nextIteration() {
+    QMdiSubWindow *current_mdi = mdi_area->currentSubWindow();
+    if(current_mdi == NULL) return ;
+    updateIterationCounter(mdi_models[current_mdi]->config->nextIteration());
+}
+
+void Window::prevIteration() {
+    QMdiSubWindow *current_mdi = mdi_area->currentSubWindow();
+    if(current_mdi == NULL) return ;
+    updateIterationCounter(mdi_models[current_mdi]->config->prevIteration());
+}
+
+void Window::setIteration(int iteration) {
+    QMdiSubWindow *current_mdi = mdi_area->currentSubWindow();
+    if(current_mdi == NULL) return ;
+    updateIterationCounter(mdi_models[current_mdi]->config->setIteration(iteration));
+}
+
 void Window::updateIterationCounter(int iteration)
 {
     // TODO: move FORCED_UPDATE into Config and remove following condition
     if(iteration == Config::FORCED_UPDATE || iteration != sld_progress->value() || iteration == 0) {
         if(iteration == Config::FORCED_UPDATE) iteration = sld_progress->value();
         sld_progress->setValue(iteration);
-        visualizator->buffer = buffer;
-        //visualizator->draw();
+        mdi_models[mdi_area->currentSubWindow()]->draw();
 
+        /*
         for(auto it : tmp_buffers) {
             visualizator->buffer = it.first;
             visualizator->config = it.second;
             visualizator->draw();
         }
-
+        */
     }
-    sld_progress->setMaximum(config->getIterationsCount());
+    sld_progress->setMaximum(mdi_models[mdi_area->currentSubWindow()]->config->getIterationsCount());
     lbl_iteration->setText(QString::number(sld_progress->value()) + QString(" / ") + QString::number(sld_progress->maximum()));
 }
 
@@ -161,7 +186,7 @@ void Window::updateRendererConfigLayout(const QString &new_layout_name)
     if(last_selected_cut) last_selected_cut->setVisible(false);
     last_selected_cut = cuts[new_layout_name]->getWidget();
     last_selected_cut->setVisible(true);
-    visualizator->renderer = cuts[new_layout_name]->getRenderer();
+    mdi_models[mdi_area->currentSubWindow()]->renderer = cuts[new_layout_name]->getRenderer();
 }
 
 void Window::actModelLoad()
@@ -169,14 +194,16 @@ void Window::actModelLoad()
     QString modelFileName = QFileDialog::getOpenFileName(this, tr("Load model"));
     if(modelFileName.isNull()) return ;
 
+    Model *loading_model = new Model;
+    loading_model->renderer = mdi_models[mdi_area->currentSubWindow()]->renderer;
+
     DLLConfig *dll_config = new DLLConfig(modelFileName.toStdString().c_str());
-    config = dynamic_cast<Config*>(dll_config);
-    visualizator->config = config;
+    loading_model->config = dynamic_cast<Config*>(dll_config);
 
     QtSimpleBuffer* qt_buffer = new QtSimpleBuffer();
-    buffer = qt_buffer;
-    mdi_area->addSubWindow(qt_buffer->render_window);
+    loading_model->buffer = dynamic_cast<GraphicBuffer*>(qt_buffer);
+    QMdiSubWindow *q = mdi_area->addSubWindow(qt_buffer->render_window);
+    mdi_models[q] = loading_model;
+    project->addModel(loading_model);
     qt_buffer->render_window->showMaximized();
-
-    tmp_buffers << QPair<GraphicBuffer*, Config*>(buffer, config);
 }

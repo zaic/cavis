@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 
     QVector<RendererGUI*> supported_cuts;
 
-#if 1 /* PROJECTION */
+#if 0 /* PROJECTION */
     config = local_config;
     renderer = cut_proj;
     supported_cuts << cut_proj_gui;
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
      */
     // TODO: remove renderer
     Visualizzzator *visualizator = new Visualizzzator(config, renderer);
-    Window w(visualizator, supported_cuts);
+    Window w(config, supported_cuts);
     w.show();
     w.resize(1280, 800);
     return app.exec();

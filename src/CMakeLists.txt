@@ -6,7 +6,7 @@ find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)
 
 #message(${Qt5Widgets_LIBRARIES})
-include_directories(${CMAKE_CURRENT_BINARY_DIR}) # wtf? TODO
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${Qt5Core_INCLUDE_DIRS})
 include_directories(${Qt5Gui_INCLUDE_DIRS})
 include_directories(${Qt5Widgets_INCLUDE_DIRS})
@@ -51,6 +51,9 @@ aux_source_directory(./config/network-tcp SRC_LIST)
 aux_source_directory(./config/stub SRC_LIST)
 aux_source_directory(./config/local SRC_LIST)
 aux_source_directory(./config/dll SRC_LIST)
+
+add_subdirectory(./workspace)
+aux_source_directory(./workspace SRC_LIST)
 
 set(MOC_HEADERS
     window.h

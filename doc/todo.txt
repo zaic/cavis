@@ -1,16 +1,14 @@
 description one menu function
 
-projects:
-	модель = интерфейс (правила без конкретных значений, решётка)
+projects
 hpp (large models (2-3 simple models?), run, 3d)
-move player to dockable window, option to modify iteration value
 mdi
 
-scroll
-
+move player to dockable window, option to modify iteration value
 dockable
 communication
 toolbars?
 числа/layers
 translation
 port to Win
+methonds in abstrcat classes for creating Objects?

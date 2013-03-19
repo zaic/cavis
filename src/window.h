@@ -11,6 +11,7 @@
 #include "visualizzzator.h"
 #include "buffer/qt_buffer/qtsimplebuffer.h"
 #include "common.h"
+#include "workspace/project.h"
 
 #include "config/dll/dllconfig.h"
 
@@ -50,15 +51,21 @@ class Window : public QMainWindow
     QLabel *lbl_iteration;
     QTimer player_timer;
 
+    /*
     Visualizzzator *visualizator;
     Config *config;
     GraphicBuffer *buffer;
+    */
 
-    // TODO: fix stub
-    QVector<QPair<GraphicBuffer*, Config*>> tmp_buffers;
+    /*
+     *  Project
+     */
+    Project *project;
+    Model *current_model; // TODO set and do TODO on next line
+    QMap<QMdiSubWindow*, Model*> mdi_models; // move to Project?
 
 public:
-    explicit Window(Visualizzzator *vis, const QVector<RendererGUI *>& supported_cuts, QWidget *_parent = 0);
+    explicit Window(Config *example_config, const QVector<RendererGUI *>& supported_cuts, QWidget *_parent = 0);
 
 signals:
 
@@ -72,9 +79,9 @@ public slots:
     void playerSwitch();
 
     // main actions to control process
-    void nextIteration() { updateIterationCounter(config->nextIteration()); }
-    void prevIteration() { updateIterationCounter(config->prevIteration()); }
-    void setIteration(int iteration) { updateIterationCounter(config->setIteration(iteration)); }
+    void nextIteration();
+    void prevIteration();
+    void setIteration(int iteration);
 
     // update current iteration value in slider and label
     void updateIterationCounter(int iteration = Config::FORCED_UPDATE);

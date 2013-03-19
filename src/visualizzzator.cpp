@@ -14,6 +14,7 @@ Visualizzzator::~Visualizzzator()
 
 void Visualizzzator::draw()
 {
+    // TODO: move to Model
     buffer->create();
     renderer->setConfig(config);
     renderer->setBuffer(buffer);
