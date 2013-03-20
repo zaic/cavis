@@ -1,4 +1,4 @@
-CMakeLists.txt*
+CMakeLists.txt.*
 CMakeFiles
 *.o
 *.sw*

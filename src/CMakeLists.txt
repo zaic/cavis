@@ -1,9 +1,9 @@
 project(visualizer)
 cmake_minimum_required(VERSION 2.8.8)
 
+find_package(Qt5Core REQUIRED)
 find_package(Qt5Gui REQUIRED)
 find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Core REQUIRED)
 
 #message(${Qt5Widgets_LIBRARIES})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
