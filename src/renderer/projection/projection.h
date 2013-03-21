@@ -17,18 +17,22 @@ using ROOT::Math::Interpolator;
 
 class ProjectionRenderer : public Renderer
 {
-	ProjectionRenderer(const ProjectionRenderer& );
-	ProjectionRenderer& operator=(const ProjectionRenderer& );
+    ProjectionRenderer(const ProjectionRenderer& );
+    ProjectionRenderer& operator=(const ProjectionRenderer& );
 
-	ProjectionGUI *parameters;
+    ProjectionGUI *parameters;
 
-    static const int FRAME_SIZE = 50;
+    static const int FRAME_SIZE = 50;       // размер рамки с линейкой
+    const int XSCROLL_SIZE = 100;    // шаг скроллинга по x
+    static const int XGRID_STEP = 100;      // шаг рисования делений на оси Х
+    const int YSCROLL_SIZE = 1;
+    // ?
 
 public:
-	ProjectionRenderer();
-	virtual ~ProjectionRenderer();
+    ProjectionRenderer();
+    virtual ~ProjectionRenderer();
 
-	virtual void setParameters(RendererGUI *_parameters) { parameters = qobject_cast<ProjectionGUI*>(_parameters); }
+    virtual void setParameters(RendererGUI *_parameters) { parameters = qobject_cast<ProjectionGUI*>(_parameters); }
 
-	virtual void draw();
+    virtual void draw();
 };

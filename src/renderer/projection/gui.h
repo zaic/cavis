@@ -7,6 +7,7 @@
 #include "../renderer.h"
 #include "../gui.h"
 #include "../../common.h"
+#include "windowevent.h"
 
 using std::max;
 
@@ -22,10 +23,12 @@ class ProjectionGUI : public RendererGUI
 
     QSpinBox *x_scale;
     QSpinBox *y_scale;
-	QCheckBox *chk_interpolation, *chk_segments;
+    QCheckBox *chk_interpolation, *chk_segments;
 
     void buildMainWidget();
     QHBoxLayout* buildScalePanel(QSpinBox*&, const char *);
+
+    void updateScale(QSpinBox *spn_scale, float multiplier);
 
     friend class ProjectionRenderer;
 

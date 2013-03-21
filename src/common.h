@@ -35,6 +35,8 @@ typedef unsigned char uchar;
 typedef unsigned int uint;
 typedef float real;
 
+const double EPS = 1e-8;
+
 /*
  *	Convert functions
  */

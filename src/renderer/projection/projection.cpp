@@ -38,20 +38,28 @@ void ProjectionRenderer::draw()
     Interpolator inter(data_x, data_y);
     const int nn = int(x_scaled);
 
-    qDebug() << "xscal" << x_scaled << "buf->width" << buffer->width();
-    if(buffer->width() - 50 < x_scaled)
-        buffer->setXScroll(divup<int>(x_scaled - buffer->width() - 50, 100));
+    int x_scrool_width = static_cast<int>(n * parameters->x_scale->value() / 100.0 + (1.0 - EPS));
+    qDebug() << "[render/proj] xwidth" << x_scrool_width << "buf->width" << buffer->width();
+    if(buffer->width() - 50 < x_scrool_width)
+        buffer->setXScroll(divup<int>(x_scrool_width - buffer->width() - 50, XSCROLL_SIZE));
     else
         buffer->setXScroll(GraphicBuffer::SCROLL_DISABLE);
-    // TODO y-scroll
+
+    int y_scrool_width = static_cast<int>((min_value + max_value) * parameters->y_scale->value() / 100.0 + (1.0 - EPS));
+    if(buffer->height() - FRAME_SIZE < y_scrool_width)
+        buffer->setYScroll(divup<int>(y_scrool_width - buffer->height() - 50, YSCROLL_SIZE));
+    else
+        buffer->setXScroll(GraphicBuffer::SCROLL_DISABLE);
     // TODO more nice view
-    // TODO 100 should be constant
     buffer->prepare();
     QPainter *painter = buffer->getRawPaintDevice();
 
     /*
      * Draw grid
      */
+    const int shift_scrool_x = (parameters->x_scale->value() == parameters->x_scale->maximum() && false
+                                ? static_cast<int>(XSCROLL_SIZE * buffer->getXScroll() * 100.0 / parameters->x_scale->value() + .5) // TODO: fix
+                                : static_cast<int>(XSCROLL_SIZE * buffer->getXScroll() * 100.0 / parameters->x_scale->value() + .5) );
     const int shift_x = FRAME_SIZE - buffer->getXScroll() * 100;
     const int value_invert = buffer->height() - FRAME_SIZE;
 
@@ -83,8 +91,9 @@ void ProjectionRenderer::draw()
     }
 
     // x-axis
+    // TODO: draw with step 100
     digits_painter.begin(&digits_picuture);
-    digits_painter.fillRect(0, 0, buffer->width(), FRAME_SIZE, Qt::white);
+    digits_painter.fillRect(0, buffer->height(), buffer->width(), value_invert, Qt::white);
     for(int i = 0; i <= buffer->width() / parameters->x_scale->value(); i++) {
         int x = FRAME_SIZE + i * parameters->x_scale->value();
         int y = value_invert;
@@ -93,7 +102,7 @@ void ProjectionRenderer::draw()
         painter->setPen(QColor(0xAA, 0xAA, 0xAA));
         painter->drawLine(x, y, x, 0);
         digits_painter.setPen(Qt::black);
-        digits_painter.drawText(x, y + FRAME_SIZE / 2, toStdString<int>(i * 100 + buffer->getXScroll() * 100).c_str());
+        digits_painter.drawText(x, y + FRAME_SIZE / 2, toStdString<int>(i * 100 + buffer->getXScroll() * XSCROLL_SIZE * 100.0 / parameters->x_scale->value()).c_str());
     }
     // TODO: draw numbers
 

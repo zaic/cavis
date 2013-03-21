@@ -2,7 +2,7 @@
 
 ProjectionGUI::ProjectionGUI(Renderer *_renderer) : RendererGUI(dynamic_cast<Renderer*>(_renderer))
 {
-	_renderer->setParameters(this);
+    _renderer->setParameters(this);
     buildMainWidget();
 }
 
@@ -22,9 +22,10 @@ QHBoxLayout* ProjectionGUI::buildScalePanel(QSpinBox*& spin_box, const char* nam
 
     // TODO: move icons to another resource file
     QPushButton *btn_zoom_out = createButtonFromIcon(":/icons/zoom-out.png", 24);
-    QObject::connect(btn_zoom_out, &QPushButton::clicked, [=](){ spin_box->setValue(max(1, spin_box->value() / 2)); });
+    QObject::connect(btn_zoom_out, &QPushButton::clicked, [=](){ updateScale(spin_box, 0.5); });
+
     QPushButton *btn_zoom_in  = createButtonFromIcon(":/icons/zoom-in.png",  24);
-    QObject::connect(btn_zoom_in,  &QPushButton::clicked, [=](){ spin_box->setValue(spin_box->value() * 2); });
+    QObject::connect(btn_zoom_in,  &QPushButton::clicked, [=](){ updateScale(spin_box, 2.0); });
 
     QHBoxLayout *laytmpscale = new QHBoxLayout;
     laytmpscale->addWidget(lbl_scale);
@@ -42,16 +43,25 @@ void ProjectionGUI::buildMainWidget()
     QHBoxLayout *lay_scale_y = buildScalePanel(y_scale, "Y-scale:");
 
     // Interpolation
-	chk_interpolation = new QCheckBox(tr("Interpolation"));
-	chk_interpolation->setChecked(true);
-	chk_segments = new QCheckBox(tr("Segments"));
+    chk_interpolation = new QCheckBox(tr("Interpolation"));
+    chk_segments = new QCheckBox(tr("Segments"));
+    chk_segments->setChecked(true);
 
     QVBoxLayout *laytmpall = new QVBoxLayout;
     laytmpall->addLayout(lay_scale_x);
     laytmpall->addLayout(lay_scale_y);
-	laytmpall->addWidget(chk_interpolation);
-	laytmpall->addWidget(chk_segments);
+    laytmpall->addWidget(chk_interpolation);
+    laytmpall->addWidget(chk_segments);
 
-	main_widget = new QWidget;
-	main_widget->setLayout(laytmpall);
+    main_widget = new QWidget;
+    main_widget->setLayout(laytmpall);
+}
+
+void ProjectionGUI::updateScale(QSpinBox *spn_scale, float multiplier)
+{
+    int old_value = spn_scale->value();
+    int new_value = old_value * multiplier;
+    spn_scale->setValue(new_value);
+    if(spn_scale->value() != old_value)
+        WindowEvent::get()->doRequireRepaint();
 }
