@@ -1,19 +1,21 @@
 #include "dlltest.h"
 
-#define size_x 192
-#define size_y 128
+#define size_x 256
+#define size_y 192
 #define size ((size_x) * (size_y))
 
 char *next_data;
 char *prev_data;
 
-static char simple_u_random(float prob) {
+static char simple_u_random(float prob)
+{
     int r = rand();
     float fr = (float)r / RAND_MAX;
-    return (fr < prob);
+    return (fr < prob ? 1 : 0);
 }
 
-static void simple_swap() {
+static void simple_swap()
+{
     char *tmp = next_data;
     next_data = prev_data;
     prev_data = tmp;
@@ -21,14 +23,19 @@ static void simple_swap() {
 
 void init()
 {
+    srand(0);
     prev_data = (char*)malloc(size);
+    memset(prev_data, 0, size);
     next_data = (char*)malloc(size);
     for(int i = 0; i < size_x; i++) {
-        float prob = (float)i / (size_x - 1);
-        for(int j = 0; j < size_y; j++)
+        for(int j = 0; j < size_y; j++) {
+            int di = abs(i - size_x / 2);
+            int dj = abs(j - size_y / 2);
+            float prob = (di * di + dj * dj <= 256 ? .9 : .1);
             for(int k = 0; k < 4; k++)
                 if(simple_u_random(prob))
                     prev_data[j * size_x + i] |= (1 << k);
+        }
     }
 }
 
@@ -48,6 +55,11 @@ void calc()
                 if(prev_data[zz] & (1 << id))
                     next_data[z] |= (1 << id);
             }
+
+            if(i == 0 && (prev_data[z] & 0x8)) next_data[z] |= 0x2;
+            if(i == size_x - 1 && (prev_data[z] & 0x2)) next_data[z] |= 0x8;
+            if(j == 0 && (prev_data[z] & 0x1)) next_data[z] |= 0x4;
+            if(j == size_y - 1 && (prev_data[z] & 0x4)) next_data[z] |= 0x1;
         }
     }
     simple_swap();

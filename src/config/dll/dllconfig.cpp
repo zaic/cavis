@@ -2,8 +2,8 @@
 
 DLLConfig::DLLConfig(const char *path)
 {
-    size_y = 128; // TODO :(
-    size_x = 192;
+    size_y = 192; // TODO :(
+    size_x = 256;
 
     lib_handle = dlopen(path, RTLD_LAZY);
     if(!lib_handle) {
