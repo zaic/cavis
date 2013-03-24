@@ -3,7 +3,7 @@
 #include "../common.h"
 #include "../config/config.h"
 #include "../buffer/buffer.h"
-#include <QLayout>
+#include <QtGui/QLayout>
 
 class RendererGUI;
 

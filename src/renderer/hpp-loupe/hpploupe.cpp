@@ -13,6 +13,9 @@ HPPLoupeRenderer::~HPPLoupeRenderer()
 
 void HPPLoupeRenderer::draw()
 {
+    /*
+     *  Calc cell size
+     */
     if(autoscale) {
         int cell_width  = (buffer->width() - 2) / config->getDimSizeX();
         int cell_height = (buffer->height() - 2) / config->getDimSizeY();
@@ -22,20 +25,36 @@ void HPPLoupeRenderer::draw()
         cell_size = scale_cell_size * 2 + 1;
     }
 
-    shift_x = (buffer->width() - 2 - cell_size * config->getDimSizeX()) / 2;
-    shift_y = (buffer->height() - 2 - cell_size * config->getDimSizeY()) / 2;
+    /*
+     *  Prepare buffer and scrollbars
+     */
+    int buffer_x_have = buffer->width() - ruler_layer.getYFrame() - 1;
+    int buffer_x_required = cell_size * config->getDimSizeX();
+    if(buffer_x_required > buffer_x_have)
+        buffer->setXScroll(divup(buffer_x_required - buffer_x_have, cell_size));
+    else
+        buffer->setXScroll(GraphicBuffer::SCROLL_DISABLE);
+
+    int buffer_y_have = buffer->height() - ruler_layer.getXFrame() - 1;
+    int buffer_y_required = cell_size * config->getDimSizeY();
+    if(buffer_y_required > buffer_y_have)
+        buffer->setYScroll(divup(buffer_y_required - buffer_y_have, cell_size));
+    else
+        buffer->setYScroll(GraphicBuffer::SCROLL_DISABLE);
 
     buffer->prepare();
     QPainter *painter = buffer->getRawPaintDevice();
 
+    /*
+     *  Prepare layers
+     */
     ruler_layer.setPainter(painter);
-    ruler_layer.setXStart(cell_size / 3);
+    ruler_layer.setXStart(cell_size / 3 - cell_size * buffer->getXScroll()); // TODO: add align to ruler?
     ruler_layer.setXStep(cell_size);
-    ruler_layer.setYStart(cell_size / 3);
+    ruler_layer.setYStart(cell_size / 3 - cell_size * buffer->getYScroll());
     ruler_layer.setYStep(cell_size);
-    ruler_layer.draw();
-    shift_x = ruler_layer.getXFrame() + 1;
-    shift_y = ruler_layer.getYFrame() + 1;
+    shift_x = ruler_layer.getXFrame() + 1 - buffer->getXScroll() * cell_size;
+    shift_y = ruler_layer.getYFrame() + 1 - buffer->getYScroll() * cell_size;
     qDebug() << "[render/hpp] shift:" << shift_x << shift_y;
 
     arrow_layer.setPainter(painter);
@@ -59,4 +78,8 @@ void HPPLoupeRenderer::draw()
             arrow_layer.draw(cell_mid_x, cell_mid_y, cell_data, 4, M_PI / 2.0);
         }
     }
+
+    painter->fillRect(0, 0, buffer->width(), ruler_layer.getXFrame(), Qt::white);
+    painter->fillRect(0, 0, ruler_layer.getYFrame(), buffer->height(), Qt::white);
+    ruler_layer.draw();
 }

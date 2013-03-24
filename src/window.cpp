@@ -8,6 +8,7 @@ Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_c
     mdi_area = new QMdiArea(this);
     mdi_area->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     mdi_area->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    connect(mdi_area, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(mdiChangeSubWindow(QMdiSubWindow*)));
 
     initCuts(supported_cuts);
 
@@ -19,11 +20,11 @@ Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_c
     QMdiSubWindow *example_mdisubwindow = mdi_area->addSubWindow(example_buffer->render_window);
     mdi_area->currentSubWindow()->showMaximized();
     Model* example_model = new Model;
-    mdi_models[example_mdisubwindow] = example_model;
     example_model->buffer = example_buffer;
     example_model->config = example_config;
     example_model->renderer = supported_cuts.first()->getRenderer();
-    project->addModel(example_model);
+    project->addModel(example_mdisubwindow, example_model);
+    current_model = example_model;
 
     main_layout = new QVBoxLayout;
 
@@ -145,19 +146,19 @@ void Window::playerSwitch()
 void Window::nextIteration() {
     QMdiSubWindow *current_mdi = mdi_area->currentSubWindow();
     if(current_mdi == NULL) return ;
-    updateIterationCounter(mdi_models[current_mdi]->config->nextIteration());
+    updateIterationCounter(current_model->config->nextIteration());
 }
 
 void Window::prevIteration() {
     QMdiSubWindow *current_mdi = mdi_area->currentSubWindow();
     if(current_mdi == NULL) return ;
-    updateIterationCounter(mdi_models[current_mdi]->config->prevIteration());
+    updateIterationCounter(current_model->config->prevIteration());
 }
 
 void Window::setIteration(int iteration) {
     QMdiSubWindow *current_mdi = mdi_area->currentSubWindow();
     if(current_mdi == NULL) return ;
-    updateIterationCounter(mdi_models[current_mdi]->config->setIteration(iteration));
+    updateIterationCounter(current_model->config->setIteration(iteration));
 }
 
 void Window::updateIterationCounter(int iteration)
@@ -166,7 +167,7 @@ void Window::updateIterationCounter(int iteration)
     if(iteration == Config::FORCED_UPDATE || iteration != sld_progress->value() || iteration == 0) {
         if(iteration == Config::FORCED_UPDATE) iteration = sld_progress->value();
         sld_progress->setValue(iteration);
-        mdi_models[mdi_area->currentSubWindow()]->draw();
+        current_model->draw();
 
         /*
         for(auto it : tmp_buffers) {
@@ -176,7 +177,7 @@ void Window::updateIterationCounter(int iteration)
         }
         */
     }
-    sld_progress->setMaximum(mdi_models[mdi_area->currentSubWindow()]->config->getIterationsCount());
+    sld_progress->setMaximum(current_model->config->getIterationsCount());
     lbl_iteration->setText(QString::number(sld_progress->value()) + QString(" / ") + QString::number(sld_progress->maximum()));
 }
 
@@ -186,7 +187,12 @@ void Window::updateRendererConfigLayout(const QString &new_layout_name)
     if(last_selected_cut) last_selected_cut->setVisible(false);
     last_selected_cut = cuts[new_layout_name]->getWidget();
     last_selected_cut->setVisible(true);
-    mdi_models[mdi_area->currentSubWindow()]->renderer = cuts[new_layout_name]->getRenderer();
+    current_model->renderer = cuts[new_layout_name]->getRenderer();
+}
+
+void Window::mdiChangeSubWindow(QMdiSubWindow *win)
+{
+    current_model = project->getModel(win);
 }
 
 void Window::actModelLoad()
@@ -195,7 +201,7 @@ void Window::actModelLoad()
     if(modelFileName.isNull()) return ;
 
     Model *loading_model = new Model;
-    loading_model->renderer = mdi_models[mdi_area->currentSubWindow()]->renderer;
+    loading_model->renderer = current_model->renderer;
 
     DLLConfig *dll_config = new DLLConfig(modelFileName.toStdString().c_str());
     loading_model->config = dynamic_cast<Config*>(dll_config);
@@ -203,7 +209,8 @@ void Window::actModelLoad()
     QtSimpleBuffer* qt_buffer = new QtSimpleBuffer();
     loading_model->buffer = dynamic_cast<GraphicBuffer*>(qt_buffer);
     QMdiSubWindow *q = mdi_area->addSubWindow(qt_buffer->render_window);
-    mdi_models[q] = loading_model;
-    project->addModel(loading_model);
+    project->addModel(q, loading_model);
     qt_buffer->render_window->showMaximized();
+
+    current_model = loading_model;
 }

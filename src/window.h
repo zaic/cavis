@@ -52,17 +52,10 @@ class Window : public QMainWindow
     QTimer player_timer;
 
     /*
-    Visualizzzator *visualizator;
-    Config *config;
-    GraphicBuffer *buffer;
-    */
-
-    /*
      *  Project
      */
     Project *project;
-    Model *current_model; // TODO set and do TODO on next line
-    QMap<QMdiSubWindow*, Model*> mdi_models; // move to Project?
+    Model *current_model;
 
 public:
     explicit Window(Config *example_config, const QVector<RendererGUI *>& supported_cuts, QWidget *_parent = 0);
@@ -70,7 +63,10 @@ public:
 signals:
 
 public slots:
-    // cut config toolbar
+    // MDI
+    void mdiChangeSubWindow(QMdiSubWindow *win);
+
+    // renderer config toolbar
     void updateRendererConfigLayout(const QString& new_layout_name);
 
     // player toolbar
