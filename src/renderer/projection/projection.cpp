@@ -45,11 +45,11 @@ void ProjectionRenderer::draw()
     else
         buffer->setXScroll(GraphicBuffer::SCROLL_DISABLE);
 
-    int y_scrool_width = static_cast<int>((min_value + max_value) * parameters->y_scale->value() / 100.0 + (1.0 - EPS));
-    if(buffer->height() - FRAME_SIZE < y_scrool_width)
+    int y_scrool_width = static_cast<int>((min_value + max_value) * parameters->y_scale->value() + (1.0 - EPS));
+    if(buffer->height() - FRAME_SIZE < y_scrool_width || true)
         buffer->setYScroll(divup<int>(y_scrool_width - buffer->height() - 50, YSCROLL_SIZE));
     else
-        buffer->setXScroll(GraphicBuffer::SCROLL_DISABLE);
+        buffer->setYScroll(GraphicBuffer::SCROLL_DISABLE);
     // TODO more nice view
     buffer->prepare();
     QPainter *painter = buffer->getRawPaintDevice();

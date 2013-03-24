@@ -14,7 +14,7 @@ void HPPLoupeGUI::buildMainWidget() {
 
 	QLabel *lbl_scale = new QLabel(tr("scale:"));
 	spn_scale = new QSpinBox;
-	spn_scale->setMinimum(10);
+    spn_scale->setMinimum(3);
 
 	connect(chk_autoscale, SIGNAL(toggled(bool)), spn_scale, SLOT(setDisabled(bool)));
 	connect(chk_autoscale, SIGNAL(toggled(bool)), this, SLOT(autoscaleToggled(bool)));

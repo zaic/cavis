@@ -2,6 +2,7 @@
 
 Layer::Layer() : painter(NULL)
 {
+
 }
 
 Layer::~Layer()

@@ -25,7 +25,7 @@ class ProjectionRenderer : public Renderer
     static const int FRAME_SIZE = 50;       // размер рамки с линейкой
     const int XSCROLL_SIZE = 100;    // шаг скроллинга по x
     static const int XGRID_STEP = 100;      // шаг рисования делений на оси Х
-    const int YSCROLL_SIZE = 1;
+    const int YSCROLL_SIZE = 100;
     // ?
 
 public:

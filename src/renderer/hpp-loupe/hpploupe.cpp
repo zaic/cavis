@@ -28,6 +28,16 @@ void HPPLoupeRenderer::draw()
     buffer->prepare();
     QPainter *painter = buffer->getRawPaintDevice();
 
+    ruler_layer.setPainter(painter);
+    ruler_layer.setXStart(cell_size / 3);
+    ruler_layer.setXStep(cell_size);
+    ruler_layer.setYStart(cell_size / 3);
+    ruler_layer.setYStep(cell_size);
+    ruler_layer.draw();
+    shift_x = ruler_layer.getXFrame() + 1;
+    shift_y = ruler_layer.getYFrame() + 1;
+    qDebug() << "[render/hpp] shift:" << shift_x << shift_y;
+
     arrow_layer.setPainter(painter);
     arrow_layer.setArrowLength(cell_size / 2 - 1);
     arrow_layer.setArrowEndLength(max(2, cell_size / 13));

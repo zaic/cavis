@@ -36,14 +36,14 @@ void ArrowLayer::draw(int x, int y, uint mask, int mask_size, float start_angle,
         // TODO improve quality
         // draw left part
         const float angle_left = current_angle + angle_parts;
-        int xl_to = static_cast<int>(x_to + end_len * cos(angle_left) + .5);
-        int yl_to = static_cast<int>(y_to - end_len * sin(angle_left) + .5);
+        int xl_to = static_cast<int>(x_to + .5 + end_len * cos(angle_left) + .5);
+        int yl_to = static_cast<int>(y_to + .5 - end_len * sin(angle_left) + .5);
         painter->drawLine(x_to, y_to, xl_to, yl_to);
 
         // draw right part
         const float angle_right = current_angle - angle_parts;
-        int xr_to = static_cast<int>(x_to + end_len * cos(angle_right) + .5);
-        int yr_to = static_cast<int>(y_to - end_len * sin(angle_right) + .5);
+        int xr_to = static_cast<int>(x_to + .5 + end_len * cos(angle_right) + .5);
+        int yr_to = static_cast<int>(y_to + .5 - end_len * sin(angle_right) + .5);
         painter->drawLine(x_to, y_to, xr_to, yr_to);
     }
 }

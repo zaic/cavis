@@ -4,6 +4,7 @@
 #include "common.h"
 #include "config/config.h"
 #include "layer/arrow/arrow.h"
+#include "layer/ruler/ruler.h"
 #include <QDebug>
 
 class HPPLoupeRenderer : public Renderer {
@@ -14,6 +15,7 @@ class HPPLoupeRenderer : public Renderer {
 	int scale_cell_size;
 
     ArrowLayer arrow_layer;
+    RulerLayer ruler_layer;
 
 public:
 	HPPLoupeRenderer();

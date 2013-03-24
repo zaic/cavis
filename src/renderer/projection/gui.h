@@ -1,8 +1,6 @@
 #pragma once
 
-#include <QSpinBox>
-#include <QPushButton>
-#include <QCheckBox>
+#include <QtWidgets>
 #include <algorithm>
 #include "../renderer.h"
 #include "../gui.h"

@@ -4,7 +4,7 @@
 #include <cmath>
 #undef _USE_MATH_DEFINES
 #include "layer/layer.h"
-#include <QDebug>
+#include <QtGui>
 
 class ArrowLayer : public Layer
 {

@@ -1,9 +1,6 @@
 #pragma once
 
-#include <QPainter>
-#include <QScrollBar>
-#include <QGridLayout>
-#include <QDebug>
+#include <QtWidgets>
 #include "../buffer.h"
 #include "renderarea.h"
 
@@ -19,6 +16,7 @@ class QtSimpleBuffer : public GraphicBuffer
     QPainter *painter;
     RenderArea *render_area;
     QScrollBar *scb_render_width, *scb_render_height;
+    QScrollArea *scroll_area;
 
     /*
      *  Buffer parameters
@@ -30,7 +28,7 @@ public:
     QWidget *render_window;
 
     QtSimpleBuffer();
-    virtual ~QtSimpleBuffer() { delete render_window; }
+    virtual ~QtSimpleBuffer();
 
     virtual void create();
     virtual void prepare();

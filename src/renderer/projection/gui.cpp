@@ -15,7 +15,7 @@ QHBoxLayout* ProjectionGUI::buildScalePanel(QSpinBox*& spin_box, const char* nam
 {
     QLabel *lbl_scale = new QLabel(QObject::tr(name));
     spin_box = new QSpinBox;
-    spin_box->setMinimum(1);
+    spin_box->setMinimum(25);
     spin_box->setMaximum(100500);
     spin_box->setValue(100);
     spin_box->setSuffix("%");
@@ -26,6 +26,9 @@ QHBoxLayout* ProjectionGUI::buildScalePanel(QSpinBox*& spin_box, const char* nam
 
     QPushButton *btn_zoom_in  = createButtonFromIcon(":/icons/zoom-in.png",  24);
     QObject::connect(btn_zoom_in,  &QPushButton::clicked, [=](){ updateScale(spin_box, 2.0); });
+
+    // TODO: fix it
+    // QObject::connect((QSpinBox*)(spin_box), &QSpinBox::valueChanged, [=](const QString & text){ WindowEvent::get()->doRequireRepaint(); });
 
     QHBoxLayout *laytmpscale = new QHBoxLayout;
     laytmpscale->addWidget(lbl_scale);

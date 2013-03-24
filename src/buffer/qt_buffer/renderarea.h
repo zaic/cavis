@@ -1,7 +1,6 @@
 #pragma once
 
-#include <QWidget>
-#include <QPainter>
+#include <QtWidgets>
 #include "../../windowevent.h"
 
 class RenderArea : public QWidget
