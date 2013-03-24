@@ -25,4 +25,6 @@ public:
 	void setScale(int value) { scale_cell_size = value; }
 
 	virtual void draw();
+
+    static const int MIN_CELL_SIZE = 5;
 };

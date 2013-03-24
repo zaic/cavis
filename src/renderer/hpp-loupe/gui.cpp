@@ -10,11 +10,11 @@ HPPLoupeGUI::~HPPLoupeGUI() {
 
 void HPPLoupeGUI::buildMainWidget() {
 	chk_autoscale = new QCheckBox;
-	chk_autoscale->setText("autoscale");
+    chk_autoscale->setText(tr("autoscale"));
 
 	QLabel *lbl_scale = new QLabel(tr("scale:"));
 	spn_scale = new QSpinBox;
-    spn_scale->setMinimum(3);
+    spn_scale->setMinimum(HPPLoupeRenderer::MIN_CELL_SIZE);
 
 	connect(chk_autoscale, SIGNAL(toggled(bool)), spn_scale, SLOT(setDisabled(bool)));
 	connect(chk_autoscale, SIGNAL(toggled(bool)), this, SLOT(autoscaleToggled(bool)));
@@ -37,8 +37,11 @@ void HPPLoupeGUI::autoscaleToggled(bool value) {
 	renderer->setAutoscale(value);
 	if(!value)
 		scaleChanged(spn_scale->value());
+    else
+        WindowEvent::get()->doRequireRepaint();
 }
 
 void HPPLoupeGUI::scaleChanged(int value) {
 	renderer->setScale(value);
+    WindowEvent::get()->doRequireRepaint();
 }

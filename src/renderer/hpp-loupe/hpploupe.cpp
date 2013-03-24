@@ -21,6 +21,7 @@ void HPPLoupeRenderer::draw()
         int cell_height = (buffer->height() - 2) / config->getDimSizeY();
         cell_size = min(cell_width, cell_height);
         if(cell_size % 2 == 0) cell_size--;
+        cell_size = max(5, cell_size); // TODO: fix static
     } else {
         cell_size = scale_cell_size * 2 + 1;
     }

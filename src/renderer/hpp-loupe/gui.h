@@ -1,12 +1,9 @@
 #pragma once
 
-#include <QCheckBox>
-#include <QLabel>
-#include <QSpinBox>
-#include <QBoxLayout>
-
+#include <QtWidgets>
 #include "hpploupe.h"
 #include "renderer/gui.h"
+#include "windowevent.h"
 
 class HPPLoupeGUI : public RendererGUI {
 	Q_OBJECT
