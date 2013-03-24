@@ -85,5 +85,13 @@ public slots:
     /*
      *  Menu
      */
+    void actProjectNew();
+    void actProjectOpen();
+    void actProjectClose();
+    void actProjectSave();
+    void actProjectSaveAs();
+
     void actModelLoad();
+
+    void actQuit();
 };

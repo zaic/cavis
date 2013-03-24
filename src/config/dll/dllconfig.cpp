@@ -37,13 +37,15 @@ DLLConfig::~DLLConfig()
         fn_quit();
 }
 
-int DLLConfig::getDimSize(int dim) const {
+int DLLConfig::getDimSize(int dim) const
+{
     if(dim == 0) return size_x;
     if(dim == 1) return size_y;
     return 1;
 }
 
-int DLLConfig::setIteration(int iteration) {
+int DLLConfig::setIteration(int iteration)
+{
     if(iteration < current_iteration_id || iteration > current_iteration_id + 1) return current_iteration_id;
     if(iteration == current_iteration_id + 1) {
         lib_calc();

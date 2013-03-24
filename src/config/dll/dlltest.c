@@ -36,7 +36,7 @@ void calc()
 {
     static const int dir[][2] = { {-1, 0}, {0, 1}, {1, 0}, {0, -1} };
     memset(next_data, 0, size);
-    for(int j = 0; j < size_y; j++)
+    for(int j = 0; j < size_y; j++) {
         for(int i = 0; i < size_x; i++) {
             int z = j * size_x + i;
             for(int k = 0; k < 4; k++) {
@@ -49,6 +49,7 @@ void calc()
                     next_data[z] |= (1 << id);
             }
         }
+    }
     simple_swap();
 }
 

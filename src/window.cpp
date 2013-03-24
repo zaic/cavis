@@ -55,25 +55,92 @@ void Window::initCuts(const QVector<RendererGUI *>& supported_cuts)
 
 void Window::createMenuBar()
 {
+    /*
+     *  Menu TODO:
+     *
+     *  Add shortcuts
+     *  Add "open recent project"
+     *  Add model menus
+     *  Enable/disable menus when MDISubWindow activated/deactivated
+     *
+     */
+
+    /*
+     *  Project
+     */
     QMenu *mnu_file = menuBar()->addMenu(tr("&File"));
-    mnu_file->addAction("New Project");
-    mnu_file->addAction("Open Project");
+
+    // New Project
+    QAction *act_project_new = new QAction(QIcon::fromTheme("document-new"), tr("&New Project"), this);
+    act_project_new->setShortcut(QKeySequence::New);
+    connect(act_project_new, SIGNAL(triggered()), this, SLOT(actProjectNew()));
+    mnu_file->addAction(act_project_new);
+
+    // Open Project
+    QAction *act_project_open = new QAction(QIcon::fromTheme("document-open"), tr("&Open Project..."), this);
+    act_project_open->setShortcut(QKeySequence::Open);
+    connect(act_project_open, SIGNAL(triggered()), this, SLOT(actProjectOpen()));
+    mnu_file->addAction(act_project_open);
+
+    // Close Project
+    QAction *act_project_close = new QAction(QIcon::fromTheme("window-close"), tr("Close Project"), this);
+    connect(act_project_close, SIGNAL(triggered()), this, SLOT(actProjectNew()));
+    mnu_file->addAction(act_project_close);
+
     mnu_file->addSeparator();
-    mnu_file->addAction("Quit");
+
+    // Save Project
+    QAction *act_project_save = new QAction(QIcon::fromTheme("document-save"), tr("&Save Project"), this);
+    act_project_save->setShortcut(QKeySequence::Save);
+    connect(act_project_save, SIGNAL(triggered()), this, SLOT(actProjectSave()));
+    mnu_file->addAction(act_project_save);
+
+    // Save Project As...
+    QAction *act_project_saveas = new QAction(QIcon::fromTheme("document-save-as"), tr("Save Project As..."), this);
+    act_project_saveas->setShortcut(QKeySequence::SaveAs);
+    connect(act_project_saveas, SIGNAL(triggered()), this, SLOT(actProjectSaveAs()));
+    mnu_file->addAction(act_project_saveas);
+
+    mnu_file->addSeparator();
+
+    // Quit
+    QAction *act_quit = new QAction(QIcon::fromTheme("application-exit"), tr("&Quit"), this);
+    act_quit->setShortcut(QKeySequence::Quit);
+    connect(act_quit, SIGNAL(triggered()), this, SLOT(actQuit()));
+    mnu_file->addAction(act_quit);
 
     /*
      *  Model
      */
     QMenu *mnu_model = menuBar()->addMenu(tr("&Model"));
+
     //  Load new model
-    QAction *act_model_load = new QAction(this);
-    act_model_load->setText("Load model...");
+    QAction *act_model_load = new QAction(QIcon::fromTheme("list-add"), tr("&Load model"), this);
+    act_model_load->setShortcut(tr("Ctrl+L"));
     connect(act_model_load, SIGNAL(triggered()), this, SLOT(actModelLoad()));
     mnu_model->addAction(act_model_load);
 
+    /*
+     *  Help
+     */
     QMenu *mnu_help = menuBar()->addMenu(tr("&About"));
-    mnu_help->addAction(tr("About Simulus"));
-    mnu_help->addAction(tr("&About Qt"));
+
+    // About me ;)
+    QAction *act_about_me = new QAction(tr("About Simulus"), this);
+    connect(act_about_me, &QAction::triggered, [=](){ QMessageBox::about(this, tr("About Simulus"), tr("This is <b>SIMULUS</b>!")); });
+    mnu_help->addAction(act_about_me);
+
+    // About Qt
+    QAction *act_about_qt = new QAction(tr("About Qt"), this);
+    connect(act_about_qt, &QAction::triggered, [=](){ qApp->aboutQt(); });
+    mnu_help->addAction(act_about_qt);
+
+    QToolBar *tlb_test = new QToolBar(this);
+    tlb_test->addAction(act_project_new);
+    tlb_test->addAction(act_project_save);
+    tlb_test->addAction(act_project_open);
+    tlb_test->addAction(act_model_load);
+    addToolBar(tlb_test);
 }
 
 QWidget* Window::createCutConfigBar()
@@ -196,6 +263,31 @@ void Window::mdiChangeSubWindow(QMdiSubWindow *win)
     current_model = project->getModel(win);
 }
 
+void Window::actProjectNew()
+{
+
+}
+
+void Window::actProjectOpen()
+{
+
+}
+
+void Window::actProjectClose()
+{
+
+}
+
+void Window::actProjectSave()
+{
+
+}
+
+void Window::actProjectSaveAs()
+{
+
+}
+
 void Window::actModelLoad()
 {
     QString modelFileName = QFileDialog::getOpenFileName(this, tr("Load model"));
@@ -214,4 +306,10 @@ void Window::actModelLoad()
     qt_buffer->render_window->showMaximized();
 
     current_model = loading_model;
+}
+
+void Window::actQuit()
+{
+    // TODO: add question
+    qApp->quit();
 }
