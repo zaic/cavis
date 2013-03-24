@@ -2,9 +2,9 @@
 
 #include <QtWidgets>
 #include <algorithm>
-#include "../renderer.h"
-#include "../gui.h"
-#include "../../common.h"
+#include "renderer/renderer.h"
+#include "renderer/gui.h"
+#include "common.h"
 #include "windowevent.h"
 
 using std::max;

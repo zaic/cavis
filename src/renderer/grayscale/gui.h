@@ -1,30 +1,27 @@
 #pragma once
 
-#include <QCheckBox>
-#include <QLabel>
-#include <QSpinBox>
-#include <QBoxLayout>
-
+#include <QtWidgets>
 #include "grayscale.h"
-#include "../gui.h"
+#include "renderer/gui.h"
 
-class GrayScaleGUI : public RendererGUI {
-	Q_OBJECT
+class GrayScaleGUI : public RendererGUI
+{
+    Q_OBJECT
 
-	GrayScaleGUI();
-	GrayScaleGUI(const GrayScaleGUI& );
-	GrayScaleGUI& operator=(const GrayScaleGUI& );
+    GrayScaleGUI();
+    GrayScaleGUI(const GrayScaleGUI& );
+    GrayScaleGUI& operator=(const GrayScaleGUI& );
 
-	GrayScaleRenderer *renderer;
-	QWidget *main_widget;
+    GrayScaleRenderer *renderer;
+    QWidget *main_widget;
 
-	void buildMainWidget();
+    void buildMainWidget();
 
 public:
-	GrayScaleGUI(GrayScaleRenderer*);
-	virtual ~GrayScaleGUI();
+    GrayScaleGUI(GrayScaleRenderer*);
+    virtual ~GrayScaleGUI();
 
-	virtual QString getName() const { return QString("Gray scale"); }
+    virtual QString getName() const { return QString("Gray scale"); }
 
 public slots:
 

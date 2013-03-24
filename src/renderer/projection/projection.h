@@ -1,8 +1,6 @@
 #pragma once
 
-#include <QDebug>
-#include <QPainter>
-#include <QPicture>
+#include <QtGui>
 #include <root/Math/Interpolator.h>
 #include "../renderer.h"
 #include "../../common.h"

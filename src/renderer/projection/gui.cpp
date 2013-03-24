@@ -1,6 +1,7 @@
 #include "gui.h"
 
-ProjectionGUI::ProjectionGUI(Renderer *_renderer) : RendererGUI(dynamic_cast<Renderer*>(_renderer))
+ProjectionGUI::ProjectionGUI(Renderer *_renderer) :
+    RendererGUI(dynamic_cast<Renderer*>(_renderer))
 {
     _renderer->setParameters(this);
     buildMainWidget();

@@ -1,6 +1,7 @@
 #include "window.h"
 
-Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_cuts, QWidget *_parent) : QMainWindow(_parent)
+Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_cuts, QWidget *_parent) :
+    QMainWindow(_parent)
 {
     setWindowTitle("Simulus");
     resize(800, 1);

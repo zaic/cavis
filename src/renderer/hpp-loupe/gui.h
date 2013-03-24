@@ -6,25 +6,25 @@
 #include "windowevent.h"
 
 class HPPLoupeGUI : public RendererGUI {
-	Q_OBJECT
+    Q_OBJECT
 
-	HPPLoupeGUI();
-	HPPLoupeGUI(const HPPLoupeGUI& );
-	HPPLoupeGUI& operator=(const HPPLoupeGUI& );
+    HPPLoupeGUI();
+    HPPLoupeGUI(const HPPLoupeGUI& );
+    HPPLoupeGUI& operator=(const HPPLoupeGUI& );
 
-	HPPLoupeRenderer *renderer;
-	QCheckBox *chk_autoscale;
-	QSpinBox *spn_scale;
+    HPPLoupeRenderer *renderer;
+    QCheckBox *chk_autoscale;
+    QSpinBox *spn_scale;
 
-	void buildMainWidget();
+    void buildMainWidget();
 
 public:
-	HPPLoupeGUI(HPPLoupeRenderer*);
-	virtual ~HPPLoupeGUI();
+    HPPLoupeGUI(HPPLoupeRenderer*);
+    virtual ~HPPLoupeGUI();
 
-	virtual QString getName() const { return QString("HPP Loupe"); }
+    virtual QString getName() const { return QString("HPP Loupe"); }
 
 public slots:
-	void autoscaleToggled(bool value);
-	void scaleChanged(int value);
+    void autoscaleToggled(bool value);
+    void scaleChanged(int value);
 };

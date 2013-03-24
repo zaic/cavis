@@ -1,6 +1,9 @@
 #include "hpploupe.h"
 
-HPPLoupeRenderer::HPPLoupeRenderer() : cell_size(0), shift_x(0), shift_y(0)
+HPPLoupeRenderer::HPPLoupeRenderer() :
+    cell_size(0),
+    shift_x(0),
+    shift_y(0)
 {
     arrow_layer.setArrowEndLength(3);
     arrow_layer.setColor(Qt::black);
