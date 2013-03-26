@@ -1,11 +1,12 @@
 #pragma once
 
 #include <cstddef>
+#include <QtCore>
 
-// TODO: add some factory for creating needed ConfigClass for opened model?
-
-class Config
+class Config : public QObject
 {
+    Q_OBJECT
+
     Config(const Config& );
     Config& operator=(const Config& );
 
@@ -29,4 +30,7 @@ public:
     virtual int getDimSizeX() const { return getDimSize(0); }
     virtual int getDimSizeY() const { return getDimSize(1); }
     virtual int getDimSizeZ() const { return getDimSize(2); }
+
+    virtual void serialize  (QDataStream& stream) { /* not implemented */ }
+    virtual void deserialize(QDataStream& stream) { /* not implemented */ }
 };

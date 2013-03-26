@@ -18,3 +18,14 @@ void Model::draw()
     renderer->draw();
     buffer->complete();
 }
+
+void Model::save(QDataStream &stream)
+{
+    config->serialize(stream);
+}
+
+void Model::load(QDataStream &stream)
+{
+    config = new DLLConfig;
+    config->deserialize(stream);
+}

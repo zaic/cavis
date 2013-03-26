@@ -60,7 +60,13 @@ aux_source_directory(./workspace SRC_LIST)
 set(MOC_HEADERS
     window.h
     windowevent.h
+    buffercontainer.h
+
     buffer/qt_buffer/renderarea.h
+
+    config/config.h
+    config/dll/dllconfig.h
+
     renderer/gui.h
     renderer/hpp-loupe/gui.h
     renderer/grayscale/gui.h

@@ -5,6 +5,7 @@
 #include <QtWidgets>
 
 #include "windowevent.h"
+#include "buffercontainer.h"
 #include "buffer/buffer.h"
 #include "config/config.h"
 #include "renderer/gui.h"
@@ -56,6 +57,7 @@ class Window : public QMainWindow
      */
     Project *project;
     Model *current_model;
+    QMap<BufferContainer*, QMdiSubWindow *> mdi_subwindows;
 
 public:
     explicit Window(Config *example_config, const QVector<RendererGUI *>& supported_cuts, QWidget *_parent = 0);
@@ -65,6 +67,7 @@ signals:
 public slots:
     // MDI
     void mdiChangeSubWindow(QMdiSubWindow *win);
+    void mdiClosingWindow(BufferContainer *buf);
 
     // renderer config toolbar
     void updateRendererConfigLayout(const QString& new_layout_name);

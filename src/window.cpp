@@ -18,7 +18,10 @@ Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_c
 
     // create example model
     QtSimpleBuffer *example_buffer = new QtSimpleBuffer();
-    QMdiSubWindow *example_mdisubwindow = mdi_area->addSubWindow(example_buffer->render_window);
+    BufferContainer *example_container = new BufferContainer(example_buffer->render_window);
+    connect(example_container, SIGNAL(imclosing(BufferContainer*)), this, SLOT(mdiClosingWindow(BufferContainer*)));
+    QMdiSubWindow *example_mdisubwindow = mdi_area->addSubWindow(example_container);
+    mdi_subwindows[example_container] = example_mdisubwindow;
     mdi_area->currentSubWindow()->showMaximized();
     Model* example_model = new Model;
     example_model->buffer = example_buffer;
@@ -263,6 +266,12 @@ void Window::mdiChangeSubWindow(QMdiSubWindow *win)
     current_model = project->getModel(win);
 }
 
+void Window::mdiClosingWindow(BufferContainer *buf)
+{
+    QMdiSubWindow *closing_mdisubwin = mdi_subwindows[buf];
+    project->remModel(closing_mdisubwin);
+}
+
 void Window::actProjectNew()
 {
 
@@ -270,7 +279,17 @@ void Window::actProjectNew()
 
 void Window::actProjectOpen()
 {
-
+    if(project != NULL) {
+        // TODO some question
+        delete project;
+    }
+    QString filename = QFileDialog::getOpenFileName(this, tr("Open Project"));
+    if(filename.isNull()) return ;
+    project = new Project;
+    project->load(filename, mdi_area);
+    current_model = project->getModel(mdi_area->activeSubWindow());
+    qDebug() << "[main/wind] current_model after load =" << current_model;
+    current_model->renderer = cuts[cmb_cut_switch->currentText()]->getRenderer();
 }
 
 void Window::actProjectClose()
@@ -285,7 +304,9 @@ void Window::actProjectSave()
 
 void Window::actProjectSaveAs()
 {
-
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save Project As..."));
+    if(filename.isNull()) return ;
+    project->save(filename);
 }
 
 void Window::actModelLoad()
