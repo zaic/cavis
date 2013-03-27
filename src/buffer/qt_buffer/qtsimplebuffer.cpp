@@ -2,7 +2,11 @@
 
 QtSimpleBuffer::QtSimpleBuffer() : GraphicBuffer()
 {
+#ifndef BUFFER_OPENGL
     render_area = new RenderArea;
+#else
+    render_area = new OpenGLArea;
+#endif
 
     scroll_area = new QScrollArea;
     //scroll_area->setWidget(qobject_cast<QWidget*>(render_area));

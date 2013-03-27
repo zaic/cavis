@@ -3,6 +3,7 @@
 #include <QtWidgets>
 #include "../buffer.h"
 #include "renderarea.h"
+#include "openglarea.h"
 
 class QtSimpleBuffer : public GraphicBuffer
 {
@@ -14,7 +15,11 @@ class QtSimpleBuffer : public GraphicBuffer
      */
     QImage *image;
     QPainter *painter;
+#ifndef BUFFER_OPENGL
     RenderArea *render_area;
+#else
+    OpenGLArea *render_area;
+#endif
     QScrollBar *scb_render_width, *scb_render_height;
     QScrollArea *scroll_area;
 
