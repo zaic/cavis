@@ -1,6 +1,5 @@
 #include <iostream>
 #include "common.h"
-#include "visualizzzator.h"
 #include "window.h"
 #include "config/file/filebasedconfig.h"
 #include "config/network-tcp/tcpconfig.h"
@@ -53,8 +52,6 @@ int main(int argc, char *argv[])
     /*
      *	APPLICATION
      */
-    // TODO: remove renderer
-    Visualizzzator *visualizator = new Visualizzzator(config, renderer);
     Window w(config, supported_cuts);
     w.show();
     w.resize(1280, 800);

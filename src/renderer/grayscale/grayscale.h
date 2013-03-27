@@ -14,5 +14,5 @@ public:
     GrayScaleRenderer();
     virtual ~GrayScaleRenderer();
 
-    virtual void draw();
+    virtual void draw() override;
 };

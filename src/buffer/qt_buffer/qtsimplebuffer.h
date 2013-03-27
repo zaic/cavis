@@ -13,15 +13,16 @@ class QtSimpleBuffer : public GraphicBuffer
     /*
      *  Buffer objects
      */
+    QString cur_buffer_type;
     QImage *image;
     QPainter *painter;
-#ifndef BUFFER_OPENGL
-    RenderArea *render_area;
-#else
-    OpenGLArea *render_area;
-#endif
+    int gl_sizex, gl_sizey;
+    float *gl_data;
+
+    RenderArea *render_area_simple;
+    OpenGLArea *render_area_opengl;
+
     QScrollBar *scb_render_width, *scb_render_height;
-    QScrollArea *scroll_area;
 
     /*
      *  Buffer parameters
@@ -35,7 +36,7 @@ public:
     QtSimpleBuffer();
     virtual ~QtSimpleBuffer();
 
-    virtual void create();
+    virtual void create(const QString buffer_type);
     virtual void prepare();
     virtual void complete();
 
@@ -44,8 +45,11 @@ public:
     virtual void setYScroll(int max_value, int current_value = SCROLL_PREVIOUS_VALUE);
     virtual int  getYScroll() const { return scb_render_height->value(); }
 
-    virtual QPainter* getRawPaintDevice() { return painter; }
+    virtual QPainter* getRawPaintDevice() { return painter; } // for simple buffer
 
-    virtual int width() const { return render_area->width(); }
-    virtual int height() const { return render_area->height(); }
+    virtual void setGLSize(int sx, int sy) { gl_sizex = sx; gl_sizey = sy; } // for gl buffer
+    virtual float* getGLData() { return gl_data; }
+
+    virtual int width() const { return render_area_simple->width(); }
+    virtual int height() const { return render_area_simple->height(); }
 };

@@ -12,7 +12,7 @@ Model::~Model()
 
 void Model::draw()
 {
-    buffer->create();
+    buffer->create(renderer->getBufferFormat());
     renderer->setConfig(config);
     renderer->setBuffer(buffer);
     renderer->draw();

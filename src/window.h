@@ -9,7 +9,6 @@
 #include "buffer/buffer.h"
 #include "config/config.h"
 #include "renderer/gui.h"
-#include "visualizzzator.h"
 #include "buffer/qt_buffer/qtsimplebuffer.h"
 #include "common.h"
 #include "workspace/project.h"

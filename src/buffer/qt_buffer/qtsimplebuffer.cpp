@@ -1,61 +1,48 @@
 #include "qtsimplebuffer.h"
 
-QtSimpleBuffer::QtSimpleBuffer() : GraphicBuffer()
+QtSimpleBuffer::QtSimpleBuffer() :
+    GraphicBuffer(),
+    cur_buffer_type(""),
+    gl_data(NULL)
 {
-#ifndef BUFFER_OPENGL
-    render_area = new RenderArea;
-#else
-    render_area = new OpenGLArea;
-#endif
+    render_area_simple = new RenderArea;
+    render_area_opengl = new OpenGLArea;
 
-    scroll_area = new QScrollArea;
-    //scroll_area->setWidget(qobject_cast<QWidget*>(render_area));
-
-    scb_render_height = scroll_area->verticalScrollBar();
     scb_render_height = new QScrollBar(Qt::Vertical);
-    QObject::connect(scb_render_height, SIGNAL(valueChanged(int)), render_area, SLOT(update()));
-    scb_render_width = scroll_area->horizontalScrollBar();
+    QObject::connect(scb_render_height, SIGNAL(valueChanged(int)), render_area_simple, SLOT(update()));
     scb_render_width = new QScrollBar(Qt::Horizontal);
-    QObject::connect(scb_render_width, SIGNAL(valueChanged(int)), render_area, SLOT(update()));
+    QObject::connect(scb_render_width, SIGNAL(valueChanged(int)), render_area_simple, SLOT(update()));
 
-    /*render_window = qobject_cast<QWidget*>(scroll_area);
-    render_window = render_area;*/
-
-#if 1
     render_window = new QWidget;
     QGridLayout *lay_main = new QGridLayout;
     lay_main->setSpacing(0);
-    lay_main->addWidget(render_area, 0, 0);
+    lay_main->addWidget(render_area_simple, 0, 0);
+    lay_main->addWidget(render_area_opengl, 0, 0);
     lay_main->addWidget(scb_render_height, 0, 1);
     lay_main->addWidget(scb_render_width, 1, 0);
     scb_render_width->show();
     render_window->setLayout(lay_main);
-#else
-    render_window = qobject_cast<QWidget*>(scroll_area);
-    //scroll_area->setWidget(render_area);
-    scroll_area->show();
-    render_area->show();
-    //scb_render_height->hide();
-    //scb_render_width->hide();
-    qDebug() << "[buffer/qt] viewport_size" << scroll_area->viewport()->width() << scroll_area->viewport()->height();
-#endif
-
-    // TODO: fix hack
-#if 0
-    render_window->show();
-    render_window->resize(800, 600);
-#endif
 }
 
 QtSimpleBuffer::~QtSimpleBuffer()
 {
-    delete scroll_area;
+    delete render_window;
 }
 
-void QtSimpleBuffer::create()
+void QtSimpleBuffer::create(const QString buffer_type)
 {
     use_xscroll = false;
     use_yscroll = false;
+
+    qDebug() << "[buffer/qt] new buffer type is" << buffer_type;
+    render_area_simple->setVisible(buffer_type.toLower() == "simple");
+    render_area_opengl->setVisible(buffer_type.toLower() == "opengl");
+    if(render_area_simple->isHidden() && render_area_opengl->isHidden()) {
+        qCritical() << "[buffer/qt] unsupported buffer type" << buffer_type;
+        cur_buffer_type = "";
+    } else {
+        cur_buffer_type = buffer_type.toLower();
+    }
 }
 
 void QtSimpleBuffer::prepare()
@@ -63,21 +50,30 @@ void QtSimpleBuffer::prepare()
     scb_render_width->setVisible(use_xscroll);
     scb_render_height->setVisible(use_yscroll);
 
-    // TODO SMART POINTERS!!!!111
-    // call new without delete :'(
-    image = new QImage(width(), height(), QImage::Format_RGB32);
-    if(image == NULL) return ;
-    image->fill(Qt::white);
+    if(cur_buffer_type == "simple") {
+        // TODO SMART POINTERS!!!!111
+        // call new without delete :'(
+        image = new QImage(width(), height(), QImage::Format_RGB32);
+        if(image == NULL) return ;
+        image->fill(Qt::white);
 
-    painter = new QPainter(image);
-    if(painter == NULL) return ;
+        painter = new QPainter(image);
+        if(painter == NULL) return ;
+
+    } else if(cur_buffer_type == "opengl") {
+        if(gl_data) delete[] gl_data;
+        gl_data = new float[gl_sizex * gl_sizey];
+    }
 }
 
 void QtSimpleBuffer::complete()
 {
-    delete painter;
-    render_area->drawImage(image);
-    //scroll_area->update();
+    if(cur_buffer_type == "simple") {
+        delete painter;
+        render_area_simple->drawImage(image);
+    } else if(cur_buffer_type == "opengl") {
+        render_area_opengl->drawDots(gl_sizex, gl_sizey, gl_data);
+    }
 }
 
 void QtSimpleBuffer::setXScroll(int max_value, int current_value)

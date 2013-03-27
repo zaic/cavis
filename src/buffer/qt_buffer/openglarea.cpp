@@ -1,34 +1,11 @@
 #include "openglarea.h"
 
-OpenGLArea::OpenGLArea(QWidget *parent) :
-    QGLWidget(parent),
-    buffer_image(NULL),
+OpenGLArea::OpenGLArea(QWidget *_parent) :
+    QGLWidget(_parent),
     xrot(-521),
     yrot(1757),
     zrot(-586)
 {
-}
-
-void OpenGLArea::paintEvent(QPaintEvent *ev)
-{
-    if(!buffer_image) {
-        WindowEvent::get()->doRequireRepaint();
-        return ;
-    }
-    QPainter painter(this);
-    painter.setPen(Qt::black);
-    painter.drawRect(0, 0, width() - 1, height() - 1);
-    if(buffer_image) {
-        painter.drawImage(this->rect(), *(this->buffer_image));
-    }
-    delete buffer_image;
-    buffer_image = NULL;
-}
-
-void OpenGLArea::drawImage(QImage *image)
-{
-    buffer_image = image;
-    this->update();
 }
 
 void OpenGLArea::initializeGL()
@@ -61,24 +38,32 @@ void OpenGLArea::paintGL()
     // TODO
 }
 
-void OpenGLArea::mouseMoveEvent(QMouseEvent *event)
+void OpenGLArea::mouseMoveEvent(QMouseEvent *ev)
 {
-    int dx = event->x() - last_pos.x();
-    int dy = event->y() - last_pos.y();
+    int dx = ev->x() - last_pos.x();
+    int dy = ev->y() - last_pos.y();
 
-    if (event->buttons() & Qt::LeftButton) {
+    if (ev->buttons() & Qt::LeftButton) {
         xrot += dy;
         yrot += dx;
-    } else if (event->buttons() & Qt::RightButton) {
+    } else if (ev->buttons() & Qt::RightButton) {
         xrot += dy;
         zrot += dx;
     }
 
-    last_pos = event->pos();
+    last_pos = ev->pos();
     update();
 }
 
-void OpenGLArea::mousePressEvent(QMouseEvent *event)
+void OpenGLArea::mousePressEvent(QMouseEvent *ev)
 {
-    last_pos = event->pos();
+    last_pos = ev->pos();
+}
+
+void OpenGLArea::drawDots(int _size_x, int _size_y, float *_data)
+{
+    size_x = _size_x;
+    size_y = _size_y;
+    data   = _data;
+    update();
 }

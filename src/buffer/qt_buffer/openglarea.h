@@ -8,33 +8,34 @@ class OpenGLArea : public QGLWidget
 {
     Q_OBJECT
 
-    // RendererAreay compatibility
-    QImage *buffer_image;
-
     // rotation
     QPoint last_pos;
     int xrot, yrot, zrot;
 
-protected:
-    void paintEvent(QPaintEvent *ev);
+    // data
+    int size_x, size_y;
+    float *data;
 
 public:
-    explicit OpenGLArea(QWidget *parent = 0);
+    explicit OpenGLArea(QWidget *_parent = 0);
 
     /*
-     *  Compatibility with simple RendererArea
-     */
-    void drawImage(QImage *image);
-
-    /*
-     *  OpenGL support
+     *  Renderer functions
      */
     void initializeGL();
     void resizeGL(int width, int height);
     void paintGL();
 
+    /*
+     *  Rotation functions
+     */
     void mouseMoveEvent(QMouseEvent *ev);
     void mousePressEvent(QMouseEvent *ev);
+
+    /*
+     *  Temporary (?) function to set data
+     */
+    void drawDots(int _size_x, int _size_y, float *_data);
     
 signals:
     

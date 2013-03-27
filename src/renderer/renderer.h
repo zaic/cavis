@@ -28,4 +28,5 @@ public:
     virtual GraphicBuffer* getBuffer() const { return buffer; }
 
     virtual void draw() = 0;
+    virtual QString getBufferFormat() const { return "simple"; }
 };
