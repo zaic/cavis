@@ -9,6 +9,7 @@
 #include "renderer/grayscale/gui.h"
 #include "renderer/projection/projection.h"
 #include "renderer/projection/gui.h"
+#include "renderer/wave/wave.h"
 
 int main(int argc, char *argv[])
 {
@@ -35,6 +36,9 @@ int main(int argc, char *argv[])
     ProjectionRenderer *cut_proj = new ProjectionRenderer();
     ProjectionGUI *cut_proj_gui = new ProjectionGUI(cut_proj);
 
+    WaveRenderer *cut_wave = new WaveRenderer();
+    WaveGUI *cut_wave_gui = new WaveGUI(cut_wave);
+
     QVector<RendererGUI*> supported_cuts;
 
 #if 0 /* PROJECTION */
@@ -47,6 +51,7 @@ int main(int argc, char *argv[])
     renderer = cut_scale;
     supported_cuts << cut_scale_gui;
     supported_cuts << cutgui;
+    supported_cuts << cut_wave_gui;
 #endif
 
     /*

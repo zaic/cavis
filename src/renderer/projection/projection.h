@@ -2,8 +2,8 @@
 
 #include <QtGui>
 #include <root/Math/Interpolator.h>
-#include "../renderer.h"
-#include "../../common.h"
+#include "renderer/renderer.h"
+#include "common.h"
 #include <algorithm>
 #include <vector>
 #include "gui.h"

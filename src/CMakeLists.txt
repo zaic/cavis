@@ -43,6 +43,7 @@ aux_source_directory(./renderer SRC_LIST)
 aux_source_directory(./renderer/hpp-loupe SRC_LIST)
 aux_source_directory(./renderer/grayscale SRC_LIST)
 aux_source_directory(./renderer/projection SRC_LIST)
+aux_source_directory(./renderer/wave SRC_LIST)
 
 add_subdirectory(./layer)
 aux_source_directory(./layer SRC_LIST)
@@ -75,6 +76,7 @@ set(MOC_HEADERS
     renderer/hpp-loupe/gui.h
     renderer/grayscale/gui.h
     renderer/projection/gui.h
+    renderer/wave/gui.h
 )
 qt5_wrap_cpp(MOC_SRC ${MOC_HEADERS})
 qt5_add_resources(RESOURCES_SRC "../data/icons.qrc")
