@@ -88,10 +88,10 @@ public slots:
      *  Menu
      */
     void actProjectNew();
-    void actProjectOpen();
-    void actProjectClose();
-    void actProjectSave();
-    void actProjectSaveAs();
+    bool actProjectOpen();
+    bool actProjectClose();
+    bool actProjectSave();
+    bool actProjectSaveAs();
 
     void actModelLoad();
 

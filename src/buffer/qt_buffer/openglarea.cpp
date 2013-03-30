@@ -4,8 +4,10 @@ OpenGLArea::OpenGLArea(QWidget *_parent) :
     QGLWidget(_parent),
     xrot(-521),
     yrot(1757),
-    zrot(-586)
+    zrot(-586),
+    scale(0.01f)
 {
+
 }
 
 void OpenGLArea::initializeGL()
@@ -20,7 +22,8 @@ void OpenGLArea::initializeGL()
 void OpenGLArea::resizeGL(int width, int height)
 {
     int side = qMin(width, height);
-    glViewport((width - side) / 2, (height - side) / 2, side, side);
+    //glViewport((width - side) / 2, (height - side) / 2, side, side);
+    glViewport(0, 0, width, height);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -34,12 +37,77 @@ void OpenGLArea::resizeGL(int width, int height)
 
 void OpenGLArea::paintGL()
 {
-    qDebug() << "[buffer/opengl] TODO";
-    // TODO
+    qDebug() << "[buffer/opengl] begin";
+    if(data == NULL) {
+        qDebug() << "[buffer/opengl] nothind to draw, exiting";
+        return ;
+    }
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
+    glTranslatef(0.0, 0.0, -10.0);
+    glRotatef(0.1f * xrot, 1.0, 0.0, 0.0);
+    glRotatef(0.1f * yrot, 0.0, 1.0, 0.0);
+    glRotatef(0.1f * zrot, 0.0, 0.0, 1.0);
+
+    glLineWidth(1.0);
+    glColor3f(0.0, 0.0, 0.0);
+
+    for(int i = 0; i < size_y - 1; i++)
+        for(int j = 0;j < size_x - 1; j++) {
+            const int id = i * size_x + j;
+            float cx = (j - size_x / 2) * scale;
+            float cy = (i - size_y / 2) * scale;
+
+#if 1
+            glColor3f(0.3, 0.3, 0.3);
+            glBegin(GL_LINES);
+
+            glVertex3f(cx, cy, data[id]);
+            glVertex3f(cx +scale, cy, data[id + 1]);
+
+            glVertex3f(cx +scale, cy, data[id + 1]);
+            glVertex3f(cx +scale, cy +scale, data[id + size_x + 1]);
+
+            glVertex3f(cx +scale, cy +scale, data[id + size_x + 1]);
+            glVertex3f(cx, cy +scale, data[id + size_x]);
+
+            glVertex3f(cx, cy +scale, data[id + size_x]);
+            glVertex3f(cx, cy, data[id]);
+
+            glEnd();
+#endif
+#if 0
+            glColor3f(1.0, 0.0, 0.0);
+            glBegin(GL_POLYGON);
+
+            glVertex3f(cx, cy, data[id]);
+            glVertex3f(cx +scale, cy, data[id + 1]);
+            glVertex3f(cx +scale, cy +scale, data[id + 1]);
+            glVertex3f(cx, cy +scale, data[id + size_x]);
+            glVertex3f(cx, cy, data[id]);
+
+            glEnd();
+
+            glColor3f(0.0, 1.0, 0.0);
+            glBegin(GL_POLYGON);
+
+            glVertex3f(cx, cy, data[id]);
+            glVertex3f(cx, cy +scale, data[id + size_x]);
+            glVertex3f(cx +scale, cy +scale, data[id + size_x + 1]);
+            glVertex3f(cx +scale, cy, data[id + 1]);
+            glVertex3f(cx, cy, data[id]);
+
+            glEnd();
+
+#endif
+
+        }
 }
 
 void OpenGLArea::mouseMoveEvent(QMouseEvent *ev)
 {
+    qDebug() << "!!!";
     int dx = ev->x() - last_pos.x();
     int dy = ev->y() - last_pos.y();
 
@@ -58,6 +126,23 @@ void OpenGLArea::mouseMoveEvent(QMouseEvent *ev)
 void OpenGLArea::mousePressEvent(QMouseEvent *ev)
 {
     last_pos = ev->pos();
+}
+
+void OpenGLArea::wheelEvent(QWheelEvent *ev)
+{
+    QPoint num_pixels  = ev->pixelDelta();
+    QPoint num_degrees = ev->angleDelta() / 8;
+
+    if (!num_pixels.isNull()) {
+        if(num_pixels.y() > 0)
+            scroll *= num_pixels.y();
+        else
+            scroll /= -num_pixels.y();
+    } else if (!numDegrees.isNull()) {
+        QPoint numSteps = numDegrees / 15;
+        scrollWithDegrees(numSteps);
+    }
+
 }
 
 void OpenGLArea::drawDots(int _size_x, int _size_y, float *_data)

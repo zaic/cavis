@@ -16,7 +16,7 @@ void WaveRenderer::draw()
     buffer->setGLSize(config->getDimSizeX(), config->getDimSizeY());
     buffer->prepare();
 
-    const float max_value = 4.0;
+    const float max_value = 4.0 * 10.0;
     float *gl_values = buffer->getGLData();
     uchar* data = reinterpret_cast<uchar*>(config->getData());
     for(int i = 0; i < config->getDimSizeY(); i++)

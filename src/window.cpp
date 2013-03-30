@@ -148,8 +148,7 @@ void Window::createMenuBar()
 
 QWidget* Window::createCutConfigBar()
 {
-    QLabel *lbl_cut_switch_label = new QLabel(tr("Renderer:"));
-    //lbl_cut_switch_label->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred));
+    QLabel *lbl_cut_switch_label = new QLabel(tr("View:"));
 
     cmb_cut_switch = new QComboBox;
     connect(cmb_cut_switch, SIGNAL(currentIndexChanged(QString)), this, SLOT(updateRendererConfigLayout(QString)));
@@ -277,36 +276,49 @@ void Window::actProjectNew()
 
 }
 
-void Window::actProjectOpen()
+bool Window::actProjectOpen()
 {
     if(project != NULL) {
         // TODO some question
         delete project;
     }
     QString filename = QFileDialog::getOpenFileName(this, tr("Open Project"));
-    if(filename.isNull()) return ;
+    if(filename.isNull()) return true;
     project = new Project;
     project->load(filename, mdi_area);
     current_model = project->getModel(mdi_area->activeSubWindow());
     qDebug() << "[main/wind] current_model after load =" << current_model;
     current_model->renderer = cuts[cmb_cut_switch->currentText()]->getRenderer();
+    return true;
 }
 
-void Window::actProjectClose()
+bool Window::actProjectClose()
 {
-
+    if(project) {
+        int q = QMessageBox::question(this, tr("Do you want to save project before closing?"), tr("Save Project"), QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+        if(q == QMessageBox::Yes && !actProjectSave()) q = QMessageBox::Cancel;
+        if(q == QMessageBox::Cancel) return false;
+    }
+    delete project;
+    project = NULL;
+    return true;
 }
 
-void Window::actProjectSave()
+bool Window::actProjectSave()
 {
-
+    QString filename = project->getFilename();
+    if(filename.isEmpty())
+        return actProjectSaveAs();
+    project->save(filename);
+    return true;
 }
 
-void Window::actProjectSaveAs()
+bool Window::actProjectSaveAs()
 {
     QString filename = QFileDialog::getSaveFileName(this, tr("Save Project As..."));
-    if(filename.isNull()) return ;
+    if(filename.isNull()) return false;
     project->save(filename);
+    return true;
 }
 
 void Window::actModelLoad()
@@ -331,6 +343,6 @@ void Window::actModelLoad()
 
 void Window::actQuit()
 {
-    // TODO: add question
+    if(!actProjectClose()) return ;
     qApp->quit();
 }

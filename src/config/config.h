@@ -31,6 +31,6 @@ public:
     virtual int getDimSizeY() const { return getDimSize(1); }
     virtual int getDimSizeZ() const { return getDimSize(2); }
 
-    virtual void serialize  (QDataStream& stream) { /* not implemented */ }
-    virtual void deserialize(QDataStream& stream) { /* not implemented */ }
+    virtual void serialize  (QDataStream& ) { /* not implemented */ }
+    virtual void deserialize(QDataStream& ) { /* not implemented */ }
 };

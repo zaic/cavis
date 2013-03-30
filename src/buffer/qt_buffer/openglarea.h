@@ -8,9 +8,10 @@ class OpenGLArea : public QGLWidget
 {
     Q_OBJECT
 
-    // rotation
+    // view
     QPoint last_pos;
     int xrot, yrot, zrot;
+    float scale;
 
     // data
     int size_x, size_y;
@@ -27,10 +28,11 @@ public:
     void paintGL();
 
     /*
-     *  Rotation functions
+     *  View functions
      */
     void mouseMoveEvent(QMouseEvent *ev);
     void mousePressEvent(QMouseEvent *ev);
+    void wheelEvent(QWheelEvent *ev);
 
     /*
      *  Temporary (?) function to set data

@@ -24,7 +24,8 @@ void Project::remModel(QMdiSubWindow *model_win)
 
 void Project::save(const QString &filename)
 {
-    QFile file(filename);
+    proj_filename = filename;
+    QFile file(proj_filename);
     file.open(QIODevice::WriteOnly);
     QDataStream stream(&file);
     stream << qint16(0x1807);
@@ -35,7 +36,8 @@ void Project::save(const QString &filename)
 
 void Project::load(const QString &filename, QMdiArea *mdi_area)
 {
-    QFile file(filename);
+    proj_filename = filename;
+    QFile file(proj_filename);
     file.open(QIODevice::ReadOnly);
     QDataStream stream(&file);
 
