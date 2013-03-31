@@ -54,6 +54,7 @@ void OpenGLArea::paintGL()
     glColor3f(0.0, 0.0, 0.0);
 
     qDebug() << "[buffer/opengl] scale =" << scale;
+    float data_koef = scale * 200;
     for(int i = 0; i < size_y - 1; i++)
         for(int j = 0;j < size_x - 1; j++) {
             const int id = i * size_x + j;
@@ -64,17 +65,17 @@ void OpenGLArea::paintGL()
             glColor3f(0.3, 0.3, 0.3);
             glBegin(GL_LINES);
 
-            glVertex3f(cx, cy, data[id]);
-            glVertex3f(cx +scale, cy, data[id + 1]);
+            glVertex3f(cx, cy, data[id] * data_koef);
+            glVertex3f(cx +scale, cy, data[id + 1] * data_koef);
 
-            glVertex3f(cx +scale, cy, data[id + 1]);
-            glVertex3f(cx +scale, cy +scale, data[id + size_x + 1]);
+            glVertex3f(cx +scale, cy, data[id + 1] * data_koef);
+            glVertex3f(cx +scale, cy +scale, data[id + size_x + 1] * data_koef);
 
-            glVertex3f(cx +scale, cy +scale, data[id + size_x + 1]);
-            glVertex3f(cx, cy +scale, data[id + size_x]);
+            glVertex3f(cx +scale, cy +scale, data[id + size_x + 1] * data_koef);
+            glVertex3f(cx, cy +scale, data[id + size_x] * data_koef);
 
-            glVertex3f(cx, cy +scale, data[id + size_x]);
-            glVertex3f(cx, cy, data[id]);
+            glVertex3f(cx, cy +scale, data[id + size_x] * data_koef);
+            glVertex3f(cx, cy, data[id] * data_koef);
 
             glEnd();
 #endif
