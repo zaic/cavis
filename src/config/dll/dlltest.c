@@ -60,6 +60,9 @@ void calc()
             if(i == size_x - 1 && (prev_data[z] & 0x2)) next_data[z] |= 0x8;
             if(j == 0 && (prev_data[z] & 0x1)) next_data[z] |= 0x4;
             if(j == size_y - 1 && (prev_data[z] & 0x4)) next_data[z] |= 0x1;
+
+            if((next_data[z] == (0x1 | 0x4) || next_data[z] == (0x2 | 0x8)) && simple_u_random(.5))
+                next_data[z] ^= 0xF;
         }
     }
     simple_swap();

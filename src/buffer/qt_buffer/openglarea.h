@@ -2,7 +2,10 @@
 
 #include <QtCore>
 #include <QtOpenGL>
+#include <cmath>
 #include "windowevent.h"
+
+using std::abs;
 
 class OpenGLArea : public QGLWidget
 {

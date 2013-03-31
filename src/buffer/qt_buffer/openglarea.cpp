@@ -2,9 +2,9 @@
 
 OpenGLArea::OpenGLArea(QWidget *_parent) :
     QGLWidget(_parent),
-    xrot(-521),
-    yrot(1757),
-    zrot(-586),
+    xrot(521),
+    yrot(-1757),
+    zrot(586),
     scale(0.01f)
 {
 
@@ -53,6 +53,7 @@ void OpenGLArea::paintGL()
     glLineWidth(1.0);
     glColor3f(0.0, 0.0, 0.0);
 
+    qDebug() << "[buffer/opengl] scale =" << scale;
     for(int i = 0; i < size_y - 1; i++)
         for(int j = 0;j < size_x - 1; j++) {
             const int id = i * size_x + j;
@@ -134,15 +135,21 @@ void OpenGLArea::wheelEvent(QWheelEvent *ev)
     QPoint num_degrees = ev->angleDelta() / 8;
 
     if (!num_pixels.isNull()) {
+        //qDebug() << "[buffer/opengl]" << num_pixels;
         if(num_pixels.y() > 0)
-            scroll *= num_pixels.y();
+            scale *= num_pixels.y();
         else
-            scroll /= -num_pixels.y();
-    } else if (!numDegrees.isNull()) {
-        QPoint numSteps = numDegrees / 15;
-        scrollWithDegrees(numSteps);
+            scale /= num_pixels.y();
+    } else if (!num_degrees.isNull()) {
+        qDebug() << "[buffer/opengl] scroll" << num_degrees;
+        if(num_degrees.y() > 0)
+            scale *= abs(num_degrees.y() / 10.0);
+        else
+            scale /= abs(num_degrees.y() / 10.0);
+        qDebug() << scale;
     }
 
+    WindowEvent::get()->doRequireRepaint();
 }
 
 void OpenGLArea::drawDots(int _size_x, int _size_y, float *_data)
