@@ -9,11 +9,8 @@ class StubConfig : public Config
     int real_x, real_y;
     char *real_data;
 
-protected:
-    StubConfig();
-
 public:
-    StubConfig(int x, int y);
+    StubConfig(int x = 30, int y = 20);
     virtual ~StubConfig();
 
     virtual int setIteration(int iteration);
@@ -24,4 +21,7 @@ public:
     virtual int getDimSizeX() const { return real_x; }
     virtual int getDimSizeY() const { return real_y; }
     virtual int getDimSizeZ() const { return 1; }
+
+    virtual void serialize  (QDataStream& stream);
+    virtual void deserialize(QDataStream& stream);
 };

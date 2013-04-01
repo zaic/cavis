@@ -2,12 +2,7 @@
 
 Project::Project()
 {
-    // TODO move?
-    /*
-     *  Initalize config factory
-     */
-    DLLConfig *config_dll = new DLLConfig;
-    config_factory[config_dll->metaObject()->className()] = config_dll->metaObject();
+
 }
 
 Project::~Project()
@@ -29,7 +24,7 @@ void Project::save(const QString &filename)
     file.open(QIODevice::WriteOnly);
     QDataStream stream(&file);
     stream << qint16(0x1807);
-    stream << qint8(models.size());
+    stream << qint16(models.size());
     for(auto it : models)
         it->save(stream);
 }
@@ -45,9 +40,9 @@ void Project::load(const QString &filename, QMdiArea *mdi_area)
     stream >> signature;
     assert(signature == 0x1807);
 
-    qint8 models_count;
+    qint16 models_count;
     stream >> models_count;
-    for(qint8 i = 0; i < models_count; i++) {
+    for(qint16 i = 0; i < models_count; i++) {
         qDebug() << "[proj/load] load model" << i;
 
         Model *tmp_model = new Model;

@@ -60,8 +60,14 @@ int DLLConfig::getDimSize(int dim) const
 
 int DLLConfig::setIteration(int iteration)
 {
-    if(iteration < current_iteration_id || iteration > current_iteration_id + 1) return current_iteration_id;
-    if(iteration == current_iteration_id + 1) {
+    if(iteration < current_iteration_id && iteration != Config::FORCED_UPDATE)
+        return current_iteration_id;
+    if(iteration > current_iteration_id + 1)
+        return current_iteration_id;
+
+    if(iteration == Config::FORCED_UPDATE) {
+        data = lib_data();
+    } else if(iteration == current_iteration_id + 1) {
         lib_calc();
         data = lib_data();
         current_iteration_id = iteration;
@@ -71,6 +77,7 @@ int DLLConfig::setIteration(int iteration)
 
 void DLLConfig::serialize(QDataStream &stream)
 {
+    preSerialize(stream);
     stream << dll_path;
     stream << qint32(size_x) << qint32(size_y);
     for(int i = 0; i < size_x * size_y; i++)
@@ -79,6 +86,7 @@ void DLLConfig::serialize(QDataStream &stream)
 
 void DLLConfig::deserialize(QDataStream &stream)
 {
+    preDeserialize(stream);
     stream >> dll_path;
     loadMeFromLibrary();
     qint32 tx, ty;

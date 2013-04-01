@@ -13,7 +13,9 @@
 
 int main(int argc, char *argv[])
 {
+    qDebug() << "0";
     QApplication app(argc, argv);
+    qDebug() << "1";
 
     /*
      *	CONFIG

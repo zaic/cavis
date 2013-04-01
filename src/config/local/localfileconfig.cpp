@@ -19,6 +19,7 @@ LocalFileConfig::~LocalFileConfig()
 
 bool LocalFileConfig::resetDirectory(const char *path)
 {
+    data_path = QString(path);
     current_iteration_id = -1;
     data.clear();
     iterations_list.clear();
@@ -31,6 +32,8 @@ bool LocalFileConfig::resetDirectory(const char *path)
 
 int LocalFileConfig::setIteration(int iteration_id)
 {
+    if(iteration_id == Config::FORCED_UPDATE)
+        iteration_id = current_iteration_id;
     qDebug() << "[config/local] set iteration = " << iteration_id;
     if(iteration_id < 0 || iteration_id > getIterationsCount()) return current_iteration_id;
     current_iteration_id = iteration_id;
@@ -65,4 +68,19 @@ void* LocalFileConfig::getData(void*)
     }
     qDebug() << "[config/local] data size = " << data.size();
     return reinterpret_cast<void*>(data.data());
+}
+
+void LocalFileConfig::serialize(QDataStream &stream)
+{
+    preSerialize(stream);
+    stream << data_path;
+}
+
+void LocalFileConfig::deserialize(QDataStream &stream)
+{
+    preDeserialize(stream);
+    stream >> data_path;
+    if(!data_path.isEmpty())
+        resetDirectory(data_path.toStdString().c_str());
+    setIteration(Config::FORCED_UPDATE);
 }

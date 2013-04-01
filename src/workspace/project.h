@@ -16,8 +16,6 @@ class Project
 
     QMap<QMdiSubWindow*, Model*> models;
 
-    QMap<QString, const QMetaObject*> config_factory;
-
 public:
     Project();
     ~Project();

@@ -1,10 +1,9 @@
 #pragma once
 
+#include <QtCore>
 #include "buffer/buffer.h"
 #include "config/config.h"
 #include "renderer/renderer.h"
-#include <QtCore>
-#include "config/dll/dllconfig.h"
 
 class Model
 {
@@ -17,8 +16,8 @@ public:
 
     void draw();
 
-    void save(QDataStream& stream);
-    void load(QDataStream& stream);
+    bool save(QDataStream& stream);
+    bool load(QDataStream& stream);
 
     // TODO: group to windows(?) and create list
     GraphicBuffer *buffer;

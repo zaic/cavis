@@ -15,6 +15,9 @@ protected:
 
     Config();
 
+    void preSerialize  (QDataStream& stream);
+    void preDeserialize(QDataStream& stream);
+
 public:
     virtual ~Config();
 

@@ -14,6 +14,7 @@ class LocalFileConfig : public Config
     QVector<double> data;
     QStringList iterations_list;
     QDir working_dir;
+    QString data_path;
 
 public:
     LocalFileConfig(const char *init_path = NULL);
@@ -29,4 +30,7 @@ public:
     virtual int getDimSizeX() const { return dim_size[0]; }
     virtual int getDimSizeY() const { return dim_size[1]; }
     virtual int getDimSizeZ() const { return dim_size[2]; }
+
+    virtual void serialize  (QDataStream& stream);
+    virtual void deserialize(QDataStream& stream);
 };
