@@ -15,6 +15,8 @@ using ROOT::Math::Interpolator;
 
 class ProjectionRenderer : public Renderer
 {
+    Q_OBJECT
+
     ProjectionRenderer(const ProjectionRenderer& );
     ProjectionRenderer& operator=(const ProjectionRenderer& );
 

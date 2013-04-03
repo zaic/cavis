@@ -19,7 +19,7 @@ class HPPLoupeGUI : public RendererGUI {
     void buildMainWidget();
 
 public:
-    HPPLoupeGUI(HPPLoupeRenderer*);
+    Q_INVOKABLE HPPLoupeGUI(Renderer*);
     virtual ~HPPLoupeGUI();
 
     virtual QString getName() const { return QString("HPP Loupe"); }

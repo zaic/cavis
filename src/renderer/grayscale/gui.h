@@ -18,7 +18,7 @@ class GrayScaleGUI : public RendererGUI
     void buildMainWidget();
 
 public:
-    GrayScaleGUI(GrayScaleRenderer*);
+    Q_INVOKABLE GrayScaleGUI(Renderer*);
     virtual ~GrayScaleGUI();
 
     virtual QString getName() const { return QString("Gray scale"); }

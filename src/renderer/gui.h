@@ -8,7 +8,6 @@ class RendererGUI : public QObject
 {
     Q_OBJECT
 
-    RendererGUI();
     RendererGUI(const RendererGUI& );
     RendererGUI& operator=(const RendererGUI& );
 
@@ -18,11 +17,11 @@ protected:
     QWidget *main_widget;
 
 public:
-    RendererGUI(Renderer *);
+    Q_INVOKABLE RendererGUI(Renderer *_rend);
     virtual ~RendererGUI();
 
     virtual Renderer* getRenderer() const { return p_renderer; }
 
-    virtual QString getName() const = 0;
+    virtual QString getName() const { return "No Name"; }
     virtual QWidget* getWidget() const { return main_widget; }
 };

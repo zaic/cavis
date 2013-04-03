@@ -7,6 +7,8 @@
 #include "layer/ruler/ruler.h"
 
 class HPPLoupeRenderer : public Renderer {
+    Q_OBJECT
+
     int cell_size;
     int shift_x, shift_y;
 
@@ -17,7 +19,7 @@ class HPPLoupeRenderer : public Renderer {
     RulerLayer ruler_layer;
 
 public:
-    HPPLoupeRenderer();
+    Q_INVOKABLE HPPLoupeRenderer();
     virtual ~HPPLoupeRenderer();
 
     void setAutoscale(bool value) { autoscale = value; }

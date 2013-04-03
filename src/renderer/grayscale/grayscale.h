@@ -7,11 +7,13 @@
 
 class GrayScaleRenderer : public Renderer
 {
+    Q_OBJECT
+
     GrayScaleRenderer(const GrayScaleRenderer& );
     GrayScaleRenderer& operator=(const GrayScaleRenderer& );
 
 public:
-    GrayScaleRenderer();
+    Q_INVOKABLE GrayScaleRenderer();
     virtual ~GrayScaleRenderer();
 
     virtual void draw() override;

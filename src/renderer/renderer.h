@@ -7,8 +7,10 @@
 
 class RendererGUI;
 
-class Renderer
+class Renderer : public QObject
 {
+    Q_OBJECT
+
     Renderer(const Renderer& );
     Renderer& operator=(const Renderer& );
 

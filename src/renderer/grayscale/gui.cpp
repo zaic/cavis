@@ -1,8 +1,8 @@
 #include "gui.h"
 
-GrayScaleGUI::GrayScaleGUI(GrayScaleRenderer *_renderer) :
-    RendererGUI(dynamic_cast<Renderer*>(_renderer)),
-    renderer(_renderer)
+GrayScaleGUI::GrayScaleGUI(Renderer *_renderer) :
+    RendererGUI(_renderer),
+    renderer(qobject_cast<GrayScaleRenderer*>(_renderer))
 {
     buildMainWidget();
 }

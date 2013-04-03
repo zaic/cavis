@@ -1,8 +1,8 @@
 #include "gui.h"
 
-HPPLoupeGUI::HPPLoupeGUI(HPPLoupeRenderer *_renderer) :
-    RendererGUI(dynamic_cast<Renderer*>(_renderer)),
-    renderer(_renderer)
+HPPLoupeGUI::HPPLoupeGUI(Renderer *_renderer) :
+    RendererGUI(_renderer),
+    renderer(qobject_cast<HPPLoupeRenderer*>(_renderer))
 {
     buildMainWidget();
 }

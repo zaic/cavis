@@ -5,6 +5,8 @@
 
 class WaveRenderer : public Renderer
 {
+    Q_OBJECT
+
     WaveRenderer(const WaveRenderer& );
     WaveRenderer& operator=(const WaveRenderer& );
 
