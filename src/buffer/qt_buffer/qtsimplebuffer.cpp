@@ -99,3 +99,12 @@ void QtSimpleBuffer::setYScroll(int max_value, int current_value)
             scb_render_height->setValue(current_value);
     }
 }
+
+void QtSimpleBuffer::update() const
+{
+    if(cur_buffer_type == "simple") {
+        render_area_simple->update();
+    } else if(cur_buffer_type == "opengl") {
+        render_area_opengl->update();
+    }
+}

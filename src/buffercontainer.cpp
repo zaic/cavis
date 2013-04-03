@@ -1,7 +1,8 @@
 #include "buffercontainer.h"
 
-BufferContainer::BufferContainer(QWidget *init_widget, QWidget *parent) :
-    QWidget(parent)
+BufferContainer::BufferContainer(QWidget *init_widget, QMdiSubWindow *mdiwin, QWidget *_parent) :
+    QWidget(_parent),
+    just_mdi_sub_window(mdiwin)
 {
     layhi = new QVBoxLayout;
     if(init_widget) {
@@ -13,5 +14,5 @@ BufferContainer::BufferContainer(QWidget *init_widget, QWidget *parent) :
 
 void BufferContainer::closeEvent(QCloseEvent *)
 {
-    emit imclosing(this);
+    WindowEvent::get()->doMdiWindowClosing(just_mdi_sub_window);
 }

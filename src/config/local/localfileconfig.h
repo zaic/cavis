@@ -7,6 +7,8 @@
 
 class LocalFileConfig : public Config
 {
+    Q_OBJECT
+
     LocalFileConfig(const LocalFileConfig& );
     LocalFileConfig& operator=(const LocalFileConfig& );
 

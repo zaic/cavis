@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets>
+#include "windowevent.h"
 
 class BufferContainer : public QWidget
 {
@@ -8,14 +9,15 @@ class BufferContainer : public QWidget
 
     QVBoxLayout *layhi;
     QWidget *buf;
+    QMdiSubWindow *just_mdi_sub_window;
 
 public:
-    explicit BufferContainer(QWidget *init_widget = 0, QWidget *parent = 0);
+    explicit BufferContainer(QWidget *init_widget, QMdiSubWindow *mdiwin, QWidget *_parent = 0);
 
     void closeEvent(QCloseEvent *);
     
 signals:
-    void imclosing(BufferContainer*);
+    void imclosing(QMdiSubWindow*);
     
 public slots:
     

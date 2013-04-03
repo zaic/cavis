@@ -6,6 +6,8 @@
 
 class StubConfig : public Config
 {
+    Q_OBJECT
+
     int real_x, real_y;
     char *real_data;
 

@@ -10,10 +10,72 @@ Project::~Project()
 
 }
 
-void Project::remModel(QMdiSubWindow *model_win)
+Model* Project::addModel(const QStringList &renderers, Config *config)
 {
-    auto it = models.find(model_win);
-    if(it == models.end()) return;
+    Model *model = new Model(renderers, config);
+    windows[model].clear(); // clear? oO
+    return model;
+}
+
+Model* Project::getModel(QMdiSubWindow *win)
+{
+    auto it = models.find(win);
+    return (it == models.end() ? NULL : it.value());
+}
+
+void Project::removeModel(Model *model_obj)
+{
+    auto it = windows.find(model_obj);
+    if(it == windows.end()) {
+        qWarning() << "[wrkspc/project] can't remove model" << model_obj;
+        return ;
+    }
+    for(QMdiSubWindow *win : it.value()) {
+        auto jt = models.find(win);
+        if(jt == models.end())
+            qWarning() << "[wrkspc/project] broken consistency :(";
+        else
+            models.erase(jt);
+    }
+    windows.erase(it);
+    delete model_obj;
+}
+
+void Project::removeModel(QMdiSubWindow *win)
+{
+    removeModel(getModel(win));
+}
+
+QMdiSubWindow* Project::addWindowToModel(Model *model_obj, QtSimpleBuffer *buf)
+{
+    QMdiSubWindow *win = model_obj->addWindow(buf);
+    models[win] = model_obj;
+    windows[model_obj].insert(win);
+    return win;
+}
+
+void Project::removeWindowFromModel(QMdiSubWindow *win)
+{
+    Model *model = getModel(win);
+    if(!model) {
+        qWarning() << "[wrkspc/project] can't remove window from unknown model";
+        return ;
+    }
+    model->removeWindow(win);
+
+    auto it = models.find(win);
+    if(it == models.end() || it.value() != model) {
+        qWarning() << "[wrkspc/project] remove windows: broken consistency, can't find model by window";
+        return ;
+    }
+
+    auto jt = windows[model].find(win);
+    if(jt == windows[model].end()) {
+        qWarning() << "[wrkspc/project] remove windows: broken consistency, can't find window in model";
+        return ;
+    }
+
+    windows[model].erase(jt);
     models.erase(it);
 }
 
@@ -31,6 +93,7 @@ void Project::save(const QString &filename)
 
 void Project::load(const QString &filename, QMdiArea *mdi_area)
 {
+    /*
     proj_filename = filename;
     QFile file(proj_filename);
     file.open(QIODevice::ReadOnly);
@@ -50,9 +113,10 @@ void Project::load(const QString &filename, QMdiArea *mdi_area)
 
         // TODO убрать временные костыли
         QtSimpleBuffer* qt_buffer = new QtSimpleBuffer();
-        tmp_model->buffer = dynamic_cast<GraphicBuffer*>(qt_buffer);
+        //tmp_model->buffer = dynamic_cast<GraphicBuffer*>(qt_buffer);
         QMdiSubWindow *tmp_mdi_sub_win = mdi_area->addSubWindow(qt_buffer->render_window);
         qt_buffer->render_window->showMaximized();
         addModel(tmp_mdi_sub_win, tmp_model);
     }
+    */
 }

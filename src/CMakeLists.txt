@@ -29,7 +29,7 @@ link_directories("${ROOT_LIBRARY_DIR}/root") # TODO: fix
 #set(CMAKE_BUILD_TYPE distribution) do nothing :(
 set(CMAKE_C_FLAGS "-std=c99 -Wall -Wextra -Wshadow -Wfloat-equal -O0 -D_DEBUG -g -ldl")
 #set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -Wold-style-cast -Wfloat-equal -Woverloaded-virtual -O0 -D_DEBUG -g")
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -Wold-style-cast -Woverloaded-virtual -O0 -D_DEBUG -DBUFFER_OPENGL -g")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -Woverloaded-virtual -O0 -D_DEBUG -DBUFFER_OPENGL -g")
 
 
 aux_source_directory(. SRC_LIST)
@@ -66,16 +66,25 @@ set(MOC_HEADERS
     windowevent.h
     buffercontainer.h
 
+    workspace/view.h
+
     buffer/qt_buffer/renderarea.h
 	buffer/qt_buffer/openglarea.h
 
     config/config.h
     config/dll/dllconfig.h
+    config/local/localfileconfig.h
+    config/stub/stubconfig.h
 
+    renderer/renderer.h
     renderer/gui.h
+    renderer/hpp-loupe/hpploupe.h
     renderer/hpp-loupe/gui.h
+    renderer/grayscale/grayscale.h
     renderer/grayscale/gui.h
+    renderer/projection/projection.h
     renderer/projection/gui.h
+    renderer/wave/wave.h
     renderer/wave/gui.h
 )
 qt5_wrap_cpp(MOC_SRC ${MOC_HEADERS})

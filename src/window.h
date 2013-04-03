@@ -20,8 +20,8 @@ class Window : public QMainWindow
     Q_OBJECT
 
     QVBoxLayout *main_layout;
-    QAction *act_open, *act_quit;
-    QAction *act_about;
+    //QAction *act_open, *act_quit;
+    //QAction *act_about;
 
     /*
      *	MDI
@@ -56,7 +56,7 @@ class Window : public QMainWindow
      */
     Project *project;
     Model *current_model;
-    QMap<BufferContainer*, QMdiSubWindow *> mdi_subwindows;
+    //QMap<BufferContainer*, QMdiSubWindow*> mdi_subwindows;
 
 public:
     explicit Window(Config *example_config, const QVector<RendererGUI *>& supported_cuts, QWidget *_parent = 0);
@@ -66,7 +66,7 @@ signals:
 public slots:
     // MDI
     void mdiChangeSubWindow(QMdiSubWindow *win);
-    void mdiClosingWindow(BufferContainer *buf);
+    void mdiClosingWindow(QMdiSubWindow *win);
 
     // renderer config toolbar
     void updateRendererConfigLayout(const QString& new_layout_name);

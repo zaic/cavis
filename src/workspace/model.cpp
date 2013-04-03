@@ -1,8 +1,11 @@
 #include "model.h"
 #include "config/factory.h"
-#include <QtWidgets>
+#include "windowevent.h"
+#include "buffercontainer.h"
 
-Model::Model()
+Model::Model(const QStringList &sup_renderers, Config *_config) :
+    supported_renderers(sup_renderers),
+    config(_config)
 {
 
 }
@@ -12,13 +15,59 @@ Model::~Model()
 
 }
 
-void Model::draw()
+View* Model::setCurrentView(QMdiSubWindow *win)
 {
+    auto it = windows.find(win);
+    if(it == windows.end()) {
+        qWarning() << "[wrkspc/model] non-exists mdisubwin";
+        current_view = NULL;
+    } else {
+        current_view = it.value();
+    }
+    return current_view;
+}
+
+void Model::drawOne(GraphicBuffer *buffer, Renderer *renderer)
+{
+    if(!renderer) return ;
     buffer->create(renderer->getBufferFormat());
     renderer->setConfig(config);
     renderer->setBuffer(buffer);
     renderer->draw();
     buffer->complete();
+}
+
+void Model::draw(QMdiSubWindow *win)
+{
+    if(!setCurrentView(win)) return ;
+    drawOne(current_view->buffer, current_view->getCurrentRenderer());
+}
+
+void Model::drawAll()
+{
+    for(auto i : windows)
+        drawOne(i->buffer, i->getCurrentRenderer());
+}
+
+QMdiSubWindow *Model::addWindow(QtSimpleBuffer *buf)
+{
+    View *v = new View(supported_renderers);
+    QMdiSubWindow *mdiwin = new QMdiSubWindow;
+    BufferContainer *example_container = new BufferContainer(buf->render_window, mdiwin);
+    mdiwin->setWidget(example_container);
+    mdiwin->setAttribute(Qt::WA_DeleteOnClose);
+    windows[mdiwin] = v;
+    return mdiwin;
+}
+
+void Model::removeWindow(QMdiSubWindow *win)
+{
+    auto it = windows.find(win);
+    if(it != windows.end())
+        windows.erase(it);
+    else
+        qWarning() << "[wrkspc/model] removing non-exists mdisubwin";
+    WindowEvent::get()->doProjectChanged();
 }
 
 bool Model::save(QDataStream &stream)

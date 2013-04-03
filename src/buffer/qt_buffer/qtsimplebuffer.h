@@ -52,4 +52,6 @@ public:
 
     virtual int width() const { return render_area_simple->width(); }
     virtual int height() const { return render_area_simple->height(); }
+
+    virtual void update() const;
 };

@@ -16,19 +16,27 @@ Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_c
     // create example project
     project = new Project;
 
-    // create example model
-    QtSimpleBuffer *example_buffer = new QtSimpleBuffer();
-    BufferContainer *example_container = new BufferContainer(example_buffer->render_window);
-    connect(example_container, SIGNAL(imclosing(BufferContainer*)), this, SLOT(mdiClosingWindow(BufferContainer*)));
-    QMdiSubWindow *example_mdisubwindow = mdi_area->addSubWindow(example_container);
-    mdi_subwindows[example_container] = example_mdisubwindow;
-    mdi_area->currentSubWindow()->showMaximized();
-    Model* example_model = new Model;
-    example_model->buffer = example_buffer;
-    example_model->config = example_config;
-    example_model->renderer = supported_cuts.first()->getRenderer();
-    project->addModel(example_mdisubwindow, example_model);
+    /*
+     *  Create example model
+     */
+    // Renderers
+    QStringList example_renderers;
+    example_renderers << "HPPloupe";
+    example_renderers << "GrayScale";
+
+    // Model
+    Model *example_model = project->addModel(example_renderers, example_config);
     current_model = example_model;
+
+    // MDI
+    QtSimpleBuffer *example_buffer = new QtSimpleBuffer();
+    QMdiSubWindow *example_mdisubwindow = project->addWindowToModel(example_model, example_buffer);
+
+    // TODO: global follow line
+    //connect(example_container, SIGNAL(imclosing(QMdiSubWindow*)), this, SLOT(mdiClosingWindow(QMdiSubWindow*)));
+
+    mdi_area->addSubWindow(example_mdisubwindow);
+    mdi_area->currentSubWindow()->showMaximized();
 
     main_layout = new QVBoxLayout;
 
@@ -123,6 +131,11 @@ void Window::createMenuBar()
     connect(act_model_load, SIGNAL(triggered()), this, SLOT(actModelLoad()));
     mnu_model->addAction(act_model_load);
 
+    // Split model view
+    QAction *act_model_split = new QAction(QIcon::fromTheme("insert-object"), tr("Split view"), this);
+    connect(act_model_split, &QAction::trigger, [=](){ qDebug() << "SPLIT VIEW"; });
+    mnu_model->addAction(act_model_split);
+
     /*
      *  Help
      */
@@ -143,6 +156,7 @@ void Window::createMenuBar()
     tlb_test->addAction(act_project_save);
     tlb_test->addAction(act_project_open);
     tlb_test->addAction(act_model_load);
+    tlb_test->addAction(act_model_split);
     addToolBar(tlb_test);
 }
 
@@ -237,7 +251,7 @@ void Window::updateIterationCounter(int iteration)
     if(iteration == Config::FORCED_UPDATE || iteration != sld_progress->value() || iteration == 0) {
         if(iteration == Config::FORCED_UPDATE) iteration = sld_progress->value();
         sld_progress->setValue(iteration);
-        current_model->draw();
+        current_model->drawAll();
 
         /*
         for(auto it : tmp_buffers) {
@@ -253,11 +267,12 @@ void Window::updateIterationCounter(int iteration)
 
 void Window::updateRendererConfigLayout(const QString &new_layout_name)
 {
-    qDebug() << "need to update layout: " << new_layout_name;
+    qDebug() << "[window/???] need to update layout: " << new_layout_name;
     if(last_selected_cut) last_selected_cut->setVisible(false);
     last_selected_cut = cuts[new_layout_name]->getWidget();
     last_selected_cut->setVisible(true);
-    current_model->renderer = cuts[new_layout_name]->getRenderer();
+    //current_model->renderer = cuts[new_layout_name]->getRenderer();
+    //current_model->setWindowRenderer(mdi_area->currentSubWindow(), cuts[new_layout_name]->getRenderer());
 }
 
 void Window::mdiChangeSubWindow(QMdiSubWindow *win)
@@ -265,10 +280,9 @@ void Window::mdiChangeSubWindow(QMdiSubWindow *win)
     current_model = project->getModel(win);
 }
 
-void Window::mdiClosingWindow(BufferContainer *buf)
+void Window::mdiClosingWindow(QMdiSubWindow *win)
 {
-    QMdiSubWindow *closing_mdisubwin = mdi_subwindows[buf];
-    project->remModel(closing_mdisubwin);
+    project->removeModel(win);
 }
 
 void Window::actProjectNew()
@@ -287,8 +301,9 @@ bool Window::actProjectOpen()
     project = new Project;
     project->load(filename, mdi_area);
     current_model = project->getModel(mdi_area->activeSubWindow());
-    qDebug() << "[main/wind] current_model after load =" << current_model;
-    current_model->renderer = cuts[cmb_cut_switch->currentText()]->getRenderer();
+    qDebug() << "[windows/open] current_model after load =" << current_model;
+    // current_model->renderer = cuts[cmb_cut_switch->currentText()]->getRenderer();
+    //current_model->setWindowRenderer(mdi_area->currentSubWindow(), cuts[cmb_cut_switch->currentText()]->getRenderer());
     return true;
 }
 
@@ -326,16 +341,27 @@ void Window::actModelLoad()
     QString modelFileName = QFileDialog::getOpenFileName(this, tr("Load model"));
     if(modelFileName.isNull()) return ;
 
-    Model *loading_model = new Model;
-    loading_model->renderer = current_model->renderer;
+    // Renderers
+    QStringList example_renderers;
+    example_renderers << "HPPloupe";
+    example_renderers << "GrayScale";
 
+    // Config
     DLLConfig *dll_config = new DLLConfig(modelFileName.toStdString().c_str());
-    loading_model->config = dynamic_cast<Config*>(dll_config);
+    //loading_model->config = dynamic_cast<Config*>(dll_config);
 
+    // Model
+    Model *loading_model = project->addModel(example_renderers, dll_config);
+    //loading_model->renderer = current_model->renderer;
+
+    // MDI
     QtSimpleBuffer* qt_buffer = new QtSimpleBuffer();
-    loading_model->buffer = dynamic_cast<GraphicBuffer*>(qt_buffer);
-    QMdiSubWindow *q = mdi_area->addSubWindow(qt_buffer->render_window);
+    QMdiSubWindow *q = project->addWindowToModel(loading_model, qt_buffer);
+    /*
+    loading_model->addWindow(q, qt_buffer, cuts.begin().value()->getRenderer());
     project->addModel(q, loading_model);
+    */
+    mdi_area->addSubWindow(q);
     qt_buffer->render_window->showMaximized();
 
     current_model = loading_model;

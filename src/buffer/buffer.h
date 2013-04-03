@@ -39,4 +39,7 @@ public:
     virtual int width() const = 0;
     // высота видимой для рисования площади
     virtual int height() const = 0;
+
+    // перерисовать картинку
+    virtual void update() const = 0;
 };
