@@ -29,6 +29,9 @@ class Window : public QMainWindow
     void createMenuBar();
     QMdiArea *mdi_area;
 
+    QGridLayout *tmp_dock_layout;
+    QWidget *tmp_dock_widget;
+
     /*
      *	Cut config bar
      */
@@ -94,6 +97,7 @@ public slots:
     bool actProjectSaveAs();
 
     void actModelLoad();
+    void actModelSplit();
 
     void actQuit();
 };

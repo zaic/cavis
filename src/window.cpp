@@ -40,9 +40,15 @@ Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_c
 
     main_layout = new QVBoxLayout;
 
+    tmp_dock_layout = new QGridLayout;
+    tmp_dock_widget = createCutConfigBar();
+    tmp_dock_layout->addWidget(tmp_dock_widget, 0, 0);
+    QWidget *please_remove_me = new QWidget;
+    please_remove_me->setLayout(tmp_dock_layout);
     QSplitter *spl_cut = new QSplitter;
     spl_cut->addWidget(mdi_area);
-    spl_cut->addWidget(createCutConfigBar());
+    spl_cut->addWidget(please_remove_me);
+
 
     createMenuBar();
     main_layout->addWidget(spl_cut);
@@ -133,7 +139,7 @@ void Window::createMenuBar()
 
     // Split model view
     QAction *act_model_split = new QAction(QIcon::fromTheme("insert-object"), tr("Split view"), this);
-    connect(act_model_split, &QAction::trigger, [=](){ qDebug() << "SPLIT VIEW"; });
+    connect(act_model_split, SIGNAL(triggered()), this, SLOT(actModelSplit()));
     mnu_model->addAction(act_model_split);
 
     /*
@@ -251,6 +257,7 @@ void Window::updateIterationCounter(int iteration)
     if(iteration == Config::FORCED_UPDATE || iteration != sld_progress->value() || iteration == 0) {
         if(iteration == Config::FORCED_UPDATE) iteration = sld_progress->value();
         sld_progress->setValue(iteration);
+        qDebug() << "[window/update] call redrawing all buffers";
         current_model->drawAll();
 
         /*
@@ -277,7 +284,18 @@ void Window::updateRendererConfigLayout(const QString &new_layout_name)
 
 void Window::mdiChangeSubWindow(QMdiSubWindow *win)
 {
-    current_model = project->getModel(win);
+    if(win == NULL) {
+        current_model = NULL;
+        tmp_dock_layout->removeWidget(tmp_dock_widget);
+        tmp_dock_widget = NULL;
+    } else {
+        current_model = project->getModel(win);
+        tmp_dock_layout->removeWidget(tmp_dock_widget);
+        tmp_dock_widget = current_model->getRenderersGUI(win);
+        tmp_dock_layout->addWidget(tmp_dock_widget);
+    }
+
+    qDebug() << "[window/mdichange] new model" << current_model << "from subwin" << win;
 }
 
 void Window::mdiClosingWindow(QMdiSubWindow *win)
@@ -361,10 +379,22 @@ void Window::actModelLoad()
     loading_model->addWindow(q, qt_buffer, cuts.begin().value()->getRenderer());
     project->addModel(q, loading_model);
     */
+    qDebug() << "[window/main] load new model, add windows" << q;
     mdi_area->addSubWindow(q);
-    qt_buffer->render_window->showMaximized();
-
+    //qt_buffer->render_window->showMaximized();
+    q->showMaximized();
     current_model = loading_model;
+
+}
+
+void Window::actModelSplit()
+{
+    QtSimpleBuffer *buf = new QtSimpleBuffer();
+    QMdiSubWindow *win = project->addWindowToModel(current_model, buf);
+    qDebug() << "[window/main] created mdisubwin" << win;
+    mdi_area->addSubWindow(win);
+    win->showMaximized();
+    win->update();
 }
 
 void Window::actQuit()

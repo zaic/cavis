@@ -1,7 +1,8 @@
 #include "windowevent.h"
 
 WindowEvent::WindowEvent(QObject *_parent) :
-    QObject(_parent)
+    QObject(_parent),
+    enable_repaint(true)
 {
 
 }

@@ -18,7 +18,7 @@ class View : public QObject
     void createGUI();
 
 public:
-    explicit View(const QStringList& sup_rens, QObject *_parent = 0);
+    explicit View(const QStringList& sup_rens, GraphicBuffer *buf, QObject *_parent = 0);
     ~View();
 
     QWidget* getGUI() const { return gui_settings; }

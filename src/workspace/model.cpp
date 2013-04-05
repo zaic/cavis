@@ -29,6 +29,7 @@ View* Model::setCurrentView(QMdiSubWindow *win)
 
 void Model::drawOne(GraphicBuffer *buffer, Renderer *renderer)
 {
+    qDebug() << renderer;
     if(!renderer) return ;
     buffer->create(renderer->getBufferFormat());
     renderer->setConfig(config);
@@ -41,6 +42,7 @@ void Model::draw(QMdiSubWindow *win)
 {
     if(!setCurrentView(win)) return ;
     drawOne(current_view->buffer, current_view->getCurrentRenderer());
+    win->update();
 }
 
 void Model::drawAll()
@@ -49,9 +51,19 @@ void Model::drawAll()
         drawOne(i->buffer, i->getCurrentRenderer());
 }
 
+QWidget* Model::getRenderersGUI(QMdiSubWindow *win)
+{
+    auto it = windows.find(win);
+    if(it == windows.end()) {
+        qWarning() << "[wrkspc/model] ooops";
+        return NULL;
+    }
+    return it.value()->getGUI();
+}
+
 QMdiSubWindow *Model::addWindow(QtSimpleBuffer *buf)
 {
-    View *v = new View(supported_renderers);
+    View *v = new View(supported_renderers, buf);
     QMdiSubWindow *mdiwin = new QMdiSubWindow;
     BufferContainer *example_container = new BufferContainer(buf->render_window, mdiwin);
     mdiwin->setWidget(example_container);

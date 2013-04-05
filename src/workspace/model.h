@@ -19,7 +19,6 @@ class Model
 
     QMdiSubWindow* addWindow(QtSimpleBuffer* buf);
     void removeWindow(QMdiSubWindow *win);
-    QWidget* getRenderersGUI(QMdiSubWindow *win);
 
     void drawOne(GraphicBuffer *buffer, Renderer *renderer);
 
@@ -31,6 +30,7 @@ public:
 
     void draw(QMdiSubWindow *win);
     void drawAll();
+    QWidget* getRenderersGUI(QMdiSubWindow *win);
 
     bool save(QDataStream& stream);
     bool load(QDataStream& stream);

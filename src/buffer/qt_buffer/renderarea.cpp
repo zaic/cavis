@@ -19,8 +19,10 @@ void RenderArea::paintEvent(QPaintEvent* )
     if(buffer_image) {
         painter.drawImage(this->rect(), *(this->buffer_image));
     }
+
     delete buffer_image;
     buffer_image = NULL;
+    WindowEvent::get()->allowRepaint();
 }
 
 void RenderArea::drawImage(QImage *image)

@@ -5,7 +5,8 @@ OpenGLArea::OpenGLArea(QWidget *_parent) :
     xrot(521),
     yrot(-1757),
     zrot(586),
-    scale(0.01f)
+    scale(0.01f),
+    data(NULL)
 {
 
 }
@@ -19,11 +20,11 @@ void OpenGLArea::initializeGL()
     glShadeModel(GL_SMOOTH);
 }
 
-void OpenGLArea::resizeGL(int width, int height)
+void OpenGLArea::resizeGL(int w, int h)
 {
-    int side = qMin(width, height);
+    //int side = qMin(w, h);
     //glViewport((width - side) / 2, (height - side) / 2, side, side);
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, w, h);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();

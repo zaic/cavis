@@ -22,6 +22,7 @@ class RendererFactory
     static QMap<QString, const QMetaObject*> renderer_factory;
     static QMap<QString, const QMetaObject*> renderer_gui_factory;
 
+    static QString toCoolFormat(const QString& s);
     static void initConfig();
 
 public:

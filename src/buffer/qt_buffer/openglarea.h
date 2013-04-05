@@ -27,7 +27,7 @@ public:
      *  Renderer functions
      */
     void initializeGL();
-    void resizeGL(int width, int height);
+    void resizeGL(int w, int h);
     void paintGL();
 
     /*

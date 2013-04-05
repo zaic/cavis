@@ -1,7 +1,8 @@
 #include "view.h"
 
-View::View(const QStringList &sup_rens, QObject *_parent) :
-    QObject(_parent)
+View::View(const QStringList &sup_rens, GraphicBuffer *buf, QObject *_parent) :
+    QObject(_parent),
+    buffer(buf)
 {
     loadRenderers(sup_rens);
     createGUI();
@@ -23,7 +24,7 @@ void View::loadRenderers(const QStringList& supported_renderers)
         if(r == NULL)
             qDebug() << "[wrkspc/view] unknown renderer type" << i;
         else
-            gui_by_caption[i] = r;
+            gui_by_caption[r->getName()] = r;
     }
     current_gui = (gui_by_caption.empty() ? NULL : gui_by_caption.begin().value());
 }
