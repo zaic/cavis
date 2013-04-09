@@ -19,7 +19,7 @@ class WaveGUI : public RendererGUI
     friend class WaveRenderer;
 
 public:
-    WaveGUI(Renderer *_renderer);
+    Q_INVOKABLE WaveGUI(Renderer *_renderer);
     virtual ~WaveGUI();
 
     virtual QString getName() const override { return tr("Wave 3D"); }

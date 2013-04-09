@@ -2,6 +2,7 @@
 
 #include <QtCore/QObject>
 #include <QtWidgets/QMdiSubWindow>
+#include <QtCore/QDebug>
 
 class WindowEvent : public QObject
 {
@@ -22,7 +23,7 @@ public:
 
     void doRequireRepaint() { if(enable_repaint) emit requireRepaint(); enable_repaint = false; }
     void doProjectChanged() { emit projectChanged(); }
-    void doMdiWindowClosing(QMdiSubWindow *win) { emit doMdiWindowClosing(win); }
+    void doMdiWindowClosing(QMdiSubWindow *win) { qDebug() << "!"; emit mdiWindowClosing(win); }
 
 signals:
     void requireRepaint();

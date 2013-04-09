@@ -29,6 +29,14 @@ void RendererFactory::initConfig()
     const QString loupe_name = toCoolFormat(loupe_renderer->metaObject()->className());
     renderer_factory[loupe_name] = loupe_renderer->metaObject();
     renderer_gui_factory[loupe_name] = loupe_gui->metaObject();
+
+    // Wave
+    WaveRenderer *wave_renderer = new WaveRenderer();
+    WaveGUI *wave_gui = new WaveGUI(wave_renderer);
+    const QString wave_name = toCoolFormat(wave_renderer->metaObject()->className());
+    qDebug() << wave_name;
+    renderer_factory[wave_name] = wave_renderer->metaObject();
+    renderer_gui_factory[wave_name] = wave_gui->metaObject();
 }
 
 RendererGUI* RendererFactory::createRenderer(const QString &pname)

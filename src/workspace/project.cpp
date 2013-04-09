@@ -56,6 +56,7 @@ QMdiSubWindow* Project::addWindowToModel(Model *model_obj, QtSimpleBuffer *buf)
 
 void Project::removeWindowFromModel(QMdiSubWindow *win)
 {
+    qDebug() << "[wrkspc/project] removing window" << win;
     Model *model = getModel(win);
     if(!model) {
         qWarning() << "[wrkspc/project] can't remove window from unknown model";

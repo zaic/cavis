@@ -13,7 +13,7 @@ class WaveRenderer : public Renderer
     WaveGUI *parameters;
 
 public:
-    WaveRenderer();
+    Q_INVOKABLE WaveRenderer();
     virtual ~WaveRenderer();
 
     virtual void setParameters(RendererGUI *_parameters) override { parameters = qobject_cast<WaveGUI*>(_parameters); }

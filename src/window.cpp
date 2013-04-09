@@ -34,6 +34,7 @@ Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_c
 
     // TODO: global follow line
     //connect(example_container, SIGNAL(imclosing(QMdiSubWindow*)), this, SLOT(mdiClosingWindow(QMdiSubWindow*)));
+    connect(WindowEvent::get(), &WindowEvent::mdiWindowClosing, [=](QMdiSubWindow *win) { project->removeWindowFromModel(win); });
 
     mdi_area->addSubWindow(example_mdisubwindow);
     mdi_area->currentSubWindow()->showMaximized();
@@ -253,6 +254,8 @@ void Window::setIteration(int iteration) {
 
 void Window::updateIterationCounter(int iteration)
 {
+    if(current_model == NULL) return ;
+
     // TODO: move FORCED_UPDATE into Config and remove following condition
     if(iteration == Config::FORCED_UPDATE || iteration != sld_progress->value() || iteration == 0) {
         if(iteration == Config::FORCED_UPDATE) iteration = sld_progress->value();
@@ -286,13 +289,21 @@ void Window::mdiChangeSubWindow(QMdiSubWindow *win)
 {
     if(win == NULL) {
         current_model = NULL;
-        tmp_dock_layout->removeWidget(tmp_dock_widget);
+        if(tmp_dock_widget) {
+            tmp_dock_layout->removeWidget(tmp_dock_widget);
+            tmp_dock_widget->hide();
+        }
         tmp_dock_widget = NULL;
+
     } else {
         current_model = project->getModel(win);
-        tmp_dock_layout->removeWidget(tmp_dock_widget);
+        if(tmp_dock_widget) {
+            tmp_dock_layout->removeWidget(tmp_dock_widget);
+            tmp_dock_widget->hide();
+        }
         tmp_dock_widget = current_model->getRenderersGUI(win);
-        tmp_dock_layout->addWidget(tmp_dock_widget);
+        tmp_dock_layout->addWidget(tmp_dock_widget, 0, 0);
+        tmp_dock_widget->show();
     }
 
     qDebug() << "[window/mdichange] new model" << current_model << "from subwin" << win;
@@ -300,7 +311,7 @@ void Window::mdiChangeSubWindow(QMdiSubWindow *win)
 
 void Window::mdiClosingWindow(QMdiSubWindow *win)
 {
-    project->removeModel(win);
+    project->removeWindowFromModel(win);
 }
 
 void Window::actProjectNew()
@@ -363,6 +374,7 @@ void Window::actModelLoad()
     QStringList example_renderers;
     example_renderers << "HPPloupe";
     example_renderers << "GrayScale";
+    example_renderers << "Wave";
 
     // Config
     DLLConfig *dll_config = new DLLConfig(modelFileName.toStdString().c_str());
@@ -379,7 +391,7 @@ void Window::actModelLoad()
     loading_model->addWindow(q, qt_buffer, cuts.begin().value()->getRenderer());
     project->addModel(q, loading_model);
     */
-    qDebug() << "[window/main] load new model, add windows" << q;
+    qDebug() << "[window/newmode] add window" << q;
     mdi_area->addSubWindow(q);
     //qt_buffer->render_window->showMaximized();
     q->showMaximized();

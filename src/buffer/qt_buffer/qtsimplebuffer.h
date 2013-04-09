@@ -13,6 +13,8 @@ class QtSimpleBuffer : public GraphicBuffer
     /*
      *  Buffer objects
      */
+    QGridLayout *lay_main;
+
     QString cur_buffer_type;
     QImage *image;
     QPainter *painter;

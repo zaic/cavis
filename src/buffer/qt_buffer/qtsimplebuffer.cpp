@@ -3,6 +3,7 @@
 QtSimpleBuffer::QtSimpleBuffer() :
     GraphicBuffer(),
     cur_buffer_type(""),
+    image(NULL),
     gl_data(NULL)
 {
     render_area_simple = new RenderArea;
@@ -14,9 +15,9 @@ QtSimpleBuffer::QtSimpleBuffer() :
     QObject::connect(scb_render_width, SIGNAL(valueChanged(int)), render_area_simple, SLOT(update()));
 
     render_window = new QWidget;
-    QGridLayout *lay_main = new QGridLayout;
+    lay_main = new QGridLayout;
     lay_main->setSpacing(0);
-    lay_main->addWidget(render_area_simple, 0, 0);
+    //lay_main->addWidget(render_area_simple, 0, 0);
     //lay_main->addWidget(render_area_opengl, 0, 0);
     lay_main->addWidget(scb_render_height, 0, 1);
     lay_main->addWidget(scb_render_width, 1, 0);
@@ -29,19 +30,38 @@ QtSimpleBuffer::~QtSimpleBuffer()
     delete render_window;
 }
 
-void QtSimpleBuffer::create(const QString buffer_type)
+void QtSimpleBuffer::create(const QString buffer_type_)
 {
+    const QString buffer_type = buffer_type_.toLower();
+
     use_xscroll = false;
     use_yscroll = false;
 
-    qDebug() << "[buffer/qt] new buffer type is" << buffer_type;
-    render_area_simple->setVisible(buffer_type.toLower() == "simple");
-    render_area_opengl->setVisible(buffer_type.toLower() == "opengl");
+    qDebug() << "[buffer/qt] new buffer type is" << buffer_type << "(" << buffer_type_ << ")";
+
+    if(buffer_type == cur_buffer_type) return ;
+
+    if(buffer_type != "simple") {
+        lay_main->removeWidget(render_area_simple);
+        render_area_simple->hide();
+    } else {
+        lay_main->addWidget(render_area_simple, 0, 0);
+        render_area_simple->show();
+    }
+
+    if(buffer_type != "opengl") {
+        lay_main->removeWidget(render_area_opengl);
+        render_area_opengl->hide();
+    } else {
+        lay_main->addWidget(render_area_opengl);
+        render_area_opengl->show();
+    }
+
     if(render_area_simple->isHidden() && render_area_opengl->isHidden()) {
         qCritical() << "[buffer/qt] unsupported buffer type" << buffer_type;
         cur_buffer_type = "";
     } else {
-        cur_buffer_type = buffer_type.toLower();
+        cur_buffer_type = buffer_type;
     }
 }
 
@@ -53,6 +73,7 @@ void QtSimpleBuffer::prepare()
     if(cur_buffer_type == "simple") {
         // TODO SMART POINTERS!!!!111
         // call new without delete :'(
+
         image = new QImage(width(), height(), QImage::Format_RGB32);
         if(image == NULL) return ;
         image->fill(Qt::white);
