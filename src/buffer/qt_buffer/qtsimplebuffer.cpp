@@ -10,9 +10,11 @@ QtSimpleBuffer::QtSimpleBuffer() :
     render_area_opengl = new OpenGLArea;
 
     scb_render_height = new QScrollBar(Qt::Vertical);
-    QObject::connect(scb_render_height, SIGNAL(valueChanged(int)), render_area_simple, SLOT(update()));
+    //QObject::connect(scb_render_height, SIGNAL(valueChanged(int)), render_area_simple, SLOT(update()));
+    QObject::connect(scb_render_height, &QSlider::valueChanged, [=](){ render_area_simple->drawImage(NULL); });
     scb_render_width = new QScrollBar(Qt::Horizontal);
-    QObject::connect(scb_render_width, SIGNAL(valueChanged(int)), render_area_simple, SLOT(update()));
+    //QObject::connect(scb_render_width, SIGNAL(valueChanged(int)), render_area_simple, SLOT(update()));
+    QObject::connect(scb_render_width, &QSlider::valueChanged, [=](){ render_area_simple->drawImage(NULL); });
 
     render_window = new QWidget;
     lay_main = new QGridLayout;
@@ -71,9 +73,6 @@ void QtSimpleBuffer::prepare()
     scb_render_height->setVisible(use_yscroll);
 
     if(cur_buffer_type == "simple") {
-        // TODO SMART POINTERS!!!!111
-        // call new without delete :'(
-
         image = new QImage(width(), height(), QImage::Format_RGB32);
         if(image == NULL) return ;
         image->fill(Qt::white);

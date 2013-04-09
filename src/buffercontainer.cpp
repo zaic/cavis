@@ -16,3 +16,8 @@ void BufferContainer::closeEvent(QCloseEvent *)
 {
     WindowEvent::get()->doMdiWindowClosing(just_mdi_sub_window);
 }
+
+void BufferContainer::resizeEvent(QResizeEvent *)
+{
+    //WindowEvent::get()->doRequireRepaint();
+}

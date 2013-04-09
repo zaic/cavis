@@ -11,6 +11,7 @@ class RenderArea : public QWidget
 
 protected:
     void paintEvent(QPaintEvent* );
+    void resizeEvent(QResizeEvent *);
 
 public:
     explicit RenderArea(QWidget *_parent = 0);

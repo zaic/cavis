@@ -13,7 +13,7 @@ Project::~Project()
 Model* Project::addModel(const QStringList &renderers, Config *config)
 {
     Model *model = new Model(renderers, config);
-    windows[model].clear(); // clear? oO
+    //windows[model].clear(); // clear? oO
     return model;
 }
 
