@@ -35,13 +35,12 @@ public:
     QMdiSubWindow* addWindowToModel(Model *model_obj, QtSimpleBuffer *buf);
     void removeWindowFromModel(QMdiSubWindow *win);
 
-#if 0
-    void addModel(QMdiSubWindow *model_win, Model *model_obj) { models[model_win] = model_obj; }
-    Model* getModel(QMdiSubWindow *model_win) { return models[model_win]; }
-    void remModel(QMdiSubWindow *model_win);
-#endif
+    /*
+     *  User function
+     */
 
     QString getFilename() const { return proj_filename; }
+    void updateProjectTree(QTreeWidget *wgt_project_tree);
     void save(const QString& filename);
     void load(const QString& filename, QMdiArea *mdi_area);
 };

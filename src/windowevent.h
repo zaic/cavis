@@ -23,12 +23,14 @@ public:
 
     void doRequireRepaint() { if(enable_repaint) emit requireRepaint(); enable_repaint = false; }
     void doProjectChanged() { emit projectChanged(); }
-    void doMdiWindowClosing(QMdiSubWindow *win) { qDebug() << "!"; emit mdiWindowClosing(win); }
+    void doMdiWindowClosing(QMdiSubWindow *win) { emit mdiWindowClosing(win); }
+    void doProjectTreeChanged() { emit projectTreeChanged(); }
 
 signals:
     void requireRepaint();
     void projectChanged();
     void mdiWindowClosing(QMdiSubWindow*);
+    void projectTreeChanged();
 
 public slots:
 

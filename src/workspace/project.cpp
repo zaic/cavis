@@ -80,6 +80,19 @@ void Project::removeWindowFromModel(QMdiSubWindow *win)
     models.erase(it);
 }
 
+void Project::updateProjectTree(QTreeWidget *wgt_project_tree)
+{
+    wgt_project_tree->clear(); // eh :(
+    for(auto it : windows.keys()) {
+        QTreeWidgetItem *tree_model_item = new QTreeWidgetItem(QStringList("Model"));
+        for(auto jt : it->windows) {
+            QTreeWidgetItem *tree_window_iterm = new QTreeWidgetItem(QStringList({"View", jt->getCurrentGUI()->getName()}));
+            tree_model_item->addChild(tree_window_iterm);
+        }
+        wgt_project_tree->addTopLevelItem(tree_model_item);
+    }
+}
+
 void Project::save(const QString &filename)
 {
     proj_filename = filename;

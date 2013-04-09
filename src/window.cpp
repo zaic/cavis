@@ -34,16 +34,24 @@ Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_c
 
     // TODO: global follow line
     //connect(example_container, SIGNAL(imclosing(QMdiSubWindow*)), this, SLOT(mdiClosingWindow(QMdiSubWindow*)));
-    connect(WindowEvent::get(), &WindowEvent::mdiWindowClosing, [=](QMdiSubWindow *win) { project->removeWindowFromModel(win); });
+    connect(WindowEvent::get(), &WindowEvent::mdiWindowClosing, [=](QMdiSubWindow *win){ project->removeWindowFromModel(win); });
 
     mdi_area->addSubWindow(example_mdisubwindow);
     mdi_area->currentSubWindow()->showMaximized();
+
+    /*
+     *  Crate mimimi user interface
+     */
+    wgt_project_tree = new QTreeWidget;
+    wgt_project_tree->setColumnCount(2);
+    wgt_project_tree->setHeaderLabels(QStringList{tr("Model"), tr("View")});
 
     main_layout = new QVBoxLayout;
 
     tmp_dock_layout = new QGridLayout;
     tmp_dock_widget = createCutConfigBar();
     tmp_dock_layout->addWidget(tmp_dock_widget, 0, 0);
+    tmp_dock_layout->addWidget(wgt_project_tree, 1, 0);
     QWidget *please_remove_me = new QWidget;
     please_remove_me->setLayout(tmp_dock_layout);
     QSplitter *spl_cut = new QSplitter;
@@ -61,6 +69,7 @@ Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_c
 
     updateIterationCounter(Config::FORCED_UPDATE);
     connect(WindowEvent::get(), SIGNAL(requireRepaint()), this, SLOT(updateIterationCounter()));
+    connect(WindowEvent::get(), &WindowEvent::projectTreeChanged, [=](){ project->updateProjectTree(wgt_project_tree); });
 }
 
 void Window::initCuts(const QVector<RendererGUI *>& supported_cuts)
@@ -305,6 +314,8 @@ void Window::mdiChangeSubWindow(QMdiSubWindow *win)
         tmp_dock_layout->addWidget(tmp_dock_widget, 0, 0);
         tmp_dock_widget->show();
     }
+    project->updateProjectTree(wgt_project_tree);
+    wgt_project_tree->expandAll();
 
     qDebug() << "[window/mdichange] new model" << current_model << "from subwin" << win;
 }

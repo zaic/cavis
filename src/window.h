@@ -28,6 +28,7 @@ class Window : public QMainWindow
      */
     void createMenuBar();
     QMdiArea *mdi_area;
+    QTreeWidget *wgt_project_tree;
 
     QGridLayout *tmp_dock_layout;
     QWidget *tmp_dock_widget;

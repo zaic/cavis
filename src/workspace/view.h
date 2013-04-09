@@ -22,6 +22,7 @@ public:
     ~View();
 
     QWidget* getGUI() const { return gui_settings; }
+    RendererGUI* getCurrentGUI() const { return current_gui; }
     Renderer* getCurrentRenderer() const { return ( current_gui ? current_gui->getRenderer() : NULL); }
     
     GraphicBuffer* buffer;
