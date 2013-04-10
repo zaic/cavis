@@ -15,11 +15,11 @@ include_directories(${Qt5Widgets_INCLUDE_DIRS})
 include_directories(${Qt5OpenGL_INCLUDE_DIRS})
 
 
-set(BOOST_COMPONENTS
-    system)
-find_package(Boost COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
+#set(BOOST_COMPONENTS
+#    system)
+#find_package(Boost COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
 find_package(Threads)
-include_directories(${Boost_INCLUDE_DIRS})
+#include_directories(${Boost_INCLUDE_DIRS})
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "/home/zaic/nsu/cavis/src/cmake/")
 find_package(root REQUIRED)
@@ -53,7 +53,7 @@ aux_source_directory(./layer/ruler SRC_LIST)
 add_subdirectory(./config)
 aux_source_directory(./config SRC_LIST)
 aux_source_directory(./config/file SRC_LIST)
-aux_source_directory(./config/network-tcp SRC_LIST)
+#aux_source_directory(./config/network-tcp SRC_LIST)
 aux_source_directory(./config/stub SRC_LIST)
 aux_source_directory(./config/local SRC_LIST)
 aux_source_directory(./config/dll SRC_LIST)

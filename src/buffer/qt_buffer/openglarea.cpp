@@ -106,6 +106,8 @@ void OpenGLArea::paintGL()
 #endif
 
         }
+
+    WindowEvent::get()->allowRepaint();
 }
 
 void OpenGLArea::mouseMoveEvent(QMouseEvent *ev)
