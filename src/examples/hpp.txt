@@ -1,0 +1,14 @@
+width = 512
+height = 512
+rp_mass = [2, 4]
+env =
+	(
+		{ mv_appear = [0.5, 0.5, 0.5, 0.5]
+		, rp_appear = [0.0, 0.0]
+		, rp_create = [0.0, 0.0]
+		},
+		{ mv_appear = [1.0, 1.0, 1.0, 1.0]
+		, rp_appear = [1.0, 1.0]
+		, rp_create = [0.0, 0.0]
+		}
+	)

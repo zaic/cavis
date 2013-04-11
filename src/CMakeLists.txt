@@ -7,6 +7,8 @@ find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL REQUIRED)
 find_package(OpenGL REQUIRED)
 
+include_directories("/home/zaic/nsu/libca/include")
+
 #message(${Qt5Widgets_LIBRARIES})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${Qt5Core_INCLUDE_DIRS})
@@ -27,9 +29,9 @@ include_directories(${ROOT_INCLUDE_DIR} "${ROOT_INCLUDE_DIR}/root")
 link_directories("${ROOT_LIBRARY_DIR}/root") # TODO: fix
 
 #set(CMAKE_BUILD_TYPE distribution) do nothing :(
-set(CMAKE_C_FLAGS "-std=c99 -Wall -Wextra -Wshadow -Wfloat-equal -O0 -D_DEBUG -g -ldl")
+set(CMAKE_C_FLAGS "-std=c99 -Wall -Wextra -Wshadow -Wfloat-equal -O0 -D_DEBUG -g -ldl -lconfig")
 #set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -Wold-style-cast -Wfloat-equal -Woverloaded-virtual -O0 -D_DEBUG -g")
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -Woverloaded-virtual -O0 -D_DEBUG -DBUFFER_OPENGL -g")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Wshadow -Woverloaded-virtual -O0 -D_DEBUG -DBUFFER_OPENGL -g -lconfig")
 
 
 aux_source_directory(. SRC_LIST)
@@ -92,6 +94,6 @@ qt5_add_resources(RESOURCES_SRC "../data/icons.qrc")
 
 add_executable(${PROJECT_NAME} ${SRC_LIST} ${MOC_SRC} ${RESOURCES_SRC})
 qt5_use_modules(${PROJECT_NAME} Core Gui Widgets OpenGL)
-target_link_libraries(${PROJECT_NAME} ${Qt5Core_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES}  ${OPENGL_LIBRARIES} ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS} "/usr/lib64/root/libMathMore.so")
+target_link_libraries(${PROJECT_NAME} ${Qt5Core_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES}  ${OPENGL_LIBRARIES} ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS} "/usr/lib64/root/libMathMore.so" "/home/zaic/nsu/libca/libca.so")
 file(COPY examples DESTINATION .)
 file(COPY images DESTINATION .)

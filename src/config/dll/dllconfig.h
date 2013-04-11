@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include "../config.h"
 #include "../../common.h"
+#include "ca/model.h"
 #include <dlfcn.h>
 #include <QtCore/QString>
 
@@ -16,14 +17,15 @@ class DLLConfig : public Config
     /*
      *  DLL data
      */
+    model_t *obj_model;
     void *lib_handle;
-    void (*lib_calc)();
-    void* (*lib_data)();
+    void (*lib_makestep)(model_t*);
+    arr2_u8_t* (*lib_average)(model_t*);
     QString dll_path; // TODO: save DLL on serializtion
     /*
      *  Model data
      */
-    void *data;
+    arr2_u8_t *obj_data;
     int size_x, size_y;
 
     /*
@@ -39,7 +41,7 @@ public:
     virtual int setIteration(int iteration) override;
     virtual int getIterationsCount() override { return current_iteration_id; }
 
-    virtual void* getData(void* = NULL) override { return data; }
+    virtual void* getData(void* = NULL) override { return obj_data->_; }
     virtual int getDimSize(int dim) const override;
     virtual int getDimSizeX() const override { return size_x; }
     virtual int getDimSizeY() const override { return size_y; }

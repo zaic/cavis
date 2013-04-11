@@ -1,9 +1,10 @@
 #include "dllconfig.h"
 
 DLLConfig::DLLConfig() :
+    obj_model(NULL),
     lib_handle(NULL),
     dll_path(""),
-    data(NULL)
+    obj_data(NULL)
 {
 
 }
@@ -27,8 +28,8 @@ DLLConfig::~DLLConfig()
 
 void DLLConfig::loadMeFromLibrary()
 {
-    size_y = 192; // TODO :(
-    size_x = 256;
+    size_y = 0;
+    size_x = 0;
 
     lib_handle = dlopen(dll_path.toStdString().c_str(), RTLD_LAZY);
     if(!lib_handle) {
@@ -36,19 +37,20 @@ void DLLConfig::loadMeFromLibrary()
         return ;
     }
 
-    void (*fn_init)();
-    fn_init = (void(*)())dlsym(lib_handle, "init");
+    model_t* (*fn_init)(const char*);
+    fn_init = (model_t*(*)(const char*))dlsym(lib_handle, "create");
     if (fn_init == NULL) {
-        qDebug() << "[config/dll] init()" << dlerror();
+        qDebug() << "[config/dll] create()" << dlerror();
         return ;
     } else
-        fn_init();
+        obj_model = fn_init("/home/zaic/tmp/cavis/src/examples/hpp.txt");
 
     // TODO: check errors
-    lib_calc = (void(*)())dlsym(lib_handle, "calc");
-    lib_data = (void*(*)())dlsym(lib_handle, "data");
-    data = lib_data();
-    ((char*)data)[0] = 0;
+    lib_makestep = (void(*)(model_t*))dlsym(lib_handle, "make_step");
+    lib_average = (arr2_u8_t*(*)(model_t*))dlsym(lib_handle, "average");
+    obj_data = lib_average(obj_model);
+    size_y = obj_data->height;
+    size_x = obj_data->width;
 }
 
 int DLLConfig::getDimSize(int dim) const
@@ -66,10 +68,10 @@ int DLLConfig::setIteration(int iteration)
         return current_iteration_id;
 
     if(iteration == Config::FORCED_UPDATE) {
-        data = lib_data();
+        obj_data = lib_average(obj_model);
     } else if(iteration == current_iteration_id + 1) {
-        lib_calc();
-        data = lib_data();
+        lib_makestep(obj_model);
+        obj_data = lib_average(obj_model);
         current_iteration_id = iteration;
     }
     return current_iteration_id;
@@ -77,15 +79,18 @@ int DLLConfig::setIteration(int iteration)
 
 void DLLConfig::serialize(QDataStream &stream)
 {
+#if 0
     preSerialize(stream);
     stream << dll_path;
     stream << qint32(size_x) << qint32(size_y);
     for(int i = 0; i < size_x * size_y; i++)
         stream << qint8(reinterpret_cast<qint8*>(data)[i]);
+#endif
 }
 
 void DLLConfig::deserialize(QDataStream &stream)
 {
+#if 0
     preDeserialize(stream);
     stream >> dll_path;
     loadMeFromLibrary();
@@ -96,4 +101,5 @@ void DLLConfig::deserialize(QDataStream &stream)
     for(int i = 0; i < size_x * size_y; i++) {
         stream >> reinterpret_cast<qint8*>(data)[i];
     }
+#endif
 }
