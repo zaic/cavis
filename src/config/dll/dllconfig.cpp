@@ -17,13 +17,13 @@ DLLConfig::DLLConfig(const QString &path) :
 
 DLLConfig::~DLLConfig()
 {
-    void (*fn_quit)();
-    fn_quit = (void(*)())dlsym(lib_handle, "quit");
+    void (*fn_quit)(model_t*);
+    fn_quit = (void(*)(model_t*))dlsym(lib_handle, "destroy");
     if (fn_quit == NULL) {
         qDebug() << "[config/dll] quit()" << dlerror();
         return ;
     } else
-        fn_quit();
+        fn_quit(obj_model);
 }
 
 void DLLConfig::loadMeFromLibrary()
@@ -47,8 +47,8 @@ void DLLConfig::loadMeFromLibrary()
 
     // TODO: check errors
     lib_makestep = (void(*)(model_t*))dlsym(lib_handle, "make_step");
-    lib_average = (arr2_u8_t*(*)(model_t*))dlsym(lib_handle, "average");
-    obj_data = lib_average(obj_model);
+    lib_get_lattice = (arr2_u8_t*(*)(model_t*))dlsym(lib_handle, "get_lattice");
+    obj_data = lib_get_lattice(obj_model);
     size_y = obj_data->height;
     size_x = obj_data->width;
 }
@@ -68,12 +68,13 @@ int DLLConfig::setIteration(int iteration)
         return current_iteration_id;
 
     if(iteration == Config::FORCED_UPDATE) {
-        obj_data = lib_average(obj_model);
+        obj_data = lib_get_lattice(obj_model);
     } else if(iteration == current_iteration_id + 1) {
-        lib_makestep(obj_model);
-        obj_data = lib_average(obj_model);
+        //lib_makestep(obj_model);
+        obj_data = lib_get_lattice(obj_model);
         current_iteration_id = iteration;
     }
+
     return current_iteration_id;
 }
 
