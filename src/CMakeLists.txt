@@ -94,6 +94,6 @@ qt5_add_resources(RESOURCES_SRC "../data/icons.qrc")
 
 add_executable(${PROJECT_NAME} ${SRC_LIST} ${MOC_SRC} ${RESOURCES_SRC})
 qt5_use_modules(${PROJECT_NAME} Core Gui Widgets OpenGL)
-target_link_libraries(${PROJECT_NAME} ${Qt5Core_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES}  ${OPENGL_LIBRARIES} ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS} "/usr/lib64/root/libMathMore.so" "/home/zaic/nsu/libca/libca.so")
+target_link_libraries(${PROJECT_NAME} ${Qt5Core_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5OpenGL_LIBRARIES}  ${OPENGL_LIBRARIES} ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS} "/usr/lib64/root/libMathMore.so" "/home/zaic/nsu/libca/build/libca.so")
 file(COPY examples DESTINATION .)
 file(COPY images DESTINATION .)

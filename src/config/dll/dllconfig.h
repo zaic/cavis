@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdlib>
+#include <cassert>
 #include "../config.h"
 #include "../../common.h"
 #include "ca/model.h"
@@ -20,7 +21,7 @@ class DLLConfig : public Config
     model_t *obj_model;
     void *lib_handle;
     void (*lib_makestep)(model_t*);
-    arr2_u8_t* (*lib_average)(model_t*);
+    arr2_u8_t* (*lib_get_lattice)(model_t*);
     QString dll_path; // TODO: save DLL on serializtion
     /*
      *  Model data
