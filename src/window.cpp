@@ -42,30 +42,32 @@ Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_c
     /*
      *  Crate mimimi user interface
      */
+
+    // View configuration window
+    dwg_config_bar = new QDockWidget(tr("Configure View"), this);
+    dwg_config_bar->setWidget(createCutConfigBar());
+    addDockWidget(Qt::RightDockWidgetArea, dwg_config_bar);
+
+    // Project Tree
     wgt_project_tree = new QTreeWidget;
     wgt_project_tree->setColumnCount(2);
     wgt_project_tree->setHeaderLabels(QStringList{tr("Model"), tr("View")});
+    dwg_project_tree = new QDockWidget(tr("Project Tree"), this);
+    dwg_project_tree->setWidget(wgt_project_tree);
+    addDockWidget(Qt::RightDockWidgetArea, dwg_project_tree);
 
-    main_layout = new QVBoxLayout;
-
-    tmp_dock_layout = new QGridLayout;
-    tmp_dock_widget = createCutConfigBar();
-    tmp_dock_layout->addWidget(tmp_dock_widget, 0, 0);
-    tmp_dock_layout->addWidget(wgt_project_tree, 1, 0);
-    QWidget *please_remove_me = new QWidget;
-    please_remove_me->setLayout(tmp_dock_layout);
-    QSplitter *spl_cut = new QSplitter;
-    spl_cut->addWidget(mdi_area);
-    spl_cut->addWidget(please_remove_me);
+    // Player bar
+    dwg_player_bar = new QDockWidget(this);
+    dwg_player_bar->setWidget(createPlayerBar());
+    addDockWidget(Qt::BottomDockWidgetArea, dwg_player_bar);
 
 
+
+    /*
+     *  Blah blah blah...
+     */
     createMenuBar();
-    main_layout->addWidget(spl_cut);
-    main_layout->addLayout(createPlayerBar());
-
-    QWidget *central_widget = new QWidget;
-    central_widget->setLayout(main_layout);
-    setCentralWidget(central_widget);
+    setCentralWidget(mdi_area);
 
     updateIterationCounter(Config::FORCED_UPDATE);
     connect(WindowEvent::get(), SIGNAL(requireRepaint()), this, SLOT(updateIterationCounter()));
@@ -153,6 +155,26 @@ void Window::createMenuBar()
     mnu_model->addAction(act_model_split);
 
     /*
+     *  View
+     */
+    QMenu *mnu_view = menuBar()->addMenu(tr("&View"));
+
+    //  View settings
+    QAction *act_view_config = new QAction(tr("&Show View Settings"), this);
+    connect(act_view_config, &QAction::triggered, [=](){ dwg_config_bar->show(); });
+    mnu_view->addAction(act_view_config);
+
+    //  Project tree
+    QAction *act_view_project_tree = new QAction(tr("&Show Project Tree"), this);
+    connect(act_view_project_tree, &QAction::triggered, [=](){ dwg_project_tree->show(); });
+    mnu_view->addAction(act_view_project_tree);
+
+    //  Player bar
+    QAction *act_view_player = new QAction(tr("&Show Player Bar"), this);
+    connect(act_view_player, &QAction::triggered, [=](){ dwg_player_bar->show(); });
+    mnu_view->addAction(act_view_player);
+
+    /*
      *  Help
      */
     QMenu *mnu_help = menuBar()->addMenu(tr("&About"));
@@ -202,9 +224,9 @@ QWidget* Window::createCutConfigBar()
     return tmp_widget;
 }
 
-QHBoxLayout* Window::createPlayerBar()
+QWidget* Window::createPlayerBar()
 {
-    player_timer.setInterval(500);
+    player_timer.setInterval(1);
     connect(&player_timer, SIGNAL(timeout()), this, SLOT(nextIteration()));
 
     // TODO: repacle by render area refresh button
@@ -229,7 +251,10 @@ QHBoxLayout* Window::createPlayerBar()
     lay_player_bar->addWidget(btn_player_next);
     lay_player_bar->addWidget(sld_progress);
     lay_player_bar->addWidget(lbl_iteration);
-    return lay_player_bar;
+
+    QWidget *tmp_widget = new QWidget(this);
+    tmp_widget->setLayout(lay_player_bar);
+    return tmp_widget;
 }
 
 void Window::playerSwitch()
@@ -298,21 +323,13 @@ void Window::mdiChangeSubWindow(QMdiSubWindow *win)
 {
     if(win == NULL) {
         current_model = NULL;
-        if(tmp_dock_widget) {
-            tmp_dock_layout->removeWidget(tmp_dock_widget);
-            tmp_dock_widget->hide();
+        if(dwg_config_bar->widget()) {
+            dwg_config_bar->setWidget(new QWidget);
         }
-        tmp_dock_widget = NULL;
 
     } else {
-        current_model = project->getModel(win);
-        if(tmp_dock_widget) {
-            tmp_dock_layout->removeWidget(tmp_dock_widget);
-            tmp_dock_widget->hide();
-        }
-        tmp_dock_widget = current_model->getRenderersGUI(win);
-        tmp_dock_layout->addWidget(tmp_dock_widget, 0, 0);
-        tmp_dock_widget->show();
+        current_model = project->getModel(win);        
+        dwg_config_bar->setWidget(current_model->getRenderersGUI(win));
     }
     project->updateProjectTree(wgt_project_tree);
     wgt_project_tree->expandAll();

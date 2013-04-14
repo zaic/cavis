@@ -30,8 +30,9 @@ class Window : public QMainWindow
     QMdiArea *mdi_area;
     QTreeWidget *wgt_project_tree;
 
-    QGridLayout *tmp_dock_layout;
-    QWidget *tmp_dock_widget;
+    QDockWidget *dwg_project_tree;
+    QDockWidget *dwg_config_bar;
+    QDockWidget *dwg_player_bar;
 
     /*
      *	Cut config bar
@@ -46,7 +47,7 @@ class Window : public QMainWindow
     /*
      *	Plyaer bar
      */
-    QHBoxLayout* createPlayerBar();
+    QWidget *createPlayerBar();
 
     QPushButton *btn_player_prev;	// go by one iteration back
     QPushButton *btn_player_start;	// start/pause button

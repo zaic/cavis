@@ -43,7 +43,7 @@ void DLLConfig::loadMeFromLibrary()
         qDebug() << "[config/dll] create()" << dlerror();
         return ;
     } else
-        obj_model = fn_init("/home/zaic/tmp/cavis/src/examples/hpp.txt");
+        obj_model = fn_init("/home/zaic/nsu/cavis/src/examples/hpp.txt");
 
     // TODO: check errors
     lib_makestep = (void(*)(model_t*))dlsym(lib_handle, "make_step");
@@ -70,7 +70,7 @@ int DLLConfig::setIteration(int iteration)
     if(iteration == Config::FORCED_UPDATE) {
         obj_data = lib_get_lattice(obj_model);
     } else if(iteration == current_iteration_id + 1) {
-        //lib_makestep(obj_model);
+        lib_makestep(obj_model);
         obj_data = lib_get_lattice(obj_model);
         current_iteration_id = iteration;
     }
