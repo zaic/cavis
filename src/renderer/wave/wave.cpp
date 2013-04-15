@@ -17,7 +17,7 @@ void WaveRenderer::draw()
     buffer->prepare();
 
     const float max_value = 4.0 * 7.0;
-    const int r = 6;
+    const int r = 5;
     float *gl_values = buffer->getGLData();
     uchar* data = reinterpret_cast<uchar*>(config->getData());
     for(int i = 0; i < config->getDimSizeY(); i++)
@@ -25,6 +25,7 @@ void WaveRenderer::draw()
             int id = i * config->getDimSizeX() + j;
             double res = 0.0;
             int rescnt = 0;
+#if 1
             for(int ri = 0; ri <= 2*r; ri++)
                 for(int rj = 0; rj <= 2*r; rj++) {
                     int ii = i + ri - r;
@@ -34,6 +35,10 @@ void WaveRenderer::draw()
                         rescnt++;
                     }
                 }
+#else
+            res = float(data[id]) / 255;
+            rescnt = 1;
+#endif
             gl_values[id] = static_cast<float>(res / rescnt);
         }
 }
