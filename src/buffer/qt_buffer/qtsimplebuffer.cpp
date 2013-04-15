@@ -19,6 +19,8 @@ QtSimpleBuffer::QtSimpleBuffer() :
     render_window = new QWidget;
     lay_main = new QGridLayout;
     lay_main->setSpacing(0);
+    lay_main->setContentsMargins(0, 0, 0, 0);
+
     //lay_main->addWidget(render_area_simple, 0, 0);
     //lay_main->addWidget(render_area_opengl, 0, 0);
     lay_main->addWidget(scb_render_height, 0, 1);

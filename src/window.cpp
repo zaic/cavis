@@ -150,7 +150,7 @@ void Window::createMenuBar()
     mnu_model->addAction(act_model_load);
 
     // Split model view
-    QAction *act_model_split = new QAction(QIcon::fromTheme("insert-object"), tr("Split view"), this);
+    QAction *act_model_split = new QAction(QIcon::fromTheme("insert-image"), tr("Split view"), this);
     connect(act_model_split, SIGNAL(triggered()), this, SLOT(actModelSplit()));
     mnu_model->addAction(act_model_split);
 

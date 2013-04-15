@@ -9,6 +9,8 @@ BufferContainer::BufferContainer(QWidget *init_widget, QMdiSubWindow *mdiwin, QW
         layhi->addWidget(init_widget);
         buf = init_widget;
     }
+    layhi->setSpacing(0);
+    layhi->setMargin(0);
     setLayout(layhi);
 }
 

@@ -18,11 +18,9 @@ void GrayScaleRenderer::draw()
     QPainter *painter = buffer->getRawPaintDevice();
 
     uint8_t* data = reinterpret_cast<uint8_t*>(config->getData());
-    Eo((unsigned long) data);
-    Eo((unsigned long)(data+1));
     const int rx = config->getDimSizeX();
 
-    qDebug() << "[render/gray] y =" << config->getDimSizeY() << "x =" << config->getDimSizeX();
+    //qDebug() << "[render/gray] y =" << config->getDimSizeY() << "x =" << config->getDimSizeX();
 
     for(int y = 0; y < config->getDimSizeY(); y++)
         for(int x = 0; x < config->getDimSizeX(); x++) {
