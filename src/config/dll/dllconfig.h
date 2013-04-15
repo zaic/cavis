@@ -7,6 +7,7 @@
 #include "ca/model.h"
 #include <dlfcn.h>
 #include <QtCore/QString>
+#include <QtWidgets>
 
 class DLLConfig : public Config
 {
@@ -23,6 +24,8 @@ class DLLConfig : public Config
     void (*lib_makestep)(model_t*);
     arr2_u8_t* (*lib_get_lattice)(model_t*);
     QString dll_path; // TODO: save DLL on serializtion
+    QString cfg_path; // TODO: the same
+
     /*
      *  Model data
      */
@@ -32,7 +35,7 @@ class DLLConfig : public Config
     /*
      *  Generic constructor
      */
-    void loadMeFromLibrary();
+    bool loadMeFromLibrary();
 
 public:
     Q_INVOKABLE DLLConfig();

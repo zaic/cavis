@@ -26,7 +26,7 @@ DLLConfig::~DLLConfig()
         fn_quit(obj_model);
 }
 
-void DLLConfig::loadMeFromLibrary()
+bool DLLConfig::loadMeFromLibrary()
 {
     size_y = 0;
     size_x = 0;
@@ -34,16 +34,22 @@ void DLLConfig::loadMeFromLibrary()
     lib_handle = dlopen(dll_path.toStdString().c_str(), RTLD_LAZY);
     if(!lib_handle) {
         qDebug() << "[config/dll] ooops" << dlerror();
-        return ;
+        return false;
     }
 
     model_t* (*fn_init)(const char*);
     fn_init = (model_t*(*)(const char*))dlsym(lib_handle, "create");
     if (fn_init == NULL) {
         qDebug() << "[config/dll] create()" << dlerror();
-        return ;
-    } else
-        obj_model = fn_init("/home/zaic/nsu/cavis/src/examples/hpp.txt");
+        return false;
+    } else {
+        if(cfg_path.isEmpty()) {
+            cfg_path = QFileDialog::getOpenFileName(NULL, tr("Select model configuration file"));
+            if(cfg_path.isNull()) return false;
+        }
+        //obj_model = fn_init("/home/zaic/nsu/cavis/src/examples/hpp.txt");
+        obj_model = fn_init(cfg_path.toStdString().c_str());
+    }
 
     // TODO: check errors
     lib_makestep = (void(*)(model_t*))dlsym(lib_handle, "make_step");
@@ -51,6 +57,8 @@ void DLLConfig::loadMeFromLibrary()
     obj_data = lib_get_lattice(obj_model);
     size_y = obj_data->height;
     size_x = obj_data->width;
+
+    return true;
 }
 
 int DLLConfig::getDimSize(int dim) const

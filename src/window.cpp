@@ -423,8 +423,9 @@ void Window::actModelLoad()
     mdi_area->addSubWindow(q);
     //qt_buffer->render_window->showMaximized();
     q->showMaximized();
-    current_model = loading_model;
 
+    current_model = loading_model;
+    current_model->drawAll();
 }
 
 void Window::actModelSplit()
