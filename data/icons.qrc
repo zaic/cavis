@@ -6,5 +6,6 @@
         <file>icons/media-skip-forward.png</file>
         <file>icons/zoom-in.png</file>
         <file>icons/zoom-out.png</file>
+        <file>icons/media-seek-forward.png</file>
     </qresource>
 </RCC>

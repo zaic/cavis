@@ -56,6 +56,8 @@ class Window : public QMainWindow
     QLabel *lbl_iteration;
     QTimer player_timer;
 
+    QSpinBox *spn_player_iter;
+
     /*
      *  Project
      */
@@ -85,6 +87,7 @@ public slots:
     void nextIteration();
     void prevIteration();
     void setIteration(int iteration);
+    void timerNextIteration();
 
     // update current iteration value in slider and label
     void updateIterationCounter(int iteration = Config::FORCED_UPDATE);

@@ -59,7 +59,9 @@ Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_c
     // Player bar
     dwg_player_bar = new QDockWidget(this);
     dwg_player_bar->setWidget(createPlayerBar());
-    addDockWidget(Qt::BottomDockWidgetArea, dwg_player_bar);
+    dwg_player_bar->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    dwg_player_bar->resize(1, 1);
+    addDockWidget(Qt::RightDockWidgetArea, dwg_player_bar);
 
 
 
@@ -189,6 +191,7 @@ void Window::createMenuBar()
     connect(act_about_qt, &QAction::triggered, [=](){ qApp->aboutQt(); });
     mnu_help->addAction(act_about_qt);
 
+#if 0
     QToolBar *tlb_test = new QToolBar(this);
     tlb_test->addAction(act_project_new);
     tlb_test->addAction(act_project_save);
@@ -196,6 +199,7 @@ void Window::createMenuBar()
     tlb_test->addAction(act_model_load);
     tlb_test->addAction(act_model_split);
     addToolBar(tlb_test);
+#endif
 }
 
 QWidget* Window::createCutConfigBar()
@@ -227,7 +231,7 @@ QWidget* Window::createCutConfigBar()
 QWidget* Window::createPlayerBar()
 {
     player_timer.setInterval(1);
-    connect(&player_timer, SIGNAL(timeout()), this, SLOT(nextIteration()));
+    connect(&player_timer, SIGNAL(timeout()), this, SLOT(timerNextIteration()));
 
     // TODO: repacle by render area refresh button
     btn_player_prev = createButtonFromIcon(":/icons/media-skip-backward.png", 24, 32);
@@ -236,6 +240,11 @@ QWidget* Window::createPlayerBar()
     connect(btn_player_start, SIGNAL(clicked()), this, SLOT(playerSwitch()));
     btn_player_next = createButtonFromIcon(":/icons/media-skip-forward.png", 24, 32);
     connect(btn_player_next, SIGNAL(clicked()), this, SLOT(nextIteration()));
+
+    spn_player_iter = new QSpinBox(this);
+    spn_player_iter->setMinimum(-1);
+    spn_player_iter->setMaximum(100500);
+    spn_player_iter->setValue(-1);
 
     lbl_iteration = new QLabel("?/?");
     lbl_iteration->setFixedHeight(32);
@@ -246,14 +255,16 @@ QWidget* Window::createPlayerBar()
     connect(sld_progress, SIGNAL(valueChanged(int)), this, SLOT(setIteration(int)));
 
     QHBoxLayout *lay_player_bar = new QHBoxLayout;
-    lay_player_bar->addWidget(btn_player_prev);
+    //lay_player_bar->addWidget(btn_player_prev);
     lay_player_bar->addWidget(btn_player_start);
     lay_player_bar->addWidget(btn_player_next);
-    lay_player_bar->addWidget(sld_progress);
+    //lay_player_bar->addWidget(sld_progress);
+    lay_player_bar->addWidget(spn_player_iter);
     lay_player_bar->addWidget(lbl_iteration);
 
     QWidget *tmp_widget = new QWidget(this);
     tmp_widget->setLayout(lay_player_bar);
+    tmp_widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
     return tmp_widget;
 }
 
@@ -284,6 +295,15 @@ void Window::setIteration(int iteration) {
     QMdiSubWindow *current_mdi = mdi_area->currentSubWindow();
     if(current_mdi == NULL) return ;
     updateIterationCounter(current_model->config->setIteration(iteration));
+}
+
+void Window::timerNextIteration() {
+    int val = spn_player_iter->value();
+    if(val == 1) {
+        playerSwitch();
+    }
+    spn_player_iter->setValue(max(0, val - 1));
+    nextIteration();
 }
 
 void Window::updateIterationCounter(int iteration)
