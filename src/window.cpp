@@ -15,7 +15,7 @@ Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_c
 
     // create example project
     project = new Project;
-
+#if 1
     /*
      *  Create example model
      */
@@ -38,7 +38,7 @@ Window::Window(Config* example_config, const QVector<RendererGUI *> &supported_c
 
     mdi_area->addSubWindow(example_mdisubwindow);
     mdi_area->currentSubWindow()->showMaximized();
-
+#endif
     /*
      *  Crate mimimi user interface
      */
@@ -191,7 +191,7 @@ void Window::createMenuBar()
     connect(act_about_qt, &QAction::triggered, [=](){ qApp->aboutQt(); });
     mnu_help->addAction(act_about_qt);
 
-#if 0
+#if 1
     QToolBar *tlb_test = new QToolBar(this);
     tlb_test->addAction(act_project_new);
     tlb_test->addAction(act_project_save);

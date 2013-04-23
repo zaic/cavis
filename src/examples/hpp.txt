@@ -1,5 +1,5 @@
-width = 256
-height = 256
+width = 128
+height = 128
 rp_mass = [2, 4]
 env =
 	(
