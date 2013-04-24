@@ -34,7 +34,7 @@ void Model::drawOne(GraphicBuffer *buffer, Renderer *renderer)
     buffer->create(renderer->getBufferFormat());
     renderer->setConfig(config);
     renderer->setBuffer(buffer);
-    renderer->draw();
+    renderer->draw(NULL);
     buffer->complete();
 }
 

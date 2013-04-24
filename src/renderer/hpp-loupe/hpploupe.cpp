@@ -14,7 +14,12 @@ HPPLoupeRenderer::~HPPLoupeRenderer()
 
 }
 
-void HPPLoupeRenderer::draw()
+void HPPLoupeRenderer::prepare()
+{
+
+}
+
+void HPPLoupeRenderer::draw(void *_device)
 {
     /*
      *  Calc cell size

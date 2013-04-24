@@ -18,6 +18,7 @@ public:
 
     virtual void setParameters(RendererGUI *_parameters) override { parameters = qobject_cast<WaveGUI*>(_parameters); }
 
-    virtual void draw() override;
+    virtual void prepare() override;
+    virtual void draw(void *_device) override;
     virtual QString getBufferFormat() const override { return "opengl"; }
 };

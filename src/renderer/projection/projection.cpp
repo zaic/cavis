@@ -10,7 +10,12 @@ ProjectionRenderer::~ProjectionRenderer()
 
 }
 
-void ProjectionRenderer::draw()
+void ProjectionRenderer::prepare()
+{
+
+}
+
+void ProjectionRenderer::draw(void *_device)
 {
     qDebug() << "[render/proj] start!";
 

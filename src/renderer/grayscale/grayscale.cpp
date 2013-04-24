@@ -11,7 +11,12 @@ GrayScaleRenderer::~GrayScaleRenderer()
 
 }
 
-void GrayScaleRenderer::draw()
+void GrayScaleRenderer::prepare()
+{
+
+}
+
+void GrayScaleRenderer::draw(void *_device)
 {
     const int cell_size = 1;
     buffer->prepare();

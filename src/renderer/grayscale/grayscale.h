@@ -16,5 +16,6 @@ public:
     Q_INVOKABLE GrayScaleRenderer();
     virtual ~GrayScaleRenderer();
 
-    virtual void draw() override;
+    virtual void prepare() override;
+    virtual void draw(void *_device) override;
 };

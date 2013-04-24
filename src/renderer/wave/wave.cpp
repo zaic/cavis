@@ -10,7 +10,12 @@ WaveRenderer::~WaveRenderer()
 
 }
 
-void WaveRenderer::draw()
+void WaveRenderer::prepare()
+{
+
+}
+
+void WaveRenderer::draw(void *_device)
 {
     qDebug() << "[render/wave] start drawing, x =" << config->getDimSizeX() << "and y =" << config->getDimSizeY();
     buffer->setGLSize(config->getDimSizeX(), config->getDimSizeY());

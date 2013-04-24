@@ -29,6 +29,7 @@ public:
     virtual Config* getConfig() const { return config; }
     virtual GraphicBuffer* getBuffer() const { return buffer; }
 
-    virtual void draw() = 0;
+    virtual void prepare() = 0;
+    virtual void draw(void *device) = 0;
     virtual QString getBufferFormat() const { return "simple"; }
 };

@@ -34,5 +34,6 @@ public:
 
     virtual void setParameters(RendererGUI *_parameters) { parameters = qobject_cast<ProjectionGUI*>(_parameters); }
 
-    virtual void draw();
+    virtual void prepare() override;
+    virtual void draw(void *_device) override;
 };

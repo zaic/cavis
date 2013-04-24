@@ -25,7 +25,8 @@ public:
     void setAutoscale(bool value) { autoscale = value; }
     void setScale(int value) { scale_cell_size = value; }
 
-    virtual void draw() override;
+    virtual void prepare() override;
+    virtual void draw(void *_device) override;
 
     static const int MIN_CELL_SIZE = 5;
 };
