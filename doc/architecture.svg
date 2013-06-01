@@ -1,0 +1,955 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="architecture.svg"
+   inkscape:export-filename="/home/zaic/nsu/cavis/doc/architecture.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3801">
+      <stop
+         style="stop-color:#007ce4;stop-opacity:1;"
+         offset="0"
+         id="stop3803" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3805" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3801-2"
+       id="linearGradient3807-2"
+       x1="-967.1322"
+       y1="216.07661"
+       x2="-884.00299"
+       y2="216.07661"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1206652,0,0,0.99985869,1957.819,-432.1227)" />
+    <linearGradient
+       id="linearGradient3801-2">
+      <stop
+         style="stop-color:#007ce4;stop-opacity:1;"
+         offset="0"
+         id="stop3803-9" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3805-4" />
+    </linearGradient>
+    <linearGradient
+       y2="216.07661"
+       x2="-884.00299"
+       y1="216.07661"
+       x1="-967.1322"
+       gradientTransform="matrix(0.84137934,0,0,1.7589707,755.89124,-1052.0725)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3824-8"
+       xlink:href="#linearGradient3801-2-8"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient3801-2-8">
+      <stop
+         style="stop-color:#007ce4;stop-opacity:1;"
+         offset="0"
+         id="stop3803-9-6" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3805-4-8" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3801-1"
+       id="linearGradient3807-3"
+       x1="-967.1322"
+       y1="216.07661"
+       x2="-884.00299"
+       y2="216.07661"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1206652,0,0,0.99985869,1959.819,-383.1227)" />
+    <linearGradient
+       id="linearGradient3801-1">
+      <stop
+         style="stop-color:#007ce4;stop-opacity:1;"
+         offset="0"
+         id="stop3803-8" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3805-5" />
+    </linearGradient>
+    <linearGradient
+       y2="216.07661"
+       x2="-884.00299"
+       y1="216.07661"
+       x1="-967.1322"
+       gradientTransform="matrix(2.6299991,0,0,0.99850213,2058.742,-47.390753)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3939-5"
+       xlink:href="#linearGradient3801-1-8"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient3801-1-8">
+      <stop
+         style="stop-color:#007ce4;stop-opacity:1;"
+         offset="0"
+         id="stop3803-8-0" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3805-5-2" />
+    </linearGradient>
+    <linearGradient
+       y2="216.07661"
+       x2="-884.00299"
+       y1="216.07661"
+       x1="-967.1322"
+       gradientTransform="matrix(2.6299991,0,0,0.99850213,2058.742,-47.390753)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3939-3"
+       xlink:href="#linearGradient3801-1-9"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient3801-1-9">
+      <stop
+         style="stop-color:#007ce4;stop-opacity:1;"
+         offset="0"
+         id="stop3803-8-00" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3805-5-22" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3801-1"
+       id="linearGradient4205"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.6761145,0,0,0.60601999,1073.5785,25.83677)"
+       x1="-967.1322"
+       y1="216.07661"
+       x2="-884.00299"
+       y2="216.07661" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3801-2-8"
+       id="linearGradient4214"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.84194315,0,0,1.4967346,1051.6374,396.92925)"
+       x1="-967.1322"
+       y1="216.07661"
+       x2="-884.00299"
+       y2="216.07661" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3801-2"
+       id="linearGradient4219"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.84194315,0,0,1.4967346,738.41312,-1043.7481)"
+       x1="-967.1322"
+       y1="216.07661"
+       x2="-884.00299"
+       y2="216.07661" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3801"
+       id="linearGradient4222"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1582923,0,0,0.60654503,2013.5395,-287.85556)"
+       x1="-967.13219"
+       y1="216.07661"
+       x2="-884.00299"
+       y2="216.07661" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3801-1-0"
+       id="linearGradient4205-0"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.7943979,0,0,1.3593133,1013.0391,167.25042)"
+       x1="-967.1322"
+       y1="216.07661"
+       x2="-884.00299"
+       y2="216.07661" />
+    <linearGradient
+       id="linearGradient3801-1-0">
+      <stop
+         style="stop-color:#007ce4;stop-opacity:1;"
+         offset="0"
+         id="stop3803-8-1" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3805-5-4" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3801-1-0-2"
+       id="linearGradient4205-0-2"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.7950421,0,0,1.2670701,1013.6354,177.68202)"
+       x1="-967.1322"
+       y1="216.07661"
+       x2="-884.00299"
+       y2="216.07661" />
+    <linearGradient
+       id="linearGradient3801-1-0-2">
+      <stop
+         style="stop-color:#007ce4;stop-opacity:1;"
+         offset="0"
+         id="stop3803-8-1-6" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="1"
+         id="stop3805-5-4-3" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3801-1-0-27"
+       id="linearGradient4205-0-8"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.7987364,0,0,0.80117582,2568.0994,-913.97769)"
+       x1="-967.1322"
+       y1="216.07661"
+       x2="-884.00299"
+       y2="216.07661" />
+    <linearGradient
+       id="linearGradient3801-1-0-27">
+      <stop
+         style="stop-color:#007ce4;stop-opacity:1;"
+         offset="0"
+         id="stop3803-8-1-4" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3805-5-4-9" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3801-1-0-27-0"
+       id="linearGradient4205-0-8-5"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.7987364,0,0,0.80117582,761.60477,567.747)"
+       x1="-967.1322"
+       y1="216.07661"
+       x2="-884.00299"
+       y2="216.07661" />
+    <linearGradient
+       id="linearGradient3801-1-0-27-0">
+      <stop
+         style="stop-color:#007ce4;stop-opacity:1;"
+         offset="0"
+         id="stop3803-8-1-4-0" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3805-5-4-9-6" />
+    </linearGradient>
+    <linearGradient
+       y2="216.07661"
+       x2="-884.00299"
+       y1="216.07661"
+       x1="-967.1322"
+       gradientTransform="matrix(1.7987364,0,0,0.80117582,2907.214,691.45447)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient4635"
+       xlink:href="#linearGradient3801-1-0-27-0"
+       inkscape:collect="always" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="-596.15917"
+     inkscape:cy="310.75782"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1032"
+     inkscape:window-x="-2"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-941.39325"
+       y="152.81001"
+       id="text3787"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"><tspan
+         sodipodi:role="line"
+         id="tspan3789"
+         x="-941.39325"
+         y="152.81001"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">Графические</tspan><tspan
+         sodipodi:role="line"
+         x="-941.39325"
+         y="170.31001"
+         id="tspan3791"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">библиотеки</tspan></text>
+    <rect
+       style="opacity:0.5;fill:url(#linearGradient4222);fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3017"
+       width="95.713615"
+       height="124.58441"
+       x="893.6048"
+       y="-219.08757"
+       transform="scale(-1,-1)"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture.png" />
+    <rect
+       style="opacity:0.50000000000000000;fill:url(#linearGradient4219);fill-opacity:1;stroke:#000000;stroke-width:1;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect3017-3"
+       width="69.572609"
+       height="307.42941"
+       x="-75.64846"
+       y="-874.05334"
+       transform="matrix(0,-1,1,0,0,0)"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-720.2395"
+       y="44.225437"
+       id="text3787-1"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"><tspan
+         sodipodi:role="line"
+         x="-720.2395"
+         y="44.225437"
+         id="tspan3791-4"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">Пользовательский интерфейс</tspan></text>
+    <rect
+       style="opacity:0.50000000000000000;fill:url(#linearGradient4214);fill-opacity:1;stroke:#000000;stroke-width:1;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect3017-3-1"
+       width="69.572609"
+       height="307.42941"
+       x="237.57585"
+       y="566.62396"
+       transform="matrix(0,1,-1,0,0,0)"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-720.29083"
+       y="275.72546"
+       id="text3787-1-5"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"><tspan
+         sodipodi:role="line"
+         x="-720.29083"
+         y="275.72546"
+         id="tspan3791-4-4"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">Режимы отображения</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-477.7002"
+       y="142.43829"
+       id="text3787-1-9"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"><tspan
+         sodipodi:role="line"
+         x="-477.7002"
+         y="142.43829"
+         id="tspan3791-4-3"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">Взаимодействие</tspan><tspan
+         sodipodi:role="line"
+         x="-477.7002"
+         y="159.93829"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="tspan3979">с подсистемой</tspan><tspan
+         sodipodi:role="line"
+         x="-477.7002"
+         y="177.43829"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="tspan3983">моделирования</tspan></text>
+    <rect
+       style="opacity:0.50000000000000000;fill:url(#linearGradient4205);fill-opacity:1;stroke:#000000;stroke-width:1;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect3017-9"
+       width="138.50299"
+       height="124.47657"
+       x="-547.03027"
+       y="94.545219"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture.png" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-333.60828"
+       y="161.32257"
+       id="text3787-1-9-4"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"><tspan
+         sodipodi:role="line"
+         x="-333.60828"
+         y="161.32257"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="tspan3983-1">Вычислитель</tspan></text>
+    <rect
+       style="opacity:0.50000000000000000;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect3017-9-1"
+       width="110.55614"
+       height="124.52972"
+       x="-388.98889"
+       y="94.518639"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-720.28479"
+       y="161.09457"
+       id="text3787-1-9-8"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"><tspan
+         sodipodi:role="line"
+         x="-720.28479"
+         y="161.09457"
+         style="font-size:20px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="tspan3983-6">Подсистема визуализации</tspan></text>
+    <rect
+       style="opacity:0.50000000000000000;fill:#007ce4;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect3017-9-7"
+       width="307.24255"
+       height="124.27007"
+       x="-873.95984"
+       y="94.477112"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture.png" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-649.71881"
+       y="349.12097"
+       id="text3787-1-9-42"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"><tspan
+         sodipodi:role="line"
+         x="-649.71881"
+         y="349.12097"
+         id="tspan3791-4-3-2"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">Взаимодействие</tspan><tspan
+         sodipodi:role="line"
+         x="-649.71881"
+         y="366.62097"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="tspan3979-1">с подсистемой</tspan><tspan
+         sodipodi:role="line"
+         x="-649.71881"
+         y="384.12097"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="tspan3983-3">моделирования</tspan></text>
+    <rect
+       style="opacity:0.5;fill:url(#linearGradient4205-0);fill-opacity:1;stroke:#000000;stroke-width:1.54961514;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3017-9-4"
+       width="148.27715"
+       height="279.20309"
+       x="-721.93597"
+       y="321.36465"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-862.47266"
+       y="465.42896"
+       id="text3787-1-9-8-7"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"><tspan
+         sodipodi:role="line"
+         x="-862.47266"
+         y="465.42896"
+         style="font-size:20px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="tspan3983-6-9">Подсистема визуализации</tspan></text>
+    <rect
+       style="opacity:0.5;fill:#007ce4;fill-opacity:1;stroke:#000000;stroke-width:1.34188724;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3017-9-7-4"
+       width="246.05734"
+       height="279.4111"
+       x="-985.54529"
+       y="321.2605"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png" />
+    <rect
+       style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.75243312;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3017-9-1-7"
+       width="237.8037"
+       height="32.777283"
+       x="-556.40155"
+       y="406.966"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604" />
+    <rect
+       style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.75243288;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3017-9-1-7-3"
+       width="237.80357"
+       height="32.777283"
+       x="-556.40155"
+       y="455.96979"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604" />
+    <rect
+       style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5160113;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3017-9-1-7-5"
+       width="111.04012"
+       height="33.013706"
+       x="-429.5199"
+       y="548.85535"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604" />
+    <rect
+       style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5160113;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3017-9-1-7-34"
+       width="111.04012"
+       height="33.013706"
+       x="-429.5199"
+       y="504.85535"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604" />
+    <rect
+       style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.78578889;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3017-9-1-7-4"
+       width="110.77035"
+       height="76.743927"
+       x="-556.38489"
+       y="504.99023"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+       x="-450.21454"
+       y="427.98941"
+       id="text4339"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"><tspan
+         sodipodi:role="line"
+         id="tspan4341"
+         x="-450.21454"
+         y="427.98941"
+         style="font-size:14px">FHP</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+       x="-386.72153"
+       y="569.99695"
+       id="text4339-9"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"><tspan
+         sodipodi:role="line"
+         id="tspan4341-7"
+         x="-386.72153"
+         y="569.99695"
+         style="font-size:14px">HPP</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+       x="-450.22144"
+       y="476.99319"
+       id="text4339-91"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"><tspan
+         sodipodi:role="line"
+         id="tspan4341-1"
+         x="-450.22144"
+         y="476.99319"
+         style="font-size:14px">HPP</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+       x="-386.71469"
+       y="525.99695"
+       id="text4339-8"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"><tspan
+         sodipodi:role="line"
+         id="tspan4341-9"
+         x="-386.71469"
+         y="525.99695"
+         style="font-size:14px">FHP</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+       x="-521.51093"
+       y="548.11658"
+       id="text4382"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"><tspan
+         sodipodi:role="line"
+         id="tspan4384"
+         x="-521.51093"
+         y="548.11658"
+         style="font-size:14px">Cluster</tspan></text>
+    <rect
+       style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.71923018;stroke-miterlimit:4;stroke-opacity:0.50196078;stroke-dasharray:none"
+       id="rect3017-9-4-2"
+       width="116.10754"
+       height="76.810768"
+       x="589.74365"
+       y="-581.7677"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       transform="scale(-1,-1)" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+       x="-668.30865"
+       y="548.1167"
+       id="text4382-4"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"><tspan
+         sodipodi:role="line"
+         id="tspan4384-0"
+         x="-668.30865"
+         y="548.1167"
+         style="font-size:14px">Network</tspan></text>
+    <g
+       id="g4473"
+       transform="matrix(1,0,0,1.0518345,-399.79741,-446.04294)"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604">
+      <rect
+         transform="scale(-1,-1)"
+         inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+         inkscape:export-ydpi="180.25604"
+         inkscape:export-xdpi="180.25604"
+         y="-887.76758"
+         x="189.94623"
+         height="76.810768"
+         width="116.10754"
+         id="rect3017-9-4-2-9"
+         style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.71923018;stroke-miterlimit:4;stroke-opacity:0.50196078;stroke-dasharray:none" />
+      <text
+         inkscape:export-ydpi="180.25604"
+         inkscape:export-xdpi="180.25604"
+         inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+         sodipodi:linespacing="125%"
+         id="text4382-4-0"
+         y="853.99695"
+         x="-261.58301"
+         style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         xml:space="preserve"><tspan
+           style="font-size:14px"
+           y="853.99695"
+           x="-261.58301"
+           id="tspan4384-0-5"
+           sodipodi:role="line">DLL</tspan></text>
+    </g>
+    <rect
+       style="opacity:0.5;fill:url(#linearGradient4205-0-8);fill-opacity:1;stroke:#000000;stroke-width:1.19111133;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3017-9-4-4"
+       width="148.63565"
+       height="164.5616"
+       x="828.92944"
+       y="-823.14313"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-graphics.png"
+       transform="scale(-1,-1)" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-680.84998"
+       y="745.32538"
+       id="text3787-1-9-8-7-8"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-graphics.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"><tspan
+         sodipodi:role="line"
+         x="-680.84998"
+         y="745.32538"
+         style="font-size:20px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="tspan3983-6-9-5">Подсистема визуализации</tspan></text>
+    <rect
+       style="opacity:0.5;fill:#007ce4;fill-opacity:1;stroke:#000000;stroke-width:1.03096581;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3017-9-7-4-0"
+       width="246.36827"
+       height="164.72203"
+       x="-804.07806"
+       y="658.50146"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-graphics.png" />
+    <g
+       id="g4601"
+       transform="translate(-535.99999,-271)"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-graphics.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414">
+      <rect
+         transform="scale(-1,-1)"
+         inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+         inkscape:export-ydpi="180.25604"
+         inkscape:export-xdpi="180.25604"
+         y="-1073.7687"
+         x="309.08047"
+         height="36.03688"
+         width="116.33365"
+         id="rect3017-9-4-2-97"
+         style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.49312031;stroke-miterlimit:4;stroke-opacity:0.50196078;stroke-dasharray:none" />
+      <text
+         inkscape:export-ydpi="180.25604"
+         inkscape:export-xdpi="180.25604"
+         inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+         sodipodi:linespacing="125%"
+         id="text4382-4-9"
+         y="1058.9939"
+         x="-391.8396"
+         style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         xml:space="preserve"><tspan
+           style="font-size:14px"
+           y="1058.9939"
+           x="-391.8396"
+           id="tspan4384-0-0"
+           sodipodi:role="line">OpenGL</tspan></text>
+    </g>
+    <g
+       id="g4596"
+       transform="translate(-613.41861,-53)"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-graphics.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414">
+      <rect
+         transform="scale(-1,-1)"
+         inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+         inkscape:export-ydpi="180.25604"
+         inkscape:export-xdpi="180.25604"
+         y="-805.40405"
+         x="231.65268"
+         height="36.03669"
+         width="116.35201"
+         id="rect3017-9-4-2-9-3"
+         style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.49315795;stroke-miterlimit:4;stroke-opacity:0.50196078;stroke-dasharray:none" />
+      <text
+         transform="scale(0.97504869,1.0255898)"
+         inkscape:export-ydpi="180.25604"
+         inkscape:export-xdpi="180.25604"
+         inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+         sodipodi:linespacing="125%"
+         id="text4382-4-0-8"
+         y="771.17474"
+         x="-329.72318"
+         style="font-size:12.30707836px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         xml:space="preserve"><tspan
+           style="font-size:14.35825729px"
+           y="771.17474"
+           x="-329.72318"
+           id="tspan4384-0-5-8"
+           sodipodi:role="line">Qt Widgets</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-903.17896"
+       y="680.37683"
+       id="text3787-5"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-graphics.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"><tspan
+         sodipodi:role="line"
+         id="tspan3789-1"
+         x="-903.17896"
+         y="680.37683"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">Графические</tspan><tspan
+         sodipodi:role="line"
+         x="-903.17896"
+         y="697.87683"
+         id="tspan3791-40"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">библиотеки</tspan></text>
+    <rect
+       style="opacity:0.5;fill:url(#linearGradient4635);fill-opacity:1;stroke:#000000;stroke-width:1.19111133;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3017-9-4-4-0"
+       width="148.63565"
+       height="164.5616"
+       x="1168.0442"
+       y="782.28894"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-graphics.png"
+       transform="matrix(0,1,-1,0,0,0)" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-708.17249"
+       y="1095.8251"
+       id="text3787-1-9-8-7-8-6"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-graphics.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"><tspan
+         sodipodi:role="line"
+         x="-708.17249"
+         y="1095.8251"
+         style="font-size:20px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="tspan3983-6-9-5-4">Подсистема визуализации</tspan></text>
+    <rect
+       style="opacity:0.5;fill:#007ce4;fill-opacity:1;stroke:#000000;stroke-width:0.92808402;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3017-9-7-4-0-4"
+       width="445.47116"
+       height="73.824913"
+       x="-832.45203"
+       y="916.94977"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-graphics.png" />
+    <rect
+       style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.49312031;stroke-miterlimit:4;stroke-opacity:0.50196078;stroke-dasharray:none"
+       id="rect3017-9-4-2-97-1"
+       width="116.33365"
+       height="36.03688"
+       x="872.40295"
+       y="-1153.2684"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       transform="scale(-1,-1)" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+       x="-955.16211"
+       y="1138.4937"
+       id="text4382-4-9-3"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"><tspan
+         sodipodi:role="line"
+         id="tspan4384-0-0-3"
+         x="-955.16211"
+         y="1138.4937"
+         style="font-size:14px">OpenGL</tspan></text>
+    <rect
+       style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.49315795;stroke-miterlimit:4;stroke-opacity:0.50196078;stroke-dasharray:none"
+       id="rect3017-9-4-2-9-3-2"
+       width="116.35201"
+       height="36.03669"
+       x="872.3938"
+       y="-1102.9038"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       transform="scale(-1,-1)" />
+    <text
+       xml:space="preserve"
+       style="font-size:12.30707836px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+       x="-986.86072"
+       y="1061.2515"
+       id="text4382-4-0-8-0"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-calc.png"
+       inkscape:export-xdpi="180.25604"
+       inkscape:export-ydpi="180.25604"
+       transform="scale(0.97504869,1.0255898)"><tspan
+         sodipodi:role="line"
+         id="tspan4384-0-5-8-8"
+         x="-986.86072"
+         y="1061.2515"
+         style="font-size:14.35825729px">Qt Widgets</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-930.50146"
+       y="1030.8766"
+       id="text3787-5-0"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/zaic/nsu/cavis/doc/testimg/architecture-graphics.png"
+       inkscape:export-xdpi="179.94414"
+       inkscape:export-ydpi="179.94414"><tspan
+         sodipodi:role="line"
+         id="tspan3789-1-8"
+         x="-930.50146"
+         y="1030.8766"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">Графические</tspan><tspan
+         sodipodi:role="line"
+         x="-930.50146"
+         y="1048.3766"
+         id="tspan3791-40-0"
+         style="font-size:14px;text-align:center;text-anchor:middle;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">библиотеки</tspan></text>
+  </g>
+</svg>
