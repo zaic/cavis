@@ -11,6 +11,7 @@
 % Вставка картинок из директории images
 \usepackage[dvips]{graphicx}
 \graphicspath{{images/}}
+\usepackage[usenames, dvipsnames]{color} % цвет oO
 
 % Набор математических пакетов
 \usepackage{amsmath}
@@ -22,10 +23,12 @@
 
 \usepackage{cmap} % поиск русских слов и вообще поддержка русского
 \usepackage[english, russian]{babel}
-\usepackage{color} % цвет oO
+
+\usepackage{listings}
 \usepackage{statmodtitle}
 \usepackage{indentfirst} % абзацный отступ после заголовка
 %\setcounter{tocdepth}{2} % Не отображать subsubsection и ниже в содержании
+\bibliographystyle{unsrt}
 
 % Поля и полуторный межстрочный интервал
 \usepackage{setspace}
@@ -158,11 +161,13 @@
     \end{subsubsection}
         
     \begin{subsubsection}{Интероперабельность}
-        способность компонентов системы взаимодействовать между собой. (взимодействие с системой моделирования?)
-        Application Software Interoperability and Application Platform Interoperability
+        Свойство интероперабельности означает способность системы взаимодействовать с окружением, в котором она запущена. Для подсистемы визуализации это, в первую очередь, способоность взаимодействовать с подсистемой моделирования.
+        
+        Взаимодействие основывается на использовании общих форматов хранения данных, интерфейсов для взаимодействия на локальных истемах или пртоколв для взаимодействия в распределённых средах. Благодаря интероперабельности система визуализации может использоваться как звено в цепи обработки информации, поулчая входыне данные \textit{с вычислителя???}, рисуя/обрабатывая и передвавая промежуточные и результирующие данные другим приложениям для последующей обработки.
     \end{subsubsection}
         
     \begin{subsubsection}{Дружественность интерфейса}
+        Дружественность интерфейса можно разделить 
         (интерфейса пользователя) – графический должен быть простым и интуитивно-понятным. (и несложным?)
         (программного интерфейса) –  (интерфейс должен требовать реализацию (почти) минимального необходимого набора методов)
     \end{subsubsection}
@@ -205,6 +210,25 @@
     \end{table}
 \end{subsection}
 
+\begin{subsection}{WinALT}
+    Система моделирования разнообразных клеточно-автоматных моделей.
+
+    \begin{table}[h]
+        \caption{Соответствие требованиям системы WinALT}
+        \label{tabular:winalt}
+        \begin{center}
+            \begin{tabular}{|p{0.35\linewidth}|p{0.05\linewidth}|p{0.5\linewidth}|} \hline
+                Адекватность пред. области & + & \\ \hline
+                Расширяемость              & + & \\ \hline
+                Интероперабельность        & + & \\ \hline
+                Платформонезависимость     & -- & Win32 \\ \hline
+                Дружественный интерфейс    & + & \\ \hline
+                Большие объёмы данных      & -- & \\ \hline
+            \end{tabular}
+        \end{center}
+    \end{table}
+\end{subsection}
+
 \begin{subsection}{Ansys Fluent}
     Система моделирования широкого спектра физических процессов, в том числе и газовой динамики, обладает богатыми возможностями моделирования и визуализации.
 
@@ -226,7 +250,9 @@
 
 \end{section}
 
-\begin{section}{Архитектура системы}
+
+
+\section{Архитектура системы}
 
 \textit{На верхнем уровне архитектура представлена 4 модулями}
 Архитектура системы представляет из себя 4 взаимодействующих друг с другом модулей (или ещё сказать, что есть часть, которая связывает данные модули):
@@ -287,11 +313,11 @@
 \end{subsection}
 
 \begin{subsection}{Модуль поддержки режимов отображения}
-    В разделе \ref{sec:requirements-adequacy} одним из требований, предъявлемых к системе, является предоставление исследователю как возможности наблюдать за изменениями отдельных различных характеристик, так и возможности увидеть целостную картину. Данный модуль реализует поддержку различных режимов отобржения и предоставляет возможности для встраивания новых режимов.
+    В разделе \ref{sec:requirements-adequacy} одним из требований, предъявлемых к системе, является предоставление исследователю как возможность наблюдать за изменениями отдельных различных характеристик, так и возможность увидеть целостную картину. Данный модуль реализует поддержку различных режимов отобржения и предоставляет возможности для встраивания новых режимов.
 
-    Единственная функция, которую реализует модуль поддержки режимов отображения, это отображение части или всего объекта данных на двухмерную или трёхмерную картинку. При отрисовывании изображения данный модуль использует интерфейс, предоставляемый модулем поддержки графических библиотек, а работа с объектом данных модели происходит через модуль взаимодействия с подсистемой моделирования. 
+    Единственная функция, которую реализует модуль поддержки режимов отображения, это отображение части или всего объекта данных в двухмерное или трёхмерное изображение. При отрисовывании изображения данный модуль использует интерфейс, предоставляемый модулем поддержки графических библиотек, а работа с объектом данных модели происходит через модуль взаимодействия с подсистемой моделирования. 
 
-    Расширяемость.
+    С помощью данного модуля достигается расширяемость системы: появляется возможность встраивать новые режимы отображения, при этом не затрагивая обмен данных с вычислительной подсистемой и не внося изменения в существующие форматы данных.
 
     Реализации поддержки режима отображения включает в себя реализацию двух \textit{компонентов}: функцию
     Написать про возможность выделение слоёв (переиспользуемые компоненты), сборку из слоёв.
@@ -309,22 +335,198 @@
     \textit{Представляет из себя MDI интерфейс. Подбробнее --- в приложении.}
 \end{subsection}
 
-\end{section}
 
 
-
-\section*{Заключение}
-\addcontentsline{toc}{section}{Заключение} % Добавляем в содержание раздел без номера
+\section*{ЗАКЛЮЧЕНИЕ}
+\addcontentsline{toc}{section}{ЗАКЛЮЧЕНИЕ} % Добавляем в содержание раздел без номера
 
 В результате работы была разработана архитектура подсистемы визуализации системы имитационного моделирования, на основе разработанной архитектуры была написана реализация системы. Был разработан и опробован на чём? механизм взаимодействия с моделью. Разработан механизм встраивания режимов визуализации, на базе которого построено несколько режимов каких? Разработана графическая оболочка системы.
 В планах реализация механизма удалённого исполнения модельных программ, запуск счёта модели на кластере ССКЦ.
 
-\begin{section}{Приложение Г}
-(Обязательное)
-Список литературы
+\section*{Приложение А. Сравнение систем визуализации}
+\addcontentsline{toc}{section}{Приложение А. Сравнение систем визуализации}
 
-    
-\end{section}
+\begin{table}[h]
+        \caption{Соответствие систем визулизации предъявленным требованиям}
+        \label{tabular:ansysfluent}
+        \begin{center}
+            \begin{tabular}{|p{0.4\linewidth}|c|c|} \hline
+                \textbf{Система}    & \textbf{А} & \textbf{Р} \\ \hline
+                Mirek's Celebration & +          & $\mp$      \\ \hline
+                WinALT              & +          & +          \\ \hline
+            \end{tabular}
+        \end{center}
+    \end{table}
+
+\section*{Приложение Б. Реализация модуля взимодействия с подсистемой моделирования}
+\addcontentsline{toc}{section}{Приложение Б. Реализация модуля взимодействия с подсистемой моделирования}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=t,                    % sets the caption-position to bottom
+  commentstyle=\color{green},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+%  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=C++,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+%  numbersep=5pt,                   % how far the line-numbers are from the code
+%  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,                       % sets default tabsize to 2 spaces
+  title=\lstname,                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange}
+}
+\begin{lstlisting}[label=src:calc,caption=Some Code]
+class Config : public QObject
+{
+    Q_OBJECT
+
+    Config(const Config& );
+    Config& operator=(const Config& );
+
+protected:
+    int current_iteration_id;
+
+    Config();
+
+    void preSerialize  (QDataStream& stream);
+    void preDeserialize(QDataStream& stream);
+
+public:
+    virtual ~Config();
+
+    static const int FORCED_UPDATE = -1807;
+
+    virtual int prevIteration() {
+        return setIteration(current_iteration_id - 1);
+    }
+    virtual int nextIteration() {
+        return setIteration(current_iteration_id + 1);
+    }
+    virtual int setIteration(int) = 0;
+    virtual int getIterationsCount() { return 0; }
+
+    virtual void* getData(void* data_type = NULL) = 0;
+    virtual int getDimSize(int dim) const = 0;
+    virtual int getDimSizeX() const { return getDimSize(0); }
+    virtual int getDimSizeY() const { return getDimSize(1); }
+    virtual int getDimSizeZ() const { return getDimSize(2); }
+
+    virtual void serialize  (QDataStream& ) { }
+    virtual void deserialize(QDataStream& ) { }
+};
+\end{lstlisting}
+
+\section*{Приложение В. Реализация модуля поддержки режимов отображения}
+Необязательное
+\addcontentsline{toc}{section}{Приложение В. Реализация модуля поддержки режимов отображения}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=t,                    % sets the caption-position to bottom
+  commentstyle=\color{green},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+%  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=C++,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+%  numbersep=5pt,                   % how far the line-numbers are from the code
+%  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,                       % sets default tabsize to 2 spaces
+  title=\lstname,                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange}
+}
+\begin{lstlisting}[label=src:calc,caption=Some Code]
+class Renderer : public QObject
+{
+    Q_OBJECT
+
+    Renderer(const Renderer& );
+    Renderer& operator=(const Renderer& );
+
+protected:
+    Renderer();
+    Config *config;
+    GraphicBuffer *buffer;
+
+public:
+    virtual ~Renderer();
+
+    virtual void setParameters(RendererGUI *) { }
+
+    virtual void setConfig(Config *_config) { config = _config; }
+    virtual void setBuffer(GraphicBuffer *_buffer) { buffer = _buffer; }
+    virtual Config* getConfig() const { return config; }
+    virtual GraphicBuffer* getBuffer() const { return buffer; }
+
+    virtual void prepare() = 0;
+    virtual void draw(void *device) = 0;
+    virtual QString getBufferFormat() const { return "simple"; }
+};
+
+class RendererGUI : public QObject
+{
+    Q_OBJECT
+
+    RendererGUI(const RendererGUI& );
+    RendererGUI& operator=(const RendererGUI& );
+
+    Renderer *p_renderer;
+
+protected:
+    QWidget *main_widget;
+
+public:
+    Q_INVOKABLE RendererGUI(Renderer *_rend);
+    virtual ~RendererGUI();
+
+    virtual Renderer* getRenderer() const { return p_renderer; }
+
+    virtual QString getName() const { return "No Name"; }
+    virtual QWidget* getWidget() const { return main_widget; }
+};
+
+\end{lstlisting}
+
+\section*{Приложение Г. Какой-то сценарий}
+\addcontentsline{toc}{section}{Приложение Г. Какой-то сценарий}
+
+
+
 
 Начало каждой главы — краткая нотация к её содержанию.
 
@@ -335,7 +537,12 @@
 + Литература
 
 В требованиях в перечислениях очень кратко описать, что будет идти дальше.
-Разбить большие предложения.
+Разбить большие предложения\cite{TestBook}.
 
+
+
+\renewcommand\refname{ЛИТЕРАТУРА}
+\addcontentsline{toc}{section}{ЛИТЕРАТУРА}
+\bibliography{text}
 
 \end{document}
