@@ -25,11 +25,12 @@
 \usepackage[english, russian]{babel}
 
 \usepackage{listings}
+\usepackage{verbatim}
 \renewcommand{\lstlistingname}{Листинг}
 
 \usepackage{statmodtitle}
 \usepackage{indentfirst} % абзацный отступ после заголовка
-%\setcounter{tocdepth}{2} % Не отображать subsubsection и ниже в содержании
+\setcounter{tocdepth}{2} % Не отображать subsubsection и ниже в содержании
 \bibliographystyle{unsrt}
 
 % Поля и полуторный межстрочный интервал
@@ -421,7 +422,6 @@
 \end{subsection}
 
 
-
 \section*{Заключение}
 \addcontentsline{toc}{section}{Заключение} % Добавляем в содержание раздел без номера
 
@@ -450,6 +450,9 @@
 \begin{center}
     (Рекомендуемое)
 \end{center}
+\renewcommand{\thesubsection}{\Asbuk{section}.\arabic{subsection}}
+\setcounter{section}{2}
+\setcounter{subsection}{0}
 \addcontentsline{toc}{section}{Приложение Б. Реализация модуля взимодействия с подсистемой моделирования}
 
 Одной из основных функций системы является коммуникация с подсистемой моделирования. В основном этом передача модели (свойства модели и объект данных) и управляющие команды (запуск, остановка, получение информации о состоянии процесса моделирования и т. п.).
@@ -465,6 +468,7 @@ class Config : public QObject
     Config& operator=(const Config& );
 
 protected:
+
     int current_iteration_id;
 
     Config();
@@ -473,11 +477,11 @@ protected:
     void preDeserialize(QDataStream& stream);
 
 public:
+
     virtual ~Config();
 
-    virtual int prevIteration();
     virtual int nextIteration();
-    virtual int setIteration(int) = 0;
+    virtual int setIteration(int iteration) = 0;
     virtual int getIterationsCount();
 
     virtual void* getData(void* data_type = NULL) = 0;
@@ -491,8 +495,54 @@ public:
 };
 \end{lstlisting}
 
+Интерфейс представляет из себя класс с набором виртуальных методов, который можно логически разделить на 3 части:
+\begin{enumerate}
+    \item управление счётом (запуск, остановка);
+    \item работа с объектом данных;
+    \item сохранение и загрузка модели.
+\end{enumerate}
+
+Б\'oльшая часть виртуальных уже имеет простую реализацию и для добавления поддеркжи нового вычислителя достаточно реализовать всего три метода. За что отвечает каждый из методов и какие из них необходимо реализовывать будем рассмотрено далее.
+
+\subsection{Управление счётом}
+
+% Я пакет и не знаю, как отключить строку с заголовком в listings
+\begin{lstlisting}[firstnumber=21,title=~~~~Запуск и остановка процесса моделирования происходит с использованием следующих функций:]
+    virtual int nextIteration();
+    virtual int setIteration(int iteration) = 0;
+    virtual int getIterationsCount();
+\end{lstlisting}
+
+Основным является метод \textsf{setIteration(int iteration)} и требует определения при реализации интерфейса. Вызов данного метода означает запуск счёта от последней посчитанной итерации до итерации номер \textsf{iteration}.
+
+Метод \textsf{nextIteration()} запускает счёт на одну итерацию. В реализации по умолчанию он содержит внутри вызов \textsf{setIteration} от номера текущей итерации плюс 1 и позволяет упростить написание и чтение кода.
+
+\textsf{getIterationsCount()} возвращает количество посчитанных итераций.
 
 
+
+\subsection{Работа с объектом данных}
+
+\begin{lstlisting}[firstnumber=25,title=Получение объекта данных происохдит с ипользованием следующих функций:]
+    virtual void* getData(void* data_type = NULL) = 0;
+    virtual int getDimSize(int dim) const = 0;
+    virtual int getDimSizeX() const;
+    virtual int getDimSizeY() const;
+    virtual int getDimSizeZ() const;
+\end{lstlisting}
+
+Метод \textsf{getData(void* data\_type)} возвращает часть или весь объект данных. Формат возвращаемого значения зависит от параметра \textsf{data\_type}.
+
+Метод \textsf{getDimSize(int dim)} иммет смысл, когда объект данных является многомерным массивом (в том числе одномерным) и возвращает количество элементов в размерности \textsf{dim}. Методы \textsf{getDimSizeX()}, \textsf{getDimSizeY()} и \textsf{getDimSizeZ()} работают аналогично \textsf{getDimSize(int dim)} для размерности соответственно 0, 1 и 2. Во-первых, они улучшают читаемость кода, во-вторых, в некоторых случаях могут положительно повлиять на производительность.
+
+\subsection{Сохранение и загрузка модели}
+
+\begin{lstlisting}[firstnumber=31]
+    virtual void serialize  (QDataStream& );
+    virtual void deserialize(QDataStream& );
+\end{lstlisting}
+
+Сериализация и десериализация объектов применяется соответственно при сохранении и загрузки проекта. Реализацию данных методов можно оставить пустой, в таком случае проект, в котором используется данная реализация работы с подсистемой вычисления, будет невозможно сохранить и загрузить.
 
 
 
@@ -500,9 +550,15 @@ public:
 \begin{center}
     (Рекомендуемое)
 \end{center}
+\setcounter{section}{3}
+\setcounter{subsection}{0}
 \addcontentsline{toc}{section}{Приложение В. Реализация модуля поддержки режимов отображения}
 
-\begin{lstlisting}[label=src:render,caption=Some Code]
+Добавление поддержки нового режима отображения осуществляется реализацией двух интерфейсов, один из которых отвечает за рисования изображения, а другой предоставляет пользовательский интерфейс для конфигурации данного режима.
+
+\subsection{Рисование изображения}
+
+\begin{lstlisting}[label=src:render,caption=Интерфейс добавления поддержки режима отображения]
 class Renderer : public QObject
 {
     Q_OBJECT
@@ -518,41 +574,50 @@ protected:
 public:
     virtual ~Renderer();
 
-    virtual void setParameters(RendererGUI *) { }
+    virtual void setParameters(RendererGUI *);
 
-    virtual void setConfig(Config *_config) { config = _config; }
-    virtual void setBuffer(GraphicBuffer *_buffer) { buffer = _buffer; }
-    virtual Config* getConfig() const { return config; }
-    virtual GraphicBuffer* getBuffer() const { return buffer; }
+    virtual void setConfig(Config *_config);
+    virtual void setBuffer(GraphicBuffer *_buffer);
+    virtual Config* getConfig() const;
+    virtual GraphicBuffer* getBuffer() const;
 
     virtual void prepare() = 0;
     virtual void draw(void *device) = 0;
-    virtual QString getBufferFormat() const { return "simple"; }
 };
+\end{lstlisting}
 
+Класс содержит два свойства: \textsf{Config *config} --- указатель на объект, реализующий взаимодействие с вычислительной подсистемой, и \textsf{GraphicBuffer *buffer} --- указатель на графический буффер, который используется дли рисования. Для обоих свойств определены методы \textsf{set} и \textsf{get}.
+
+Основными методами являются \textsf{void prepare()} и \textsf{void draw(void *device)}. Первый из них вызывается при получении объекта данных от вычислителя, в нём совершаются предварительные вычисления (например, этот метод может использова для вычисления осреднённых значений), которые затем понадобятся при рисовании изображения. Второй метод вызывает каждый раз, когда требуется заново отрисовать объект данных. Такое разделение обусловлено тем, что один объект данных требуется отрисовывать каждый раз, когда изменяются параметры режима, однако данные может оказаться достаточным обработать только один раз, т. о. получается выигрышь в производительности. Оба данных метода требуется реализовывать при добавлении поддержки новго режима.
+
+Метод \textsf{setParameters(RendererGUI *)} используется для сопоставления режима отображения с настройками из пользовательского интерфейса.
+
+\subsection{Графический пользовательский интерфейс}
+
+\begin{lstlisting}[label=src:render-gui,caption=Реализация графического интерфейса для настроек режима отображения]
 class RendererGUI : public QObject
 {
-    Q_OBJECT
-
-    RendererGUI(const RendererGUI& );
-    RendererGUI& operator=(const RendererGUI& );
-
-    Renderer *p_renderer;
-
-protected:
-    QWidget *main_widget;
+    ...
 
 public:
     Q_INVOKABLE RendererGUI(Renderer *_rend);
     virtual ~RendererGUI();
 
-    virtual Renderer* getRenderer() const { return p_renderer; }
+    virtual Renderer* getRenderer() const;
 
-    virtual QString getName() const { return "No Name"; }
-    virtual QWidget* getWidget() const { return main_widget; }
+    virtual QString getName() const;
+    virtual QWidget* getWidget() const;
 };
-
 \end{lstlisting}
+
+В листинге~\ref{src:render-gui} приведён интерфейс для создания графического пользовательского интерфейса с настройками режима отображения, для краткости в листинге опущены \textsf{private} и \textsf{protected} члены класса как несущественные для ознакомления.
+
+В конструкторе \textsf{RendererGUI(Renderer *\_rend)} создаётся оконный интерфейс, который связывается с объектом \textsf{\_rend}, реализующий режим отображения.
+
+Метод \textsf{getName()} возвращает название режима отображения, которое будет использовано в графическом интерфейсе. Метод \textsf{getWidget()} возвращает указатель на окно пользовательского интерфейса.
+
+\textit{Ссылка на картинку с примером графического интерфейса}
+
 
 \section*{Приложение Г. Сценарий построения и отладки модели пользователем}
 \addcontentsline{toc}{section}{Приложение Г. Сценарий построения и отладки модели пользователем}
@@ -560,17 +625,18 @@ public:
 
 
 
+\renewcommand\refname{Литература}
+\addcontentsline{toc}{section}{Литература}
+\bibliography{text}
+
 Начало каждой главы — краткая нотация к её содержанию.
 При работе с моделями пользователь нуждается в
 
 В требованиях в перечислениях очень кратко описать, что будет идти дальше.
 Разбить большие предложения\cite{TestBook}.
 
+\textit{Times New Roman}
+
 Перед 1.1 описать этапы работы с моделью, от этапов идут требования.
-
-
-\renewcommand\refname{Литература}
-\addcontentsline{toc}{section}{Литература}
-\bibliography{text}
 
 \end{document}
